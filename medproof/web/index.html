@@ -147,6 +147,49 @@ textarea{width:100%;min-height:220px;resize:vertical;background:rgba(0,0,0,.35);
 @keyframes sh{to{background-position:-200% 0}}
 .err-box{border:1px solid rgba(255,112,136,.35);background:var(--err-bg);color:#ffd2da;border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
 
+
+/* condensed finding cards */
+.verdict .take{font-size:14px;color:#e9e3ee;margin-top:6px;line-height:1.5}
+.tally{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tchip{font-size:12px;border-radius:999px;padding:3px 10px;border:1px solid var(--line);color:var(--muted);background:rgba(0,0,0,.2)}
+.tchip b{font-weight:600}
+.t-ok b{color:var(--ok)} .t-bad b{color:var(--err)} .t-warn b{color:var(--warn)} .t-omit b{color:#d7b9ff}
+.vtrap{font-size:12px;color:var(--err);margin-top:8px}
+.vmeta{font-size:11.5px;color:var(--faint);margin-top:8px}
+.fcard{border:1px solid var(--line);border-left:3px solid var(--line-strong);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--raise);cursor:pointer;transition:border-color .15s,background .15s}
+.fcard:hover,.fcard.active{background:rgba(255,255,255,.055)}
+.f-bad{border-left-color:var(--err)} .f-warn{border-left-color:var(--warn)} .f-ok{border-left-color:var(--ok)} .f-omit{border-left-color:var(--violet)} .f-note{border-left-color:var(--faint)}
+.fhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.fpill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600}
+.ficon{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:11px;font-weight:700}
+.f-bad .fpill{color:var(--err)} .f-bad .ficon{background:var(--err-bg)}
+.f-warn .fpill{color:var(--warn)} .f-warn .ficon{background:var(--warn-bg)}
+.f-ok .fpill{color:var(--ok)} .f-ok .ficon{background:var(--ok-bg)}
+.f-omit .fpill{color:#d7b9ff} .f-omit .ficon{background:rgba(165,76,242,.16)}
+.f-note .fpill{color:var(--muted)} .f-note .ficon{background:rgba(255,255,255,.06)}
+.fsev{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.fblock{margin-top:8px}
+.fk{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:3px}
+.fsaid{font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.fwhy{font-size:13.5px;color:#d9d2df;line-height:1.5}
+.fmore summary{font-size:12px;color:var(--faint);cursor:pointer;margin-top:4px}
+.fmore-b{font-size:13px;color:var(--muted);white-space:pre-wrap;margin-top:6px;line-height:1.55}
+.ev-list{display:flex;flex-direction:column;gap:6px}
+.ev{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;border:1px solid var(--line);background:rgba(0,0,0,.22);border-radius:9px;padding:7px 10px;cursor:pointer;transition:border-color .15s}
+.ev:hover{border-color:rgba(165,76,242,.6)}
+.ev-tag{font-family:var(--mono);font-size:11.5px;color:#d7b9ff;background:rgba(165,76,242,.12);border-radius:6px;padding:1px 6px;flex:none;margin-top:1px}
+.ev-body{display:flex;flex-direction:column;min-width:0}
+.ev-file{font-size:10.5px;color:var(--faint);text-transform:capitalize}
+.ev-text{font-family:var(--mono);font-size:12px;color:#e2dce7;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev.missing{cursor:default;border-style:dashed}.ev.missing .ev-tag{color:var(--warn);background:var(--warn-bg)}.ev.missing .ev-text{color:var(--warn);font-family:var(--sans)}
+.okgroup{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(134,225,181,.03)}
+.okgroup summary{cursor:pointer;color:var(--ok);font-size:13px;font-weight:500}
+.okrow{display:flex;gap:10px;padding:8px 4px;border-top:1px solid var(--line);cursor:pointer;font-size:13.5px}
+.okrow:first-of-type{margin-top:8px}
+.okrow:hover,.okrow.active{background:rgba(255,255,255,.03)}
+.okicon{color:var(--ok);flex:none;font-weight:700}
+.okids{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:2px}
+
 /* results */
 .res{max-width:1200px}
 .res h2{font-weight:300;font-size:26px;margin:6px 0 4px}
@@ -399,7 +442,7 @@ function linkifyCitations(text) {
   while ((m = re.exec(text))) {
     frag.appendChild(document.createTextNode(text.slice(last, m.index)));
     const t = el('span', 'cite-tok', m[1]); t.tabIndex = 0; t.title = 'Show ' + m[1] + ' in the chart';
-    const id = m[1]; t.onclick = () => focusLineId(id);
+    const id = m[1]; t.onclick = e => { e.stopPropagation(); focusLineId(id); };
     t.onkeydown = e => { if (e.key === 'Enter') focusLineId(id); };
     frag.appendChild(t); last = re.lastIndex;
   }
@@ -468,31 +511,119 @@ function verdictFor() {
   return vr ? {vr, src: 'Saved verdict'} : null;
 }
 
-function citeChips(cits, bad) {
-  const box = el('div', 'cites');
-  cits.forEach(c => box.appendChild(el('span', 'cite', c.file.replace(/\.txt$/, '') + ' · ' + c.line_id)));
-  return box;
+const PLAIN = {
+  CONTRADICTED: {icon: '✕', label: 'Chart says otherwise', cls: 'bad'},
+  NOT_ESTABLISHED: {icon: '?', label: 'Not backed by the chart', cls: 'warn'},
+  CONFLICTED: {icon: '⇄', label: 'Chart disagrees with itself', cls: 'warn'},
+  SUPPORTED: {icon: '✓', label: 'Backed by the chart', cls: 'ok'},
+  OMITTED: {icon: '○', label: 'Left out key evidence', cls: 'omit'},
+  NOTE: {icon: '·', label: 'Sweep note', cls: 'note'},
+};
+const firstSentence = t => {
+  t = String(t || '').trim();
+  const m = t.match(/^(.{20,280}?[.!?])(\s|$)/);
+  if (m) return m[1];
+  if (t.length <= 280) return t;
+  const cut = t.slice(0, 280); return cut.slice(0, cut.lastIndexOf(' ')) + '…';
+};
+// Turn verifier-internal phrasing into plain English for judges.
+const cleanWhy = t => String(t || '')
+  .replace(/\(date inherited from (the )?note header\)/gi, '')
+  .replace(/\b[\w-]+\.txt\s*\[([A-Z]{1,2}\d{3})\]/g, '$1')          // "lab_results.txt [L006]" -> "L006"
+  .replace(/\b[\w-]+\.txt\s*:?\s*([A-Z]{1,2}\d{3})\b/g, '$1')
+  .replace(/\[([A-Z]{1,2}\d{3})\]/g, '$1')
+  .replace(/(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})(:\d{2})?/g, '$1 $2')
+  .replace(/\bthe proposed cause\b/gi, 'the drug').replace(/\bthe effect\b/gi, 'the problem')
+  .replace(/\s+([.,;])/g, '$1').replace(/\s{2,}/g, ' ').trim();
+const shortFile = f => String(f || '').replace(/\.txt$/, '').replace(/_/g, ' ');
+
+// Resolve a citation to the REAL chart line (never the model's paraphrase).
+function resolveLine(c) {
+  const files = view().files;
+  let f = files.find(x => x.name === c.file);
+  let line = f && f.lines.find(l => l.id === c.line_id);
+  if (!line) { f = files.find(x => x.lines.some(l => l.id === c.line_id)); line = f && f.lines.find(l => l.id === c.line_id); }
+  return line ? {file: f.name, id: line.id, text: line.text, found: true} : {file: c.file, id: c.line_id, text: '', found: false};
 }
 
-function card(statusKey, statusText, sev, title, why, unk, cits, bad) {
-  const c = el('div', 'card'); c.tabIndex = 0; c.setAttribute('role', 'button');
-  const row = el('div', 'row');
-  row.appendChild(el('span', 'pill p-' + statusKey, statusText));
-  if (sev) row.appendChild(el('span', 'sev', sev));
-  c.appendChild(row); c.appendChild(el('div', 'claim', title));
-  if (why) c.appendChild(el('div', 'why', why));
-  if (unk) c.appendChild(el('div', 'unk', 'Unknown: ' + unk));
-  if (cits && cits.length) c.appendChild(citeChips(cits, bad));
-  const go = () => { document.querySelectorAll('#findings .card').forEach(x => x.classList.remove('active')); c.classList.add('active'); focusCitations(cits || [], bad); };
-  c.onclick = go; c.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+function evidenceList(cits, bad) {
+  const list = el('div', 'ev-list');
+  const seen = new Set();
+  (cits || []).forEach(c => {
+    const r = resolveLine(c), key = r.file + '|' + r.id;
+    if (seen.has(key)) return; seen.add(key);
+    const row = el('button', 'ev' + (r.found ? '' : ' missing')); row.type = 'button';
+    const tag = el('span', 'ev-tag', r.id); row.appendChild(tag);
+    const body = el('span', 'ev-body');
+    body.appendChild(el('span', 'ev-file', shortFile(r.file)));
+    body.appendChild(el('span', 'ev-text', r.found ? r.text : 'This cited line does not exist in the chart.'));
+    row.appendChild(body);
+    row.title = r.found ? 'Show ' + r.id + ' in the chart' : 'Citation could not be found';
+    if (r.found) row.onclick = e => { e.stopPropagation(); focusCitations([{file: r.file, line_id: r.id}], bad); };
+    list.appendChild(row);
+  });
+  return list;
+}
+
+function findingCard(kind, sevText, lead, leadLabel, why, extra, cits, bad) {
+  const P = PLAIN[kind];
+  const c = el('div', 'fcard f-' + P.cls); c.tabIndex = 0;
+  const head = el('div', 'fhead');
+  const pill = el('span', 'fpill'); pill.appendChild(el('span', 'ficon', P.icon)); pill.appendChild(document.createTextNode(P.label));
+  head.appendChild(pill);
+  if (sevText) head.appendChild(el('span', 'fsev', sevText));
+  c.appendChild(head);
+  const said = el('div', 'fblock');
+  said.appendChild(el('div', 'fk', leadLabel)); said.appendChild(el('div', 'fsaid', lead));
+  c.appendChild(said);
+  if (why) {
+    const w = el('div', 'fblock'); w.appendChild(el('div', 'fk', 'Why'));
+    const clean = cleanWhy(why), short = firstSentence(clean);
+    const wd = el('div', 'fwhy'); wd.appendChild(linkifyCitations(short)); w.appendChild(wd);
+    const rest = [clean !== short ? clean : '', extra ? 'Still unknown: ' + cleanWhy(extra) : ''].filter(Boolean).join('\n\n');
+    if (rest) {
+      const more = document.createElement('details'); more.className = 'fmore';
+      more.appendChild(el('summary', null, 'More detail')); const mb = el('div', 'fmore-b'); mb.appendChild(linkifyCitations(rest)); more.appendChild(mb);
+      more.onclick = e => e.stopPropagation(); w.appendChild(more);
+    }
+    c.appendChild(w);
+  }
+  if (cits && cits.length) {
+    const ev = el('div', 'fblock'); ev.appendChild(el('div', 'fk', 'Evidence in the chart')); ev.appendChild(evidenceList(cits, bad)); c.appendChild(ev);
+  }
+  const go = () => { document.querySelectorAll('#findings .fcard, #findings .okrow').forEach(x => x.classList.remove('active')); c.classList.add('active'); focusCitations(cits || [], bad); };
+  c.onclick = go; c.onkeydown = e => { if (e.key === 'Enter') go(); };
   return c;
+}
+
+function okRow(cv) {
+  const r = el('div', 'okrow'); r.tabIndex = 0;
+  r.appendChild(el('span', 'okicon', '✓'));
+  const t = el('div', 'oktext'); t.appendChild(el('div', null, cv.claim_text));
+  const ids = [...new Set((cv.citations || []).map(c => resolveLine(c)).filter(x => x.found).map(x => x.id))];
+  if (ids.length) t.appendChild(el('div', 'okids', ids.join(' · ')));
+  r.appendChild(t);
+  const go = () => { document.querySelectorAll('#findings .fcard, #findings .okrow').forEach(x => x.classList.remove('active')); r.classList.add('active'); focusCitations(cv.citations || [], false); };
+  r.onclick = go; r.onkeydown = e => { if (e.key === 'Enter') go(); };
+  return r;
+}
+
+function takeaway(vr, problems, minor, supported) {
+  const n = problems.length, k = supported.length;
+  switch (vr.overall) {
+    case 'ERROR_DETECTED': return 'WingMan found ' + n + ' problem' + (n === 1 ? '' : 's') + ' in this answer. Each one is linked to the chart lines that show it.';
+    case 'NO_ISSUE_FOUND': return (k ? 'All ' + k + ' claim' + (k === 1 ? '' : 's') + ' WingMan checked against the chart hold up.' : 'WingMan found no material problem.') + (minor.length ? ' ' + minor.length + ' minor note' + (minor.length === 1 ? '' : 's') + ' below.' : '');
+    case 'INSUFFICIENT_TO_VERIFY': return 'WingMan could not confirm or rule out this answer from the chart. A person should review it.';
+    case 'TARGET_REFUSAL': return 'The AI declined to answer, so there was nothing to check.';
+    default: return '';
+  }
 }
 
 function renderFindings() {
   const box = $('findings'); box.innerHTML = ''; $('findSrc').textContent = '';
   if (S.err) box.appendChild(el('div', 'err-box', S.err));
   if (S.busy) {
-    box.appendChild(el('p', 'note', 'Haiku is extracting claims and checking each one against the full chart…'));
+    box.appendChild(el('p', 'note', 'WingMan is splitting the answer into claims and checking each one against the full chart. This takes about 10–15 seconds.'));
     for (let i = 0; i < 6; i++) { const s = el('div', 'skel'); s.style.width = (60 + (i * 7) % 35) + '%'; box.appendChild(s); }
     return;
   }
@@ -504,37 +635,62 @@ function renderFindings() {
     box.appendChild(e); return;
   }
   const vr = f.vr; $('findSrc').textContent = f.src;
+  const claims = vr.claim_verdicts || [], oms = vr.omissions || [];
+  const isConfirmed = om => om.confirmed || om.confirm_status === 'confirmed';
+  const order = {CONTRADICTED: 0, NOT_ESTABLISHED: 1, CONFLICTED: 2};
+  const nonOk = claims.filter(c => c.status !== 'SUPPORTED').sort((a, b) => order[a.status] - order[b.status]);
+  const problems = nonOk.filter(c => c.severity === 'material');
+  const minor = nonOk.filter(c => c.severity !== 'material');
+  const supported = claims.filter(c => c.status === 'SUPPORTED');
+  const leftOut = oms.filter(isConfirmed), sweepNotes = oms.filter(om => !isConfirmed(om));
+
+  // 1. Verdict summary
   const v = el('div', 'verdict v-' + vr.overall);
   const lab = el('div', 'lab'); lab.appendChild(el('span', null, 'Verdict')); lab.appendChild(el('span', null, vr.verifier_variant));
   v.appendChild(lab); v.appendChild(el('div', 'v', LABEL[vr.overall] || vr.overall));
-  box.appendChild(v);
-  if (vr.explanation) box.appendChild(el('p', 'explain', vr.explanation));
-  const st = el('div', 'stats');
-  [['Model calls', vr.total_model_calls], ['Cost', fmtCost(vr.estimated_cost_usd)], ['Latency', fmtMs(vr.latency_ms)],
-   ['Tokens in / out', fmtK(vr.input_tokens) + ' / ' + fmtK(vr.output_tokens)]].forEach(([k, val]) => {
-    const s = el('div', 'stat'); s.appendChild(el('div', 'k', k)); s.appendChild(el('div', 'val', val)); st.appendChild(s);
+  v.appendChild(el('div', 'take', takeaway(vr, problems.concat(leftOut.filter(o => o.material)), minor, supported)));
+  const tally = el('div', 'tally');
+  const count = (st) => claims.filter(c => c.status === st).length;
+  [['ok', '✓', count('SUPPORTED'), 'backed'], ['bad', '✕', count('CONTRADICTED'), 'contradicted'], ['warn', '?', count('NOT_ESTABLISHED'), 'unsupported'],
+   ['warn', '⇄', count('CONFLICTED'), 'conflicting'], ['omit', '○', leftOut.length, 'left out']].forEach(([cls, ic, n, word]) => {
+    if (!n && cls !== 'ok') return;
+    const t = el('span', 'tchip t-' + cls); t.appendChild(el('b', null, ic + ' ' + n)); t.appendChild(document.createTextNode(' ' + word)); tally.appendChild(t);
   });
-  box.appendChild(st);
-  if (vr.traps_found && vr.traps_found.length) {
-    const t = el('div', 'traps'); vr.traps_found.forEach(x => t.appendChild(el('span', 'trap', human(x)))); box.appendChild(t);
-  }
-  (vr.needs_review_reasons || []).forEach(r => box.appendChild(el('p', 'note', 'Needs review: ' + r)));
+  v.appendChild(tally);
+  if (vr.traps_found && vr.traps_found.length) v.appendChild(el('div', 'vtrap', 'Reasoning trap: ' + vr.traps_found.map(human).join(', ')));
+  v.appendChild(el('div', 'vmeta', [vr.total_model_calls + ' checks', fmtCost(vr.estimated_cost_usd), fmtMs(vr.latency_ms), (vr.models_used || []).join(', ')].filter(Boolean).join(' · ')));
+  box.appendChild(v);
   if (vr.fake_backend) box.appendChild(el('div', 'err-box', 'Offline test output (fake backend). Not a real verdict.'));
-  const claims = vr.claim_verdicts || [], oms = vr.omissions || [];
-  if (claims.length) box.appendChild(el('div', 'section-h', 'Claims checked'));
-  claims.forEach(cv => box.appendChild(card(cv.status, STATUS[cv.status] || cv.status,
-    cv.severity, cv.claim_text, cv.why, cv.uncertainty, cv.citations, cv.status === 'CONTRADICTED')));
-  // Only confirmed omissions count against the answer; rejected or unchecked sweep items are notes.
-  const isConfirmed = om => om.confirmed || om.confirm_status === 'confirmed';
-  const confirmedOms = oms.filter(isConfirmed), noteOms = oms.filter(om => !isConfirmed(om));
-  if (confirmedOms.length) box.appendChild(el('div', 'section-h', 'Evidence the answer left out'));
-  confirmedOms.forEach(om => box.appendChild(card('OMITTED', 'Omitted', (om.material ? 'material' : 'minor') + ' · confirmed',
-    om.description, '', '', om.citations, !!om.material)));
-  if (noteOms.length) {
+
+  // 2. Problems first
+  if (problems.length || leftOut.length) box.appendChild(el('div', 'section-h', 'What needs attention'));
+  problems.forEach(cv => box.appendChild(findingCard(cv.status, 'major', cv.claim_text, 'The answer says', cv.why, cv.uncertainty, cv.citations, cv.status === 'CONTRADICTED')));
+  leftOut.forEach(om => box.appendChild(findingCard('OMITTED', om.material ? 'major' : 'minor', om.description, 'The answer left out', '', '', om.citations, !!om.material)));
+
+  // 3. Minor notes
+  if (minor.length) box.appendChild(el('div', 'section-h', 'Minor notes'));
+  minor.forEach(cv => box.appendChild(findingCard(cv.status, 'minor', cv.claim_text, 'The answer says', cv.why, cv.uncertainty, cv.citations, false)));
+
+  // 4. What checks out (collapsed when there are problems)
+  if (supported.length) {
+    const d = document.createElement('details'); d.className = 'okgroup'; d.open = !problems.length && !leftOut.length;
+    d.appendChild(el('summary', null, supported.length + ' claim' + (supported.length === 1 ? '' : 's') + ' backed by the chart'));
+    supported.forEach(cv => d.appendChild(okRow(cv)));
+    box.appendChild(d);
+  }
+
+  // 5. Sweep notes and full explanation, tucked away
+  if (sweepNotes.length) {
     const d = document.createElement('details'); d.className = 'notes';
-    d.appendChild(el('summary', null, 'Other chart notes from the sweep (' + noteOms.length + ', not counted against the answer)'));
-    noteOms.forEach(om => d.appendChild(card('NOTE', 'Note', om.confirm_status ? human(om.confirm_status) : 'unconfirmed',
-      om.description, '', '', om.citations, false)));
+    d.appendChild(el('summary', null, 'Other chart notes from the sweep (' + sweepNotes.length + ', not counted against the answer)'));
+    sweepNotes.forEach(om => d.appendChild(findingCard('NOTE', om.confirm_status ? human(om.confirm_status) : 'unconfirmed', om.description, 'Chart note', '', '', om.citations, false)));
+    box.appendChild(d);
+  }
+  if (vr.explanation || (vr.needs_review_reasons || []).length) {
+    const d = document.createElement('details'); d.className = 'notes';
+    d.appendChild(el('summary', null, 'Verifier’s full explanation'));
+    if (vr.explanation) d.appendChild(el('div', 'fmore-b', vr.explanation));
+    (vr.needs_review_reasons || []).forEach(r => d.appendChild(el('p', 'note', 'Needs review: ' + r)));
     box.appendChild(d);
   }
   if (!claims.length && !oms.length) box.appendChild(el('p', 'note', 'No claim-level findings in this verdict.'));
