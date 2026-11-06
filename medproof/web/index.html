@@ -132,7 +132,8 @@ textarea{width:100%;min-height:220px;resize:vertical;background:rgba(0,0,0,.35);
 .card .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .pill{font-size:11px;font-weight:600;letter-spacing:.06em;border-radius:999px;padding:2px 9px}
 .p-CONTRADICTED{background:var(--err-bg);color:var(--err)} .p-SUPPORTED{background:var(--ok-bg);color:var(--ok)}
-.p-NOT_ESTABLISHED,.p-CONFLICTED{background:var(--warn-bg);color:var(--warn)} .p-OMITTED{background:rgba(165,76,242,.14);color:#d7b9ff}
+.p-NOT_ESTABLISHED,.p-CONFLICTED{background:var(--warn-bg);color:var(--warn)} .p-OMITTED{background:rgba(165,76,242,.14);color:#d7b9ff} .p-NOTE{background:rgba(255,255,255,.06);color:var(--muted)}
+.notes{margin-top:14px}.notes summary{cursor:pointer;color:var(--faint);font-size:12.5px;margin-bottom:10px}.notes .card{opacity:.8}
 .sev{font-size:11px;color:var(--faint)}
 .card .claim{font-size:14px}
 .card .why{font-size:13px;color:var(--muted);margin-top:4px}
@@ -263,7 +264,8 @@ async function load() {
   } catch (e) { $('question').textContent = 'Could not load data: ' + e.message; return; }
   const on = D.status && D.status.api_key;
   $('liveDot').classList.toggle('on', !!on);
-  $('liveTxt').textContent = on ? 'Live verifier ready' : 'Replay only · no API key';
+  $('liveTxt').textContent = on ? 'Live verifier ready' : 'Replay only';
+  $('liveChip').title = on ? '' : (D.status.live_unavailable_reason || '');
   // Deep link: #case=med_01&twin=1&answer=<answer id>&variant=haiku&finding=1&view=results
   const h = new URLSearchParams(location.hash.slice(1));
   const ci = D.cases.findIndex(c => c.original.case_id === h.get('case'));
@@ -441,7 +443,7 @@ function updateVerifyBtn() {
   if (S.busy) { b.appendChild(el('span', 'spin')); b.appendChild(document.createTextNode('Verifying…')); }
   else b.appendChild(document.createTextNode(S.a === CUSTOM ? 'Verify with WingMan' : 'Re-verify live'));
   b.disabled = S.busy || !on || !currentAnswerText().trim();
-  hint.textContent = on ? '' : 'Set ANTHROPIC_API_KEY to run live';
+  hint.textContent = on ? '' : (D.status.live_unavailable_reason || 'Live verification unavailable');
 }
 
 async function verifyLive() {
@@ -522,12 +524,19 @@ function renderFindings() {
   if (claims.length) box.appendChild(el('div', 'section-h', 'Claims checked'));
   claims.forEach(cv => box.appendChild(card(cv.status, STATUS[cv.status] || cv.status,
     cv.severity, cv.claim_text, cv.why, cv.uncertainty, cv.citations, cv.status === 'CONTRADICTED')));
-  if (oms.length) box.appendChild(el('div', 'section-h', 'Evidence the answer left out'));
-  oms.forEach(om => {
-    const bad = om.material && om.confirmed;
-    const status = om.confirm_status ? human(om.confirm_status) : (om.confirmed ? 'Confirmed' : 'Unconfirmed');
-    box.appendChild(card('OMITTED', 'Omitted', (om.material ? 'material' : 'minor') + ' · ' + status, om.description, '', '', om.citations, bad));
-  });
+  // Only confirmed omissions count against the answer; rejected or unchecked sweep items are notes.
+  const isConfirmed = om => om.confirmed || om.confirm_status === 'confirmed';
+  const confirmedOms = oms.filter(isConfirmed), noteOms = oms.filter(om => !isConfirmed(om));
+  if (confirmedOms.length) box.appendChild(el('div', 'section-h', 'Evidence the answer left out'));
+  confirmedOms.forEach(om => box.appendChild(card('OMITTED', 'Omitted', (om.material ? 'material' : 'minor') + ' · confirmed',
+    om.description, '', '', om.citations, !!om.material)));
+  if (noteOms.length) {
+    const d = document.createElement('details'); d.className = 'notes';
+    d.appendChild(el('summary', null, 'Other chart notes from the sweep (' + noteOms.length + ', not counted against the answer)'));
+    noteOms.forEach(om => d.appendChild(card('NOTE', 'Note', om.confirm_status ? human(om.confirm_status) : 'unconfirmed',
+      om.description, '', '', om.citations, false)));
+    box.appendChild(d);
+  }
   if (!claims.length && !oms.length) box.appendChild(el('p', 'note', 'No claim-level findings in this verdict.'));
 }
 

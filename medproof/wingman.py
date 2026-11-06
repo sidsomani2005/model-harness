@@ -16,6 +16,7 @@ import argparse
 import json
 import os
 import re
+import sys
 import threading
 from datetime import datetime, timezone
 from http import HTTPStatus
@@ -40,8 +41,30 @@ CATEGORY_LABELS = {
 }
 
 
+FIX_HINT = "Start WingMan with the project environment: ./scripts/wingman.sh (or .venv/bin/python -m medproof.cli wingman)"
+
+
 def api_key_configured() -> bool:
     return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
+
+
+def dependency_problem() -> Optional[str]:
+    """Why the live verifier cannot run in this Python, or None if it can."""
+    try:
+        import anthropic  # noqa: F401
+        import rank_bm25  # noqa: F401
+    except ImportError as exc:
+        return (f"This server is running on {sys.executable}, which is missing '{exc.name}'. {FIX_HINT}")
+    return None
+
+
+def live_unavailable_reason() -> Optional[str]:
+    problem = dependency_problem()
+    if problem:
+        return problem
+    if not api_key_configured():
+        return "No ANTHROPIC_API_KEY configured (add it to .env). Saved results are still shown."
+    return None
 
 
 def state_payload(cases_root: Path, runs_root: Path) -> dict[str, Any]:
@@ -50,8 +73,10 @@ def state_payload(cases_root: Path, runs_root: Path) -> dict[str, Any]:
         priv = load_private(d)  # display metadata only (title, category); never sent to verify()
         entry["title"] = priv.title
         entry["category"] = CATEGORY_LABELS.get(priv.category, priv.category.replace("_", " ").capitalize())
+    reason = live_unavailable_reason()
     data["status"] = {
-        "api_key": api_key_configured(),
+        "api_key": reason is None,
+        "live_unavailable_reason": reason,
         "live_variants": list(LIVE_VARIANTS),
         "runs_root": str(runs_root),
     }
@@ -72,9 +97,9 @@ def run_live_verify(body: dict[str, Any], cases_root: Path, runs_root: Path,
     if variant not in LIVE_VARIANTS:
         raise ValueError(f"variant must be one of {LIVE_VARIANTS}")
     if verify_fn is None:
-        if not api_key_configured():
-            raise PermissionError("No ANTHROPIC_API_KEY configured; live verification is unavailable. "
-                                  "Saved results are still shown.")
+        reason = live_unavailable_reason()
+        if reason:
+            raise PermissionError(reason)
         from medproof.verifier.pipeline import verify as verify_fn  # real pipeline
     pc = load_public(find_case_dir(case_id, cases_root))  # PublicCase only: no key, traps or labels
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
@@ -151,7 +176,8 @@ def serve(cases_root: Path = Path("cases"), runs_root: Path = DEFAULT_ROOT, host
           port: int = 8765) -> None:
     httpd = ThreadingHTTPServer((host, port), make_handler(Path(cases_root), Path(runs_root)))
     print(f"WingMan running at http://{host}:{port}  (Ctrl+C to stop)")
-    print("Live verification:", "enabled" if api_key_configured() else "disabled (no ANTHROPIC_API_KEY)")
+    reason = live_unavailable_reason()
+    print("Live verification:", "enabled" if reason is None else f"DISABLED. {reason}")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
