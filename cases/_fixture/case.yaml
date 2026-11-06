@@ -1,0 +1,12 @@
+# DEV FIXTURE ONLY: not an official benchmark case. Used by verifier unit tests.
+id: _fixture
+title: Toy chart with an allergy documentation conflict and a drug-after-lab timeline
+question: >
+  Using only the supplied record, summarize what the chart establishes about
+  the patient's drug allergies, and state whether spironolactone can explain
+  the initial onset of the elevated potassium.
+source_files:
+  - sources/allergies.txt
+  - sources/physician_note.txt
+  - sources/medication_admin.txt
+  - sources/lab_results.txt

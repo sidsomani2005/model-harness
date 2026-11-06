@@ -1,0 +1,4 @@
+[A001] SYNTHETIC CASE - NOT A REAL PATIENT
+[A002] Allergy list - Patient: FIXTURE, Alex (MRN 000-FX) - updated 2026-03-01 09:00
+[A003] Penicillin - anaphylaxis (throat swelling, hypotension) - severity: severe - recorded 2019-06-14
+[A004] Latex - no known reaction documented; entry status: inactive
