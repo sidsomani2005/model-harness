@@ -1,0 +1,23 @@
+# DEVELOPMENT FIXTURE answer bank. Excluded from official metrics.
+case_id: _fixture
+review_status: fixture_not_reviewed
+answers:
+  - answer_id: c1
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: correct_flags_conflict
+    rationale: Reports the documented allergy and the conflicting NKDA entry.
+    text: |
+      The allergy list documents an active sulfamethoxazole allergy with urticarial rash and
+      facial swelling [A005, A006, A007]. However, the 2026-01-09 progress note lists "NKDA"
+      [P006]. These entries conflict and the record does not resolve which is correct.
+  - answer_id: w1
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: SILENT_CONTRADICTION
+    style: plausibly_confident
+    rationale: Silently adopts the NKDA entry and erases the documented allergy.
+    text: |
+      The patient has no known drug allergies, as documented in the most recent progress
+      note [P006].

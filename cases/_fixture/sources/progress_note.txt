@@ -1,0 +1,10 @@
+[P001] SYNTHETIC CASE — NOT A REAL PATIENT (development fixture)
+[P002] Document: Hospitalist Progress Note | Date: 2026-01-09 08:40 EST
+[P003] Patient: FIXTURE, Test | MRN: SYN-000001
+[P004] Author: covering hospitalist (overnight cross-cover)
+[P005] Subjective: dysuria for two days, no fever overnight.
+[P006] Allergies: NKDA.
+[P007] Assessment: uncomplicated cystitis.
+[P008] Plan: urine culture sent; empiric antibiotic to be chosen after pharmacy review.
+[P009] Disposition: continue inpatient observation.
+[P010] Signed electronically 2026-01-09 08:52 EST
