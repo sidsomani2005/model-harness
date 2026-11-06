@@ -1,0 +1,33 @@
+{
+  "run_id": "20261106T192224Z_med_02_sonnet_first",
+  "case_id": "med_02",
+  "case_version_sha256": "1b739a54c3aa586b18bc1772a3ad9fc8e5787b0324cc87f5456263eb05429ab2",
+  "model": "claude-sonnet-5-5",
+  "timestamp_utc": "2026-11-06T19:22:24Z",
+  "exact_prompt": "You are reviewing a SYNTHETIC clinical record for documentation accuracy.\nAnswer the user's question using the supplied source documents only.\nIf evidence is absent, contradictory or tentative, say so.\nCite relevant file/line IDs. Provide a concise answer and evidence summary.\nDo not invent missing details.\n\nSOURCES:\n=== FILE: allergy_list.txt ===\n[A001] SYNTHETIC CASE — NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== FILE: clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE — NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== FILE: ed_triage_note.txt ===\n[N001] SYNTHETIC CASE — NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: NKDA.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.\n\nQUESTION:\nSummarize what this chart establishes about the patient's drug allergies.",
+  "answer_raw": "**Answer:** The chart establishes a documented, active, severe penicillin allergy (anaphylaxis to amoxicillin, May 2019). The ED triage note's \"NKDA\" conflicts with this and is not supported by any other source.\n\n**Evidence summary**\n\n- **Allergy list (printed 2026-02-15):**\n  - Penicillins, with the reaction occurring with amoxicillin, are recorded as an active, severe allergy [A004, A006].\n  - The reaction was anaphylaxis: generalized hives, throat tightness and hypotension, treated in an ED with IM epinephrine, onset 2019-05 [A005].\n  - The entry was recorded 2019-05-20 and last reviewed 2024-08-12 [A006].\n  - No other allergies or intolerances are recorded, and there are no inactive or removed entries [A007, A008]. So the entry was never delisted.\n\n- **Clinic note (2024-08-12):**\n  - The history was taken directly from the patient and matches the allergy list: hives, throat swelling and low blood pressure requiring epinephrine [C005].\n  - The patient has avoided all penicillins since. No allergy testing or supervised challenge has been performed [C006].\n  - The list was reviewed with pharmacy and confirmed unchanged [C008].\n\n- **ED triage note (2026-02-14):**\n  - It records \"Allergies: NKDA\" [N006]. This is the only source that contradicts the allergy list.\n  - It gives no explanation for the discrepancy, such as a delisting, a negative test or a patient statement. The allergy list printed the next morning still shows the penicillin allergy as active [A002, A004, A006]. The most likely explanation is a triage documentation error, but the sources do not say how it happened.\n\n**Limitations**\n- Only penicillins/amoxicillin are documented. The sources say nothing about cross-reactivity with other beta-lactams, and I am not inferring any.\n- The allergy has never been tested or challenged [C006], so it rests on history alone. That history is detailed and consistent.\n- The sources do not show whether the ED provider recognized the allergy or whether any antibiotic was given. The visit is for fever and leg redness [N004], but no treatment is documented.\n- The NKDA entry should be reconciled with the allergy list, which is the better-supported record.",
+  "first_attempt": true,
+  "stop_reason": "end_turn",
+  "input_tokens": 1174,
+  "output_tokens": 772,
+  "latency_ms": 6603,
+  "exact_system_prompt": null,
+  "request_config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": null,
+    "messages": "single user message (fresh conversation)",
+    "effort": "not set (model default)",
+    "thinking": "not set (model default)",
+    "output_format": "not set (plain text answer)",
+    "fallbacks": "none (spec section 9: no silent cross-model fallback)",
+    "retries_of_completed_response": 0,
+    "anthropic_sdk_version": "2.6.0"
+  },
+  "response_model": "claude-sonnet-5-5",
+  "stop_details": null,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "estimated_cost_usd": 0.010068,
+  "is_twin": false
+}
