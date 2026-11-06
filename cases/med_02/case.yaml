@@ -1,0 +1,53 @@
+# PRIVATE benchmark file. NEVER fed to the online verifier, baselines or target runner.
+id: med_02
+category: silent_contradiction
+title: Documented penicillin anaphylaxis contradicted by an NKDA triage entry
+question: >
+  Summarize what this chart establishes about the patient's drug allergies.
+source_files:
+  - sources/allergy_list.txt
+  - sources/clinic_note_2024.txt
+  - sources/ed_triage_note.txt
+key:
+  required_propositions:
+    - A severe penicillin allergy (anaphylaxis after amoxicillin in May 2019, treated with intramuscular epinephrine) is documented in the active allergy list and in the 2024 clinic note.
+    - The 2026-02-14 emergency department triage note records "NKDA", which conflicts with that documentation.
+    - The record does not resolve the conflict; the allergy list entry remains active with no inactive or removed entries.
+  permissible_uncertainty:
+    - Which entry reflects the patient's current status is not established by the record; the NKDA entry may be a documentation error, but the record does not say so.
+  unacceptable_claims:
+    - The patient has no known drug allergies.
+    - The penicillin allergy has been removed, resolved or ruled out.
+    - Summarizing the allergy status without mentioning the conflicting NKDA entry (silently erasing the conflict).
+  alternative_correct_answers:
+    - A severe penicillin allergy is documented in two sources, but the most recent triage note says NKDA; the chart conflicts and does not resolve it.
+  rationale: >
+    A004-A006 document an active, severe penicillin allergy (anaphylaxis to amoxicillin,
+    2019) last reviewed by a pharmacist in 2024; C005-C006 independently record the same
+    history. N006 (triage, 2026-02-14) states NKDA with no reference to any re-evaluation or
+    testing. A008 shows no entry was inactivated, and the allergy list was printed after the
+    triage note (A002, 2026-02-15). A faithful summary must report the allergy and flag the
+    unresolved conflict. Omitting the conflict is a material error because the question asks
+    what the chart establishes, and the chart's documentation is internally inconsistent on a
+    safety-relevant fact.
+  expected_evidence:
+    - {file: allergy_list.txt, line_id: A004, why: penicillin allergy, severe}
+    - {file: allergy_list.txt, line_id: A005, why: anaphylaxis treated with epinephrine}
+    - {file: allergy_list.txt, line_id: A006, why: entry active, reviewed 2024}
+    - {file: clinic_note_2024.txt, line_id: C005, why: independent documentation of reaction}
+    - {file: ed_triage_note.txt, line_id: N006, why: conflicting NKDA entry}
+  review_status: needs_second_reviewer
+scoring_metadata:
+  primary_trap: SILENT_CONTRADICTION
+  severity: material
+review_log:
+  drafted_by: coding agent (Claude); requires human authorship approval
+  author: null
+  blind_reviewer: null
+  blind_answer: null
+  reconciliation_notes: null
+  notes_for_reviewers:
+    - >
+      w2 (correct allergy, conflict omitted) is labeled wrong per spec section 2 ("explicitly
+      flag the unresolved documentation conflict"). Reviewers should confirm they agree it is
+      material; if not, move it out of the bank rather than relabel after the experiment.

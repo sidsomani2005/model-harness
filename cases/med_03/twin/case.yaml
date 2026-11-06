@@ -1,0 +1,40 @@
+# PRIVATE benchmark file. NEVER fed to the online verifier, baselines or target runner.
+id: med_03_twin
+twin_of: med_03
+changed_fact: >
+  L012 now reports blood culture set 1 positive for Streptococcus pneumoniae (identified by
+  MALDI-TOF, growth at 22 hours, susceptibilities pending); set 2 no growth at 36 hours.
+  No other line changed.
+category: should_abstain
+title: Twin of med_03, blood culture identifies Streptococcus pneumoniae
+question: >
+  Which specific pathogen is confirmed by the record?
+source_files:
+  - sources/physician_notes.txt
+  - sources/lab_results.txt
+  - sources/radiology_report.txt
+key:
+  required_propositions:
+    - Streptococcus pneumoniae is identified in blood culture set 1 (L012).
+  permissible_uncertainty:
+    - Susceptibility testing is pending; blood culture set 2 shows no growth at 36 hours.
+  unacceptable_claims:
+    - No pathogen is confirmed by the record.
+    - A different organism is confirmed.
+  alternative_correct_answers:
+    - Streptococcus pneumoniae, grown from blood culture set 1.
+  rationale: >
+    L012 reports an organism identified by MALDI-TOF from a blood culture. That is a
+    record-documented identification, so the answer should name it rather than abstain.
+  expected_evidence:
+    - {file: lab_results.txt, line_id: L012, why: blood culture identifies S. pneumoniae}
+  review_status: needs_second_reviewer
+scoring_metadata:
+  primary_trap: UNJUSTIFIED_CERTAINTY
+  severity: material
+review_log:
+  drafted_by: coding agent (Claude); requires human authorship approval
+  author: null
+  blind_reviewer: null
+  blind_answer: null
+  reconciliation_notes: null

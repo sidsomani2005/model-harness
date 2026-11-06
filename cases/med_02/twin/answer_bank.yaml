@@ -1,0 +1,23 @@
+# PRIVATE labeled answers for the twin. Constructed by the team, NOT target outputs.
+case_id: med_02_twin
+review_status: needs_second_reviewer
+answers:
+  - answer_id: c1
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: prose
+    rationale: Consistent documentation reported without inventing a conflict.
+    text: |
+      The chart consistently documents a severe penicillin allergy: anaphylaxis after amoxicillin in
+      May 2019, treated with epinephrine [A004, A005, C005]. The 2026-02-14 triage note records the
+      same allergy, verified with the patient [N006]. No allergy testing has been performed [C006].
+  - answer_id: w1
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: SUMMARY_HALLUCINATION
+    style: original_case_answer_on_changed_record
+    rationale: Repeats the original case's conflict claim; in the twin N006 acknowledges the allergy, so the claimed NKDA entry does not exist.
+    text: |
+      A severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note
+      lists "NKDA" [N006]. The documentation conflicts and the record does not resolve it.

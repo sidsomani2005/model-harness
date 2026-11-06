@@ -1,0 +1,25 @@
+[P001] SYNTHETIC CASE — NOT A REAL PATIENT
+[P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center
+[P003] Patient: SYNTH-HF-01 (synthetic) | 71-year-old female | MRN: SYN-104221
+[P004] All times are Eastern Standard Time (EST). Hospital Day 1 = 2026-03-01.
+[P005] --- Admission History and Physical | 2026-03-01 15:10 EST | Author: hospitalist (R. Patel, MD)
+[P006] Chief complaint: five days of worsening dyspnea and bilateral leg swelling.
+[P007] History: heart failure with reduced ejection fraction (LVEF 30% on echocardiogram 2025-11-18), chronic kidney disease stage 3a (baseline creatinine 1.2 mg/dL), hypertension.
+[P008] Home medications: furosemide 40 mg PO daily, lisinopril 10 mg PO daily, metoprolol succinate 50 mg PO daily, atorvastatin 40 mg PO nightly.
+[P009] Not taking a mineralocorticoid receptor antagonist (spironolactone or eplerenone) before admission.
+[P010] Admission labs: potassium 4.6 mmol/L, creatinine 1.3 mg/dL (see laboratory report).
+[P011] Assessment: acute decompensated heart failure with volume overload.
+[P012] Plan: furosemide 40 mg IV twice daily, continue home lisinopril and metoprolol, daily basic metabolic panel, strict intake and output.
+[P013] --- Progress Note | Hospital Day 2 | 2026-03-02 09:30 EST | Author: hospitalist (R. Patel, MD)
+[P014] Overnight: net negative 1.6 L. Dyspnea improved.
+[P015] Labs: potassium 5.7 mmol/L (high) and creatinine 1.8 mg/dL on the 05:45 draw.
+[P016] Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).
+[P017] Plan: hold lisinopril; sodium zirconium cyclosilicate 10 g PO once; repeat basic metabolic panel this afternoon; reduce furosemide to 40 mg IV once daily.
+[P018] --- Progress Note | Hospital Day 3 | 2026-03-03 08:45 EST | Author: hospitalist (R. Patel, MD)
+[P019] Labs: potassium 5.0 mmol/L, creatinine 1.5 mg/dL on the 05:50 draw.
+[P020] Cardiology consult (note dated 2026-03-02) recommended starting spironolactone for HFrEF once potassium is 5.0 mmol/L or below.
+[P021] Plan: start spironolactone 12.5 mg PO daily today; continue holding lisinopril; basic metabolic panel tomorrow morning.
+[P022] --- Progress Note | Hospital Day 4 | 2026-03-04 09:05 EST | Author: weekend covering hospitalist (D. Nguyen, MD)
+[P023] Labs: potassium 5.6 mmol/L (high), creatinine 1.5 mg/dL on the 05:40 draw.
+[P024] Assessment: hyperkalemia, likely secondary to spironolactone.
+[P025] Plan: hold spironolactone; repeat basic metabolic panel at 14:00; continue telemetry.

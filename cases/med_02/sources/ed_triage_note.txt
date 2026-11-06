@@ -1,0 +1,8 @@
+[N001] SYNTHETIC CASE — NOT A REAL PATIENT
+[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)
+[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815
+[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.
+[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.
+[N006] Allergies: NKDA.
+[N007] Pain: 6/10, right lower leg.
+[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.

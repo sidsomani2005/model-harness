@@ -1,0 +1,16 @@
+[P001] SYNTHETIC CASE — NOT A REAL PATIENT
+[P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST
+[P003] Patient: SYNTH-ID-03 (synthetic) | 63-year-old female | MRN: SYN-311470
+[P004] --- Emergency Department Provider Note | 2026-01-20 19:15 EST | Author: emergency physician (M. Osei, MD)
+[P005] History: three days of fever, cough productive of rust-colored sputum, and right-sided pleuritic chest pain.
+[P006] Examination: temperature 39.1 C, heart rate 112, respiratory rate 24, SpO2 91% on room air; crackles at the right lung base.
+[P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.
+[P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.
+[P009] --- Progress Note | Hospital Day 2 | 2026-01-21 10:00 EST | Author: hospitalist (E. Johansson, MD)
+[P010] Improving; afebrile since 04:00. SpO2 95% on 2 L/min nasal cannula.
+[P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.
+[P012] Plan: continue ceftriaxone and azithromycin; follow up cultures and urine antigen.
+[P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)
+[P014] Clinically improving; tolerating diet; SpO2 96% on room air.
+[P015] Assessment: pneumococcal pneumonia, improving.
+[P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).

@@ -1,0 +1,49 @@
+# PRIVATE benchmark file. NEVER fed to the online verifier, baselines or target runner.
+id: med_01_twin
+twin_of: med_01
+changed_fact: >
+  Spironolactone initiation moved before the potassium elevation: it is now a home
+  medication started 2026-02-19, last taken the morning of 2026-03-01, held on admission
+  and resumed 2026-03-03. Lines changed: P008, P009, P012, P016, P020, P021, M013.
+  All laboratory values and times are unchanged.
+category: temporal_causality
+title: Twin of med_01, spironolactone started before the potassium elevation
+question: >
+  From the available record, can spironolactone explain the initial
+  onset of elevated potassium? State what is known and unknown.
+source_files:
+  - sources/physician_notes.txt
+  - sources/medication_administration_record.txt
+  - sources/lab_results.txt
+key:
+  required_propositions:
+    - The first elevated potassium was 5.7 mmol/L at 2026-03-02 05:45.
+    - Spironolactone had been taken daily since 2026-02-19, with the last home dose the morning of 2026-03-01, before the first elevated value.
+    - The timing therefore does not rule spironolactone out as a contributor to the initial elevation, but the record does not establish it as the cause.
+  permissible_uncertainty:
+    - Other documented possibilities (reduced renal potassium clearance, ACE inhibitor effect) remain; the Day 2 note calls the etiology unclear.
+  unacceptable_claims:
+    - Spironolactone cannot explain the initial onset because it was started after the elevation.
+    - Spironolactone is confirmed as the cause of the initial elevation.
+  alternative_correct_answers:
+    - Possibly. It was being taken before the rise, so timing allows it, but the record does not confirm it as the cause.
+  rationale: >
+    P008 and P009 document spironolactone as a home medication since 2026-02-19, last taken
+    the morning of 2026-03-01, before the first elevated potassium at L006 (2026-03-02 05:45).
+    Chronology no longer excludes it. P016 lists recent spironolactone use alongside other
+    possibilities and states the etiology is not yet clear, so causation is not established.
+  expected_evidence:
+    - {file: lab_results.txt, line_id: L006, why: first elevated potassium}
+    - {file: physician_notes.txt, line_id: P008, why: spironolactone is a home medication}
+    - {file: physician_notes.txt, line_id: P009, why: start date and last home dose}
+    - {file: physician_notes.txt, line_id: P016, why: etiology not yet clear}
+  review_status: needs_second_reviewer
+scoring_metadata:
+  primary_trap: TEMPORAL_CAUSALITY
+  severity: material
+review_log:
+  drafted_by: coding agent (Claude); requires human authorship approval
+  author: null
+  blind_reviewer: null
+  blind_answer: null
+  reconciliation_notes: null

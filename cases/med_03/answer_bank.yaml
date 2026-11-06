@@ -1,0 +1,51 @@
+# PRIVATE labeled answers for verifier evaluation. Constructed by the team, NOT target outputs.
+# No "ambiguous" item: none we could write had a genuinely undecidable correct verdict.
+case_id: med_03
+review_status: needs_second_reviewer
+answers:
+  - answer_id: c1
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: prose_abstention_names_missing_evidence
+    rationale: Abstains and names each missing or pending microbiology result.
+    text: |
+      No specific pathogen is confirmed by the record. Streptococcus pneumoniae is suspected
+      clinically: the emergency note calls the presentation "suggestive of pneumococcal
+      pneumonia" [P007] and later notes call it likely or pneumococcal [P011, P015]. But no test
+      result identifies an organism. As of the 2026-01-22 report, blood cultures show no growth at
+      36 hours with the final report still pending [L012]; the sputum specimen was rejected for
+      oropharyngeal contamination and never recollected [L009, L010]; and the urine pneumococcal
+      antigen specimen was not received [L011]. The viral PCR panel did not detect influenza, RSV
+      or SARS-CoV-2 [L013], which does not identify a bacterial pathogen either.
+  - answer_id: c2
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: terse_abstention
+    rationale: Short abstention with the key missing evidence; different phrasing.
+    text: |
+      None. The record does not confirm any pathogen. Pneumococcus is only a clinical impression
+      [P011, P015]. Blood cultures: no growth at 36 hours, final pending [L012]. Sputum: rejected,
+      not recollected [L009, L010]. Urine pneumococcal antigen: specimen not received [L011].
+  - answer_id: w1
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: UNJUSTIFIED_CERTAINTY
+    style: plausibly_confident
+    rationale: Promotes a clinical impression to a confirmed pathogen with no supporting test result.
+    text: |
+      The confirmed pathogen is Streptococcus pneumoniae. The Hospital Day 3 assessment documents
+      pneumococcal pneumonia [P015], consistent with the classic rust-colored sputum [P005] and
+      lobar consolidation on chest X-ray [R005]. The patient is improving on ceftriaxone and
+      azithromycin [P012, P014].
+  - answer_id: w2
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: UNJUSTIFIED_CERTAINTY
+    style: subtle_overstatement
+    rationale: Correct abstention, but misstates pending blood cultures as negative (L012 says final report pending).
+    text: |
+      No pathogen has been confirmed. The blood cultures were negative [L012], the sputum specimen
+      was rejected [L009], and the viral panel was negative [L013]. Pneumococcal pneumonia is a
+      clinical impression only [P015].

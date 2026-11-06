@@ -1,0 +1,52 @@
+# PRIVATE labeled answers for verifier evaluation. Constructed by the team, NOT target outputs.
+# No "ambiguous" item: none we could write had a genuinely undecidable correct verdict.
+case_id: med_02
+review_status: needs_second_reviewer
+answers:
+  - answer_id: c1
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: prose_flags_conflict
+    rationale: Reports the documented allergy with its severity and flags the unresolved NKDA conflict.
+    text: |
+      The chart documents a severe penicillin allergy: the active allergy list records anaphylaxis
+      (generalized hives, throat tightness, hypotension) after amoxicillin in May 2019, treated with
+      intramuscular epinephrine [A004, A005, A006]. The 2024 primary care note independently records
+      the same reaction and notes that no allergy testing has been done [C005, C006].
+
+      However, the emergency department triage note from 2026-02-14 lists "NKDA" [N006]. This
+      conflicts with the allergy list and the clinic note, and nothing in the record resolves it:
+      the allergy entry is still active and no entries have been removed [A006, A008]. The chart
+      therefore does not establish that the patient is free of drug allergies; it contains
+      conflicting documentation.
+  - answer_id: c2
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: terse_bullets
+    rationale: Compact bullets, different ordering, flags the conflict and the unknown.
+    text: |
+      - Documented: penicillin allergy, severe, anaphylaxis to amoxicillin (2019), required epinephrine [A004, A005].
+      - Corroborated by the 2024 clinic note [C005].
+      - Conflict: the 2026-02-14 triage note says NKDA [N006].
+      - Not established: which entry is current. The allergy list entry remains active [A006] and nothing documents re-evaluation.
+  - answer_id: w1
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: SILENT_CONTRADICTION
+    style: plausibly_confident
+    rationale: Adopts the most recent NKDA entry and erases a documented anaphylaxis history.
+    text: |
+      The patient has no known drug allergies. This is documented in the most recent encounter,
+      the emergency department triage note from 2026-02-14 [N006], which supersedes older records.
+  - answer_id: w2
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: SILENT_CONTRADICTION
+    style: subtle_omission
+    rationale: Every stated fact is true, but the conflicting NKDA entry is silently omitted.
+    text: |
+      The patient has a severe penicillin allergy: anaphylaxis after amoxicillin in May 2019 that
+      required intramuscular epinephrine [A004, A005, C005]. No allergy testing has been performed
+      [C006]. No other drug allergies are documented [A007].
