@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "submission" / "medproof_submission.zip"
-GENERATED = ["runs/target", "runs/verifier", "runs/labels", "runs/metrics", "report/index.html"]
+GENERATED = ["runs/target", "runs/target_raw", "runs/verifier", "runs/labels", "runs/metrics", "report/index.html"]
 NEVER = (".env", ".venv/", "runs/dry_run/", "runs/scratch/", "submission/", "__pycache__/")
 
 

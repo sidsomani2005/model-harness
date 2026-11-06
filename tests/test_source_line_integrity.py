@@ -4,6 +4,7 @@ import pytest
 
 from medproof.load_case import (
     BANNER,
+    BANNER_RE,
     CaseFormatError,
     case_and_twin_dirs,
     load_public,
@@ -23,7 +24,7 @@ def test_all_cases_and_twins_pass_integrity(cases_root):
 def test_every_file_carries_synthetic_banner(cases_root):
     for d in case_and_twin_dirs(cases_root, include_fixture=True):
         for name, text in load_public(d).sources.items():
-            assert BANNER in text.splitlines()[0], f"{d}/{name}"
+            assert BANNER_RE.search(text.splitlines()[0]), f"{d}/{name}"
 
 
 @pytest.mark.parametrize(

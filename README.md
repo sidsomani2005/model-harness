@@ -33,7 +33,7 @@ Each case has multi-document sources with stable line IDs (`[L006]`), a private 
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
-pip install -e .
+pip install -e ".[dev]"
 cp .env.example .env          # add ANTHROPIC_API_KEY
 
 python -m medproof.cli validate-cases                 # integrity, review and freeze status

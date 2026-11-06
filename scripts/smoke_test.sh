@@ -10,7 +10,7 @@ unzip -q "$ZIP" -d "$WORK"
 cd "$WORK/medproof"
 test ! -e .env || { echo "FAIL: .env is inside the zip"; exit 1; }
 python3 -m venv .venv
-.venv/bin/pip install -q .
+.venv/bin/pip install -q ".[dev]"
 .venv/bin/python -m pytest -q
 .venv/bin/python -m medproof.cli validate-cases > /dev/null
 .venv/bin/python -m medproof.cli report --output report/index.html

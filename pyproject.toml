@@ -1,30 +1,30 @@
+[project]
+name = "medproof"
+version = "0.1.0"
+description = "Cheap-model clinical-evidence verifier (Mercor Hack Day, synthetic data only)"
+requires-python = ">=3.11"
+dependencies = [
+  "anthropic>=2.6",
+  "pydantic>=2.6",
+  "pyyaml>=6",
+  "httpx>=0.27",
+  "rich>=13",
+  "rank-bm25>=0.2.2",
+  "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = ["live: calls the real Anthropic API (skipped unless MEDPROOF_LIVE=1)"]
+
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
-[project]
-name = "medproof"
-version = "0.1.0"
-description = "MedProof: cheap-model clinical-evidence verifier (Mercor Hack Day, synthetic data only)"
-readme = "README.md"
-requires-python = ">=3.11"
-license = { text = "MIT" }
-dependencies = [
-  "anthropic>=2.6",
-  "pydantic>=2.7",
-  "pyyaml>=6.0",
-  "httpx>=0.27",
-  "rich>=13.7",
-  "rank-bm25>=0.2.2",
-  "jinja2>=3.1",
-  "pytest>=8.0",
-]
-
-[project.optional-dependencies]
-laya = []
-
 [tool.setuptools.packages.find]
 include = ["medproof*"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]

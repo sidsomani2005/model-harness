@@ -1,0 +1,5 @@
+[M001] SYNTHETIC CASE - NOT A REAL PATIENT
+[M002] Medication administration record - Patient: FIXTURE, Alex
+[M003] 2026-03-01 21:00 furosemide 40 mg PO - given
+[M004] 2026-03-03 09:00 spironolactone 25 mg PO - first dose given
+[M005] 2026-03-04 09:00 spironolactone 25 mg PO - given

@@ -84,6 +84,15 @@ def citation_is_valid(cit: Citation, lines: dict[str, dict[str, str]]) -> tuple[
 # --------------------------------------------------------------------------- items
 
 
+def is_stub(vr: VerifierRun) -> bool:
+    return vr.explanation.upper().startswith("STUB") or any("stub" in r.lower() for r in vr.needs_review_reasons)
+
+
+def all_citations(vr: VerifierRun) -> list[Citation]:
+    """Citations from claim verdicts and from global-sweep omission findings."""
+    return [c for cv in vr.claim_verdicts for c in cv.citations] + [c for om in vr.omissions for c in om.citations]
+
+
 def _load_labels(runs_root: Path) -> dict[str, dict[str, Any]]:
     path = Path(runs_root) / LABELS_FILE
     if not path.is_file():
@@ -182,7 +191,7 @@ def score_group(items: list[Item], verdicts: dict[tuple[str, str], VerifierRun],
     cit_total = cit_valid = 0
     invalid_examples: list[str] = []
     trap_checked = trap_match = trap_unreported = 0
-    missing = unlabeled = refusals = stub = 0
+    missing = unlabeled = refusals = stub = fake = 0
     for it in items:
         if it.label == "refusal":
             refusals += 1
@@ -194,7 +203,10 @@ def score_group(items: list[Item], verdicts: dict[tuple[str, str], VerifierRun],
         if vr is None:
             missing += 1
             continue
-        if any("stub" in r for r in vr.needs_review_reasons):
+        if vr.fake_backend:  # offline test output: never reported as a result
+            fake += 1
+            continue
+        if is_stub(vr):
             stub += 1
         overall = vr.overall.value
         counts = by_label.setdefault(it.label, {})
@@ -204,17 +216,16 @@ def score_group(items: list[Item], verdicts: dict[tuple[str, str], VerifierRun],
         pc_counts[overall] = pc_counts.get(overall, 0) + 1
         costs.append(vr.estimated_cost_usd)
         latencies.append(vr.latency_ms)
-        for cv in vr.claim_verdicts:
-            for cit in cv.citations:
-                cit_total += 1
-                ok, why = citation_is_valid(cit, lines.get(it.case_id, {}))
-                if ok:
-                    cit_valid += 1
-                elif len(invalid_examples) < 10:
-                    invalid_examples.append(f"{it.item_id}: {why}")
+        for cit in all_citations(vr):
+            cit_total += 1
+            ok, why = citation_is_valid(cit, lines.get(it.case_id, {}))
+            if ok:
+                cit_valid += 1
+            elif len(invalid_examples) < 10:
+                invalid_examples.append(f"{it.item_id}: {why}")
         if it.label == "wrong" and overall == Overall.ERROR_DETECTED.value and it.trap:
             trap_checked += 1
-            found = {t.value for t in vr.traps_found}
+            found = {t.value for t in vr.traps_found} | {t.value for cv in vr.claim_verdicts for t in cv.traps}
             if not found:
                 trap_unreported += 1
             elif it.trap in found:
@@ -256,6 +267,7 @@ def score_group(items: list[Item], verdicts: dict[tuple[str, str], VerifierRun],
         "unlabeled": unlabeled,
         "target_refusals": refusals,
         "stub_verdicts": stub,
+        "fake_backend_excluded": fake,
         "per_case": per_case,
     }
 

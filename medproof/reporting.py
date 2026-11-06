@@ -237,7 +237,7 @@ function renderFindings(){
   if (vr.explanation) box.appendChild(el('p', null, vr.explanation));
   if (vr.traps_found && vr.traps_found.length) box.appendChild(el('p', 'note', 'Reasoning traps flagged: ' + vr.traps_found.join(', ')));
   (vr.needs_review_reasons || []).forEach(r => box.appendChild(el('p', 'note', 'Needs review: ' + r)));
-  if (!vr.claim_verdicts.length) box.appendChild(el('p', 'empty', 'No claim-level findings in this verdict.'));
+  if (!vr.claim_verdicts.length && !(vr.omissions || []).length) box.appendChild(el('p', 'empty', 'No claim-level findings in this verdict.'));
   vr.claim_verdicts.forEach(cv => {
     const card = el('div', 'card'); card.tabIndex = 0;
     card.appendChild(el('div', 'st s-' + cv.status, cv.status.replace(/_/g, ' ') + ' | ' + cv.severity));
@@ -257,6 +257,24 @@ function renderFindings(){
     card.onclick = go; card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
     box.appendChild(card);
   });
+  (vr.omissions || []).forEach(om => {
+    const card = el('div', 'card'); card.tabIndex = 0;
+    const st = om.material && om.confirmed ? 'CONTRADICTED' : 'NOT_ESTABLISHED';
+    card.appendChild(el('div', 'st s-' + st, 'OMITTED EVIDENCE | ' + om.kind + ' | ' + (om.material ? 'material' : 'minor') + ' | ' + (om.confirmed ? 'confirmed' : 'unconfirmed')));
+    card.appendChild(el('div', null, om.description));
+    if (om.citations.length) card.appendChild(el('div', 'cites', om.citations.map(c => c.file + ':' + c.line_id + (c.quote ? ' "' + c.quote + '"' : '')).join('  ')));
+    const go = () => {
+      state.hl = {};
+      om.citations.forEach(c => { state.hl[c.file + '|' + c.line_id] = (om.material && om.confirmed) ? 'bad' : 'ok'; });
+      const first = om.citations[0];
+      if (first) { const idx = current().files.findIndex(f => f.name === first.file); if (idx >= 0) state.file = idx; }
+      renderChart();
+      if (first) { const row = document.getElementById('ln-' + first.file + '-' + first.line_id); if (row) row.scrollIntoView({block: 'center'}); }
+    };
+    card.onclick = go; card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+    box.appendChild(card);
+  });
+  if (vr.fake_backend) box.appendChild(el('p', 'note', 'fake_backend: offline test output, not a real verdict.'));
   const cost = el('p', 'note', 'Model calls: ' + vr.total_model_calls + ' | tokens in/out: ' + vr.input_tokens + '/' + vr.output_tokens +
     ' | estimated cost: $' + Number(vr.estimated_cost_usd).toFixed(6) + ' | latency: ' + vr.latency_ms + ' ms');
   box.appendChild(cost);

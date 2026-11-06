@@ -21,7 +21,7 @@ from pydantic import BaseModel
 
 from medproof import llm
 from medproof.runs import DEFAULT_ROOT, raw_path, save_raw
-from medproof.schema import Citation, ClaimStatus, ClaimVerdict, Overall, PublicCase, Trap, VerifierRun
+from medproof.schema import Citation, ClaimStatus, ClaimVerdict, Overall, PublicCase, Severity, Trap, VerifierRun
 from medproof.targets.anthropic_runner import format_sources
 
 BASELINE_VARIANTS = ("direct-haiku", "direct-opus")
@@ -120,19 +120,24 @@ def judgment_to_verifier_run(
         total_model_calls=1,
         input_tokens=result.input_tokens,
         output_tokens=result.output_tokens,
+        cache_read_input_tokens=result.cache_read_input_tokens,
+        cache_creation_input_tokens=result.cache_creation_input_tokens,
         estimated_cost_usd=result.cost_usd,
         latency_ms=result.latency_ms or latency_ms,
+        models_used=[result.model],
+        fake_backend=result.fake,
         raw_model_outputs_path=raw_file,
     )
     if judgment is None:
-        reason = f"baseline produced no parsable judgment (stop_reason={result.stop_reason})"
+        detail = f"; {result.parse_error}" if result.parse_error else ""
+        reason = f"baseline produced no parsable judgment (stop_reason={result.stop_reason}{detail})"
         return VerifierRun(overall=Overall.INSUFFICIENT_TO_VERIFY, needs_review_reasons=[reason], **common)
     verdicts = [
         ClaimVerdict(
             claim_id=f"b{i}",
             claim_text=f.claim_text,
             status=f.status,
-            severity=f.severity,
+            severity=Severity(f.severity),
             citations=[Citation(file=c.file, line_id=c.line_id, quote=c.quote) for c in f.citations],
             why=f.why,
         )
@@ -159,7 +164,8 @@ async def run_baseline_async(
     user = build_user_prompt(case, answer)
     t0 = time.perf_counter()
     result = await llm.call(
-        cfg["model"], SYSTEM_PROMPT, user, effort=cfg["effort"], schema=BaselineJudgment, max_tokens=cfg["max_tokens"]
+        cfg["model"], SYSTEM_PROMPT, user, effort=cfg["effort"], schema=BaselineJudgment,
+        max_tokens=cfg["max_tokens"], label=f"baseline:{variant}",
     )
     latency = int((time.perf_counter() - t0) * 1000)
     judgment = result.parsed if isinstance(result.parsed, BaselineJudgment) else None
@@ -168,8 +174,8 @@ async def run_baseline_async(
         "config": cfg,
         "system_prompt": SYSTEM_PROMPT,
         "user_prompt": user,
-        "result": result.model_dump(exclude={"parsed"}),
-        "parsed": judgment.model_dump(mode="json") if judgment else None,
+        "model_calls": [result.to_log()],
+        "raw_response": result.raw,
     }
     save_raw(target_run_id, variant, payload, runs_root, overwrite=overwrite)
     return judgment_to_verifier_run(

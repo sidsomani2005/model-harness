@@ -3,6 +3,8 @@ record, and leaks nothing from the private key (spec sections 4 and 7)."""
 
 import json
 
+import anthropic
+
 import pytest
 
 from medproof import llm
@@ -88,11 +90,6 @@ def test_request_config_is_model_default():
 # ----------------------------------------------------------------- runner behavior (fake LLM, tmp dir)
 
 
-@pytest.fixture
-def fixture_case(cases_root):
-    return load_public(cases_root / "_fixture")
-
-
 def test_dry_run_never_calls_model(tmp_path, monkeypatch, fixture_case):
     async def boom(*a, **k):
         raise AssertionError("dry run must not call the model")
@@ -104,12 +101,12 @@ def test_dry_run_never_calls_model(tmp_path, monkeypatch, fixture_case):
     assert not (tmp_path / "target").exists()
 
 
-def _fake(stop_reason="end_turn", text="An answer [A005].", calls=None):
-    async def fake(model, system, user, *, effort=None, schema=None, max_tokens=1024):
+def _fake(stop_reason="end_turn", text="An answer [A003].", calls=None):
+    async def fake(model, system, user, *, effort=None, schema=None, max_tokens=1024, **kw):
         if calls is not None:
             calls.append(dict(model=model, system=system, user=user, effort=effort, schema=schema, max_tokens=max_tokens))
-        return llm.LLMResult(model=model, response_model=model, text=text, input_tokens=10,
-                             output_tokens=5, stop_reason=stop_reason, latency_ms=7, cost_usd=0.0)
+        return llm.LLMResult(model=model, text=text, parsed=None, stop_reason=stop_reason,
+                             input_tokens=10, output_tokens=5, latency_ms=7, cost_usd=0.0)
     return fake
 
 
@@ -118,10 +115,13 @@ def test_first_answer_saved_untouched_and_never_rerun(tmp_path, monkeypatch, fix
     monkeypatch.setattr(llm, "call", _fake(calls=calls))
     out = runner.run_targets([(fixture_case, False)], runs_root=tmp_path)
     assert out[0].status == "saved"
-    assert calls == [dict(model="claude-sonnet-5-5", system=None, user=runner.build_prompt(fixture_case),
+    assert calls == [dict(model="claude-sonnet-5-5", system=anthropic.omit, user=runner.build_prompt(fixture_case),
                           effort=None, schema=None, max_tokens=runner.TARGET_MAX_TOKENS)]
     [run] = load_target_runs(tmp_path)
-    assert run.answer_raw == "An answer [A005]."
+    assert run.answer_raw == "An answer [A003]."
+    assert run.system_prompt == "" and run.request_config["system"] is None
+    raw = json.loads((tmp_path / "target_raw" / f"{run.run_id}.json").read_text())
+    assert raw["stop_reason"] == "end_turn" and raw["text"] == "An answer [A003]."
     assert run.exact_prompt == runner.build_prompt(fixture_case)
     assert run.case_version_sha256 == fixture_case.source_sha256
     assert run.first_attempt and run.stop_reason == "end_turn"

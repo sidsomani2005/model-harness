@@ -1,0 +1,9 @@
+[P001] SYNTHETIC CASE - NOT A REAL PATIENT
+[P002] Progress note - 2026-03-02 08:30 - Hospital Day 2 - author: hospitalist
+[P003] Allergies: penicillin (anaphylaxis per allergy list).
+[P004] Labs this morning notable for potassium 5.9 mmol/L, up from 4.3 on admission.
+[P005] Assessment: hyperkalemia, cause unclear; no new potassium-sparing drugs at this time.
+[P006] Progress note - 2026-03-04 08:45 - Hospital Day 4 - author: covering physician
+[P007] Allergies: NKDA.
+[P008] Potassium remains elevated at 5.8 mmol/L.
+[P009] Plan: continue spironolactone for now, repeat BMP in the morning.

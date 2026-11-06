@@ -34,6 +34,7 @@ from pydantic import BaseModel, Field, ValidationError
 from medproof.schema import Overall, PublicCase, SourceLine, Trap
 
 BANNER = "SYNTHETIC CASE — NOT A REAL PATIENT"
+BANNER_RE = re.compile(r"SYNTHETIC CASE\s*[-\u2013\u2014]\s*NOT A REAL PATIENT")  # any dash
 LINE_RE = re.compile(r"^\[([A-Z]{1,2})(\d{3})\] (\S.*)$")
 CITED_ID_RE = re.compile(r"\b([A-Z]{1,2}\d{3})\b")
 BRACKET_RE = re.compile(r"\[([^\]]+)\]")
@@ -77,7 +78,7 @@ def parse_source_lines(file_name: str, text: str) -> list[SourceLine]:
         lines.append(SourceLine(file=file_name, line_id=line_id, text=body))
     if not lines:
         raise CaseFormatError(f"{file_name}: empty source file")
-    if BANNER not in lines[0].text:
+    if not BANNER_RE.search(lines[0].text):
         raise CaseFormatError(f"{file_name}: first line must carry the banner {BANNER!r}")
     return lines
 

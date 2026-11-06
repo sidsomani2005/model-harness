@@ -9,9 +9,10 @@ __pycache__/
 .DS_Store
 build/
 dist/
-# run scratch (official logs under runs/target, runs/verifier, runs/metrics ARE committed)
-runs/dry_run/
+# run output not committed (raw verifier logs are packaged into the submission zip from disk)
+runs/verifier/
 runs/scratch/
+runs/dry_run/
 runs/**/live_*.json
 submission/
 *.zip

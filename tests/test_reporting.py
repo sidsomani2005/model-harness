@@ -27,7 +27,7 @@ def test_report_without_runs_shows_no_fabricated_verdicts(tmp_path, cases_root):
 
 def test_report_includes_saved_verdict_and_escapes_script(tmp_path, cases_root):
     runs = tmp_path / "runs"
-    vr = VerifierRun(target_run_id=bank_item_id("med_02", "w1"), verifier_variant="haiku",
+    vr = VerifierRun(target_run_id=bank_item_id("med_02", "w1"), case_id="med_02", verifier_variant="haiku",
                      overall=Overall.ERROR_DETECTED, explanation="</script><script>alert(1)</script>")
     save_verifier_run(vr, runs)
     html = reporting.build_report(cases_root, runs, tmp_path / "index.html").read_text()

@@ -225,7 +225,17 @@ def _run_variant(args, variant: str, fn: Callable[[WorkItem], VerifierRun]) -> i
     return 1 if errors else 0
 
 
+def _point_verifier_at(runs_root: Path) -> None:
+    """The verifier writes raw.json under MEDPROOF_RUNS_DIR (read at import), so set both."""
+    os.environ["MEDPROOF_RUNS_DIR"] = str(runs_root)
+    import medproof.verifier.pipeline as pipeline
+
+    if hasattr(pipeline, "RUNS_DIR"):
+        pipeline.RUNS_DIR = Path(runs_root)
+
+
 def cmd_verify(args) -> int:
+    _point_verifier_at(Path(args.runs_root))
     from medproof.verifier.pipeline import verify
 
     return _run_variant(args, args.variant, lambda it: verify(it.case, it.answer, variant=args.variant, target_run_id=it.item_id))
@@ -286,7 +296,7 @@ def _print_verdict(vr: VerifierRun, pc: PublicCase, label: str) -> None:
     for r in vr.needs_review_reasons:
         console.print(f"[yellow]needs review:[/yellow] {r}")
     for cv in vr.claim_verdicts:
-        console.print(f"\n  [bold]{cv.status.value}[/bold] ({cv.severity}) {cv.claim_text}")
+        console.print(f"\n  [bold]{cv.status.value}[/bold] ({cv.severity.value}) {cv.claim_text}")
         if cv.why:
             console.print(f"    why: {cv.why}")
         if cv.uncertainty:
@@ -294,6 +304,14 @@ def _print_verdict(vr: VerifierRun, pc: PublicCase, label: str) -> None:
         for c in cv.citations:
             src = lines.get((c.file, c.line_id), "[line not found in source]")
             console.print(f"    {c.file}:{c.line_id}  {src}")
+    for om in vr.omissions:
+        tag = "confirmed" if om.confirmed else "unconfirmed"
+        console.print(f"\n  [bold]OMITTED EVIDENCE[/bold] ({om.kind}, {'material' if om.material else 'minor'}, {tag}) {om.description}")
+        for c in om.citations:
+            src = lines.get((c.file, c.line_id), "[line not found in source]")
+            console.print(f"    {c.file}:{c.line_id}  {src}")
+    if vr.fake_backend:
+        console.print("[yellow]fake_backend=True: offline test output, not a real verdict[/yellow]")
     console.print(f"\n  calls={vr.total_model_calls} tokens={vr.input_tokens}/{vr.output_tokens} "
                   f"cost=${vr.estimated_cost_usd:.6f} latency={vr.latency_ms}ms")
 
@@ -327,6 +345,7 @@ def cmd_demo(args) -> int:
     console.print(Panel(pc.question, title=f"{case_id}  |  question"))
     console.print(Panel(answer or "(empty)", title=label))
     if args.live:
+        _point_verifier_at(runs_root)
         from medproof.verifier.pipeline import verify
 
         try:

@@ -34,7 +34,7 @@ def test_official_run_needs_yes_even_when_frozen(tmp_path, monkeypatch, cases_ro
     calls = []
     async def fake(model, system, user, **k):
         calls.append(model)
-        return llm.LLMResult(model=model, text="answer", stop_reason="end_turn")
+        return llm.LLMResult(model=model, text="answer", parsed=None, stop_reason="end_turn")
     monkeypatch.setattr(llm, "call", fake)
     runs = tmp_path / "runs"
     assert cli.main(["--cases", str(cases), "run-targets", "--runs", str(runs)]) == 2 and calls == []

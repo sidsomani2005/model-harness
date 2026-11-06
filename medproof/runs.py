@@ -3,6 +3,7 @@
 Layout (spec section 9)::
 
     runs/target/<run_id>.json                              TargetRun, first answers
+    runs/target_raw/<run_id>.json                          full provider log for that call
     runs/verifier/<target_run_id>/<variant>/verdict.json   VerifierRun
     runs/verifier/<target_run_id>/<variant>/raw.json       raw per-stage model outputs
     runs/labels/target_labels.yaml                         human labels for target answers
@@ -58,6 +59,11 @@ def target_dir(root: Path = DEFAULT_ROOT) -> Path:
 def save_target_run(run: TargetRun, root: Path = DEFAULT_ROOT) -> Path:
     """Target first answers are never overwritten."""
     return _write_json_new(target_dir(root) / f"{run.run_id}.json", run.model_dump_json(indent=2), overwrite=False)
+
+
+def save_target_raw(run_id: str, payload: object, root: Path = DEFAULT_ROOT) -> Path:
+    return _write_json_new(Path(root) / "target_raw" / f"{run_id}.json",
+                           json.dumps(payload, indent=2, default=str), overwrite=False)
 
 
 def load_target_runs(root: Path = DEFAULT_ROOT) -> list[TargetRun]:

@@ -83,8 +83,11 @@ def test_public_case_has_only_public_fields():
 
 
 def test_verify_signature_takes_only_public_case_and_answer():
-    params = list(inspect.signature(pipeline.verify).parameters)
-    assert params == ["case", "answer", "variant", "target_run_id"]
+    sig = inspect.signature(pipeline.verify)
+    params = list(sig.parameters)
+    assert params[:2] == ["case", "answer"]
+    assert set(params) <= {"case", "answer", "variant", "target_run_id", "target_stop_reason", "save"}
+    assert sig.parameters["case"].annotation in (PublicCase, "PublicCase")
 
 
 def _key_strings(priv):

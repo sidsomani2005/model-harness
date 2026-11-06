@@ -1,40 +1,44 @@
-# DEVELOPMENT FIXTURE. Not part of the official benchmark (ids starting with "_" are excluded).
-# Private benchmark file: NEVER fed to the online verifier, baselines or target runner.
+# DEV FIXTURE ONLY: not an official benchmark case. Used by verifier unit tests.
 id: _fixture
-category: silent_contradiction
-title: Development fixture with one obvious allergy documentation conflict
+title: Toy chart with an allergy documentation conflict and a drug-after-lab timeline
 question: >
-  Summarize what this chart establishes about the patient's drug allergies.
+  Using only the supplied record, summarize what the chart establishes about
+  the patient's drug allergies, and state whether spironolactone can explain
+  the initial onset of the elevated potassium.
 source_files:
-  - sources/allergy_list.txt
-  - sources/progress_note.txt
-  - sources/medication_list.txt
+  - sources/allergies.txt
+  - sources/physician_note.txt
+  - sources/medication_admin.txt
+  - sources/lab_results.txt
+# --- Benchmark-side key (added by Person 2 lane; private, never fed to the verifier) ---
+category: silent_contradiction
 key:
   required_propositions:
-    - The allergy list documents an active sulfamethoxazole allergy (urticaria and facial swelling).
-    - The 2026-01-09 progress note records "NKDA", which conflicts with the allergy list.
-    - The conflict is unresolved in the supplied record.
+    - A severe penicillin allergy (anaphylaxis) is documented in the allergy list and the Day 2 note.
+    - The Day 4 note records NKDA, which conflicts with that documentation and is not resolved.
+    - The first elevated potassium (5.9 mmol/L, 2026-03-02 06:10) precedes the first spironolactone dose (2026-03-03 09:00), so spironolactone cannot explain the initial onset.
   permissible_uncertainty:
-    - Which entry is current is not established by the record.
+    - Spironolactone may have contributed to later values; not established.
   unacceptable_claims:
     - The patient has no known drug allergies.
+    - Spironolactone caused the initial potassium elevation.
   alternative_correct_answers:
-    - A sulfonamide allergy is documented, but a later note says NKDA; the documentation conflicts and is unresolved.
+    - Penicillin anaphylaxis is documented but a later note says NKDA (unresolved conflict); spironolactone started after the first high potassium, so it cannot explain the onset.
   rationale: >
-    A005-A007 document an active sulfamethoxazole allergy reviewed by a pharmacist on
-    2026-01-08. P006 (cross-cover note, 2026-01-09) states NKDA without referencing any
-    re-evaluation. Nothing in the record reconciles the two, so a faithful summary must
-    report the allergy and flag the conflict.
+    A003 and P003 document penicillin anaphylaxis; P007 (Day 4) says NKDA with no
+    re-evaluation documented. L004 shows the first high potassium on 2026-03-02 06:10 and
+    M004 shows the first spironolactone dose on 2026-03-03 09:00.
   expected_evidence:
-    - {file: allergy_list.txt, line_id: A005, why: allergen documented}
-    - {file: allergy_list.txt, line_id: A006, why: reaction documented}
-    - {file: progress_note.txt, line_id: P006, why: conflicting NKDA entry}
+    - {file: allergies.txt, line_id: A003, why: penicillin anaphylaxis}
+    - {file: physician_note.txt, line_id: P007, why: conflicting NKDA entry}
+    - {file: lab_results.txt, line_id: L004, why: first elevated potassium}
+    - {file: medication_admin.txt, line_id: M004, why: first spironolactone dose}
   review_status: fixture_not_reviewed
 scoring_metadata:
   primary_trap: SILENT_CONTRADICTION
   severity: material
 review_log:
-  drafted_by: coding agent (Claude), development fixture only
+  drafted_by: development fixture
   author: null
   blind_reviewer: null
   blind_answer: null

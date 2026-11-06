@@ -24,7 +24,7 @@ from typing import Optional
 import anthropic
 
 from medproof import llm
-from medproof.runs import DEFAULT_ROOT, load_target_runs, model_short, save_target_run
+from medproof.runs import DEFAULT_ROOT, load_target_runs, model_short, save_target_raw, save_target_run
 from medproof.schema import PublicCase, TargetRun
 
 DEFAULT_TARGET_MODEL = "claude-sonnet-5-5"
@@ -97,7 +97,9 @@ async def run_one(case: PublicCase, model: str, is_twin: bool, runs_root: Path =
     started = datetime.now(timezone.utc)
     t0 = time.perf_counter()
     try:
-        result = await llm.call(model, None, prompt, effort=None, schema=None, max_tokens=TARGET_MAX_TOKENS)
+        # anthropic.omit drops the system field entirely: the spec template is one user message.
+        result = await llm.call(model, anthropic.omit, prompt, effort=None, schema=None,
+                                max_tokens=TARGET_MAX_TOKENS, label=f"target:{case.case_id}")
     except Exception as exc:  # no response exists, so nothing is saved and no attempt is consumed
         return RunOutcome(case.case_id, "error", f"{type(exc).__name__}: {exc}")
     wall_ms = int((time.perf_counter() - t0) * 1000)
@@ -108,26 +110,23 @@ async def run_one(case: PublicCase, model: str, is_twin: bool, runs_root: Path =
         model=model,
         timestamp_utc=started.strftime("%Y-%m-%dT%H:%M:%SZ"),
         exact_prompt=prompt,
+        system_prompt="",
         answer_raw=result.text or "",
         first_attempt=True,
         stop_reason=result.stop_reason,
         input_tokens=result.input_tokens,
         output_tokens=result.output_tokens,
         latency_ms=result.latency_ms or wall_ms,
-        exact_system_prompt=None,
         request_config=request_config(model),
-        response_model=result.response_model,
-        stop_details=result.stop_details,
-        cache_creation_input_tokens=result.cache_creation_input_tokens,
-        cache_read_input_tokens=result.cache_read_input_tokens,
-        estimated_cost_usd=result.cost_usd,
-        is_twin=is_twin,
     )
     path = save_target_run(run, runs_root)
+    # Everything TargetRun has no field for (answering model, stop details, cache usage,
+    # cost, full provider response) is kept verbatim next to it.
+    save_target_raw(run.run_id, {**result.to_log(), "raw_response": result.raw}, runs_root)
     status = "refusal" if result.stop_reason == "refusal" else "saved"
     detail = f"stop_reason={result.stop_reason}"
-    if result.response_model and result.response_model != model:
-        detail += f"; WARNING response model {result.response_model} != requested {model}"
+    if result.model and result.model != model:
+        detail += f"; WARNING response model {result.model} != requested {model}"
     return RunOutcome(case.case_id, status, detail, path)
 
 
