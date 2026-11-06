@@ -1,0 +1,89 @@
+{
+  "target_run_id": "bank__med_02_twin__c1",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The chart documents a severe penicillin allergy: anaphylaxis after amoxicillin in May 2019, treated with epinephrine.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records a severe penicillin allergy with anaphylaxis and epinephrine treatment, and the 2024 clinic note independently describes the May 2019 event.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The 2026-02-14 triage note records the same allergy, verified with the patient.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note lists the penicillin/amoxicillin anaphylaxis allergy and states it was verified with the patient.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "No allergy testing has been performed.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "no allergy testing or supervised challenge has been performed",
+          "quote_verified": true
+        }
+      ],
+      "why": "The source is the 2024-08-12 clinic note, so it supports no testing as of that date but does not establish the current status as of the 2026 documents.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2939,
+  "output_tokens": 1483,
+  "estimated_cost_usd": 0.0010354000000000001,
+  "latency_ms": 6576,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02_twin__c1/direct-haiku/raw.json",
+  "case_id": "med_02_twin",
+  "traps_found": [],
+  "explanation": "The answer's main allergy claims are accurately supported by the allergy list, the 2024 clinic note, and the 2026 triage note. The only weakness is that the no-testing statement is drawn from a 2024 note and stated without a date, which is a minor overgeneralization rather than a material error.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

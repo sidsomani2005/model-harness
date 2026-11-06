@@ -1,0 +1,115 @@
+{
+  "target_run_id": "bank__med_02__c2",
+  "verifier_variant": "direct-opus",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Documented: penicillin allergy, severe, anaphylaxis to amoxicillin (2019), required epinephrine",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records a severe penicillin allergy with anaphylaxis to amoxicillin in 2019, treated with epinephrine.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Corroborated by the 2024 clinic note",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine",
+          "quote_verified": true
+        }
+      ],
+      "why": "The 2024 clinic note independently describes the same reaction.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Conflict: the 2026-02-14 triage note says NKDA",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note records NKDA, which conflicts with the active allergy entry; the answer surfaces this conflict.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The allergy list entry remains active and nothing documents re-evaluation since the NKDA entry",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A008",
+          "quote": "Inactive or removed entries: none.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The entry is active on the list printed after triage, and no testing or delabeling is documented.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2949,
+  "output_tokens": 992,
+  "estimated_cost_usd": 0.031636,
+  "latency_ms": 8391,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__c2/direct-opus/raw.json",
+  "case_id": "med_02",
+  "traps_found": [],
+  "explanation": "The answer accurately reports the documented severe penicillin anaphylaxis and its corroboration. It explicitly flags the NKDA conflict and appropriately hedges about which entry is current. No material errors were found.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

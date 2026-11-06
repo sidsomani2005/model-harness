@@ -1,0 +1,138 @@
+{
+  "target_run_id": "bank__med_03_twin__w1",
+  "verifier_variant": "direct-haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "No specific pathogen is confirmed by the record.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record includes a laboratory identification of Streptococcus pneumoniae confirmed by MALDI-TOF, optochin susceptibility and bile solubility from blood culture set 1, so a pathogen is identified in the record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Blood cultures show no growth at 36 hours with the final report pending.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 2: no growth at 36 hours",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified",
+          "quote_verified": true
+        }
+      ],
+      "why": "The no-growth result applies only to set 2; the same line reports growth in set 1 with S. pneumoniae identified, and the answer omits this conflicting evidence.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Pneumococcus is only a clinical impression.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P015",
+          "quote": "Assessment: pneumococcal pneumonia, improving.",
+          "quote_verified": true
+        }
+      ],
+      "why": "Pneumococcus is supported by a laboratory identification from a blood culture, not just the clinical assessment; the answer relies on the earlier-dated note and ignores the later microbiology result.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The sputum specimen was rejected.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "specimen rejected: more than 25 squamous epithelial cells per low-power field",
+          "quote_verified": true
+        }
+      ],
+      "why": "The sputum Gram stain line states the specimen was rejected.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b5",
+      "claim_text": "The urine antigen was not received.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        }
+      ],
+      "why": "The urine antigen line states the specimen was not received as of the report time.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3590,
+  "output_tokens": 1882,
+  "estimated_cost_usd": 0.0013,
+  "latency_ms": 7970,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03_twin__w1/direct-haiku/raw.json",
+  "case_id": "med_03_twin",
+  "traps_found": [
+    "SILENT_CONTRADICTION",
+    "STALE_COPY_FORWARD"
+  ],
+  "explanation": "The answer states that no pathogen is confirmed and that blood cultures show no growth, but the laboratory report documents Streptococcus pneumoniae growth in blood culture set 1 with confirmatory identification, and the answer omits this. Its statement that pneumococcus is only a clinical impression reflects the earlier clinical note rather than the later microbiology result.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

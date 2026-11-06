@@ -1,0 +1,167 @@
+{
+  "target_run_id": "20261106T192224Z_med_02_sonnet_first",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The chart establishes a documented, active, severe penicillin allergy with anaphylaxis to amoxicillin in May 2019.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records the penicillin allergy as severe and active, with the reaction occurring with amoxicillin in 2019-05.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The ED triage note's NKDA entry conflicts with the allergy list and is not supported by any other source.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A007",
+          "quote": "No other allergies or intolerances are recorded.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note states NKDA while the allergy list and clinic note both document the penicillin allergy, and no source documents a delisting.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The clinic note records the allergy history as reviewed with the patient and the list as confirmed unchanged by pharmacy.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "Allergies reviewed with patient",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C008",
+          "quote": "allergy list reviewed with pharmacy and confirmed unchanged",
+          "quote_verified": true
+        }
+      ],
+      "why": "Both statements appear directly in the clinic note.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The allergy has never been tested or challenged, so it rests on history alone.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "no allergy testing or supervised challenge has been performed",
+          "quote_verified": true
+        }
+      ],
+      "why": "The clinic note explicitly states no testing or challenge has been performed.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b5",
+      "claim_text": "The allergy list printed the next morning still shows the penicillin allergy as active.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A002",
+          "quote": "Printed 2026-02-15 07:30 EST",
+          "quote_verified": true
+        },
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N002",
+          "quote": "2026-02-14 22:47 EST",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list was printed on 2026-02-15, the morning after the 2026-02-14 triage note, and still lists the allergy as active.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b6",
+      "claim_text": "The most likely explanation for NKDA is a triage documentation error, while the sources do not say how it happened.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        }
+      ],
+      "why": "This is an explicitly hedged inference about the cause, not a definitive claim, and the answer acknowledges the sources do not explain it.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3568,
+  "output_tokens": 1854,
+  "estimated_cost_usd": 0.0012837999999999999,
+  "latency_ms": 7605,
+  "raw_model_outputs_path": "runs/verifier/20261106T192224Z_med_02_sonnet_first/direct-haiku/raw.json",
+  "case_id": "med_02",
+  "traps_found": [],
+  "explanation": "The answer's core claims about the active severe penicillin allergy, the conflicting NKDA entry, the lack of testing, and the absence of documented treatment all match the sources. The causal explanation for the NKDA entry is hedged and labeled as unexplained, so it is not an error. No material contradiction or unsupported definitive claim was found.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

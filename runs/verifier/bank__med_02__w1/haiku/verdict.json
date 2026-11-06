@@ -1,0 +1,263 @@
+{
+  "target_run_id": "bank__med_02__w1",
+  "verifier_variant": "haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "c1",
+      "claim_text": "The patient has no known drug allergies.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note N006 does record NKDA, but the 2024 clinic note C005 documents a serious amoxicillin reaction in 2019 that required epinephrine, so stating the patient has no known drug allergies as a bottom-line fact is contradicted by the chart.",
+      "uncertainty": "The triage note is the most recent record and may simply have omitted the known penicillin allergy; the discrepancy is not reconciled in the shown lines.",
+      "traps": [
+        "SILENT_CONTRADICTION",
+        "STALE_COPY_FORWARD"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c2",
+      "claim_text": "This is documented in the emergency department triage note from 2026-02-14.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        }
+      ],
+      "why": "Line N006 of the 2026-02-14 ED triage note states 'Allergies: NKDA', so the claim that this is documented in that note is accurate. Other records conflict with it, including the allergy list entry for anaphylaxis from 2019.",
+      "uncertainty": "The triage entry conflicts with the allergy list (A005) and the 2024 clinic note (C005), which document a serious amoxicillin reaction in 2019. The answer's statement that the triage note supersedes older records is not supported by the lines shown.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c3",
+      "claim_text": "The emergency department triage note from 2026-02-14 is the most recent encounter.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N002",
+          "quote": "Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The ED triage note is dated 2026-02-14 22:47, and the allergy list was printed 2026-02-15 07:30, which is later than the triage note, so the triage note is not the most recent document in the chart. The triage note is therefore not the most recent encounter for the record as shown, and the claim's use of 'most recent' is wrong on the timeline.",
+      "uncertainty": "The record does not show whether any encounter occurred between 2026-02-14 22:47 and the 2026-02-15 printing of the allergy list; the allergy list print time is a document date, not an encounter.",
+      "traps": [
+        "TEMPORAL_CAUSALITY"
+      ],
+      "needs_review": true,
+      "needs_review_reasons": [
+        "checkers disagree: CONTRADICTED vs SUPPORTED"
+      ],
+      "checks": [
+        "narrow_check",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c4",
+      "claim_text": "The emergency department triage note from 2026-02-14 supersedes older records.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        }
+      ],
+      "why": "The claim that the 2026-02-14 triage note supersedes older records rests on nothing in the record; the allergy list and 2024 clinic note document a 2019 amoxicillin anaphylaxis, which the triage line NKDA does not override. The triage note states NKDA but has no supersession language.",
+      "uncertainty": "Whether the triage NKDA entry reflects an unrecorded update or a documentation error cannot be determined from the lines shown.",
+      "traps": [
+        "SILENT_CONTRADICTION",
+        "UNJUSTIFIED_CERTAINTY"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "confirmation"
+      ]
+    }
+  ],
+  "total_model_calls": 14,
+  "input_tokens": 32459,
+  "output_tokens": 5676,
+  "estimated_cost_usd": 0.0060839,
+  "latency_ms": 9674,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__w1/haiku/raw.json",
+  "case_id": "med_02",
+  "traps_found": [
+    "SILENT_CONTRADICTION",
+    "STALE_COPY_FORWARD",
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "Error detected.\n- Claim \"The patient has no known drug allergies.\" is CONTRADICTED [SILENT_CONTRADICTION, STALE_COPY_FORWARD]: The triage note N006 does record NKDA, but the 2024 clinic note C005 documents a serious amoxicillin reaction in 2019 that required epinephrine, so stating the patient has no known drug allergies as a bottom-line fact is contradicted by the chart.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: NKDA.\"; clinic_note_2024.txt [C005] \"Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\"; allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"\n  Still unknown: The triage note is the most recent record and may simply have omitted the known penicillin allergy; the discrepancy is not reconciled in the shown lines.\n- Claim \"The emergency department triage note from 2026-02-14 supersedes older records.\" is CONTRADICTED [SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY]: The claim that the 2026-02-14 triage note supersedes older records rests on nothing in the record; the allergy list and 2024 clinic note document a 2019 amoxicillin anaphylaxis, which the triage line NKDA does not override. The triage note states NKDA but has no supersession language.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: NKDA.\"; allergy_list.txt [A005] \"Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\"; clinic_note_2024.txt [C005] \"Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\"\n  Still unknown: Whether the triage NKDA entry reflects an unrecorded update or a documentation error cannot be determined from the lines shown.\n- The answer does not account for: The allergy list documents a severe penicillin allergy with anaphylaxis (Entry 1, active), which contradicts the answer's bottom line of no known drug allergies; the answer does not mention it.\n  Evidence: allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"; allergy_list.txt [A005] \"Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\"; allergy_list.txt [A006] \"Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\"\n- The answer does not account for: The 2024 clinic note documents the penicillin/amoxicillin reaction requiring epinephrine and that the patient avoids all penicillins, contradicting the NKDA bottom line.\n  Evidence: clinic_note_2024.txt [C005] \"Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\"; clinic_note_2024.txt [C006] \"Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\"\n- The answer does not account for: The ED triage note's NKDA entry conflicts with the allergy list and clinic note; the answer silently prefers it as superseding and most recent, though the triage entry is a brief nursing entry and the allergy list was reviewed by pharmacy in 2024 and the clinic note confirmed the allergy list unchanged.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: NKDA.\"; clinic_note_2024.txt [C008] \"Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\"\n- The answer does not account for: The answer claims the triage note supersedes older records, but no source in the chart states that; the allergy list was printed 2026-02-15, after the triage note, and still shows the active penicillin allergy.\n  Evidence: allergy_list.txt [A002] \"Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\"; ed_triage_note.txt [N002] \"Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\"",
+  "needs_review_reasons": [
+    "c3: checkers disagree: CONTRADICTED vs SUPPORTED"
+  ],
+  "omissions": [
+    {
+      "description": "The allergy list documents a severe penicillin allergy with anaphylaxis (Entry 1, active), which contradicts the answer's bottom line of no known drug allergies; the answer does not mention it.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": true,
+      "confirm_status": "confirmed",
+      "related_claim_id": "c1"
+    },
+    {
+      "description": "The 2024 clinic note documents the penicillin/amoxicillin reaction requiring epinephrine and that the patient avoids all penicillins, contradicting the NKDA bottom line.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": true,
+      "confirm_status": "confirmed",
+      "related_claim_id": "c1"
+    },
+    {
+      "description": "The ED triage note's NKDA entry conflicts with the allergy list and clinic note; the answer silently prefers it as superseding and most recent, though the triage entry is a brief nursing entry and the allergy list was reviewed by pharmacy in 2024 and the clinic note confirmed the allergy list unchanged.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C008",
+          "quote": "Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": true,
+      "confirm_status": "confirmed",
+      "related_claim_id": "c4"
+    },
+    {
+      "description": "The answer claims the triage note supersedes older records, but no source in the chart states that; the allergy list was printed 2026-02-15, after the triage note, and still shows the active penicillin allergy.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A002",
+          "quote": "Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST",
+          "quote_verified": true
+        },
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N002",
+          "quote": "Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": true,
+      "confirm_status": "confirmed",
+      "related_claim_id": "c3"
+    }
+  ],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [
+    "claude-haiku-5-5"
+  ],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

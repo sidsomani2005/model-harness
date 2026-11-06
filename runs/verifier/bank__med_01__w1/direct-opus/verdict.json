@@ -1,0 +1,132 @@
+{
+  "target_run_id": "bank__med_01__w1",
+  "verifier_variant": "direct-opus",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The record supports spironolactone as the explanation for the onset of this patient's elevated potassium.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Not taking a mineralocorticoid receptor antagonist (spironolactone or eplerenone) before admission.",
+          "quote_verified": true
+        }
+      ],
+      "why": "Hyperkalemia first appeared on 2026-03-02 05:45, more than a day before the first-ever spironolactone dose on 2026-03-03, so spironolactone cannot explain the initial onset.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Physician documented hyperkalemia 'likely secondary to spironolactone' [P024].",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "Assessment: hyperkalemia, likely secondary to spironolactone.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The quote is accurate, but it applies to the Day 4 recurrence, and the answer relies on it while ignoring the earlier Day 2 episode.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Answer omits the Day 2 onset with AKI and ACE inhibitor differential.",
+      "status": "CONFLICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M006",
+          "quote": "2026-03-01 21:00 | lisinopril | 10 mg PO | given",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record documents an earlier onset with an unclear etiology that predates spironolactone, and the answer silently omits this.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "Spironolactone started [P021, M013], held [M016], potassium 5.6 on 2026-03-04 [L009].",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "2026-03-04 05:40 | potassium 5.6 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M016",
+          "quote": "spironolactone | 12.5 mg PO | held (order: hold for hyperkalemia)",
+          "quote_verified": true
+        }
+      ],
+      "why": "These facts match the record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 4453,
+  "output_tokens": 1191,
+  "estimated_cost_usd": 0.041632,
+  "latency_ms": 10227,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__w1/direct-opus/raw.json",
+  "case_id": "med_01",
+  "traps_found": [
+    "TEMPORAL_CAUSALITY",
+    "ANCHORING",
+    "SILENT_CONTRADICTION",
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "Potassium first became elevated on 2026-03-02 at 5.7 mmol/L, occurring with AKI while the patient was on lisinopril. It was 5.0 mmol/L by 2026-03-03. Spironolactone was first given 2026-03-03 10:20 and was not taken before admission. It may relate to the Day 4 recurrence, but it cannot explain the initial onset, whose etiology the record leaves unclear. The answer anchors on the later note and asserts a causal claim the timeline does not allow.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

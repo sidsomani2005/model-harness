@@ -1,0 +1,97 @@
+{
+  "target_run_id": "bank__med_02_twin__w1",
+  "verifier_variant": "direct-opus",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "A severe penicillin allergy is documented [A004, A005, C005]",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list and clinic note both document a severe penicillin allergy with anaphylaxis.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The 2026-02-14 triage note lists \"NKDA\" [N006]",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note records the penicillin anaphylaxis allergy and does not say NKDA.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The documentation conflicts and the record does not resolve it.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A007",
+          "quote": "No other allergies or intolerances are recorded.",
+          "quote_verified": true
+        },
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "verified with patient against the allergy list. Allergy wristband applied.",
+          "quote_verified": true
+        }
+      ],
+      "why": "All three sources consistently document the same penicillin allergy, so there is no conflict.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2903,
+  "output_tokens": 669,
+  "estimated_cost_usd": 0.024992,
+  "latency_ms": 5477,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02_twin__w1/direct-opus/raw.json",
+  "case_id": "med_02_twin",
+  "traps_found": [
+    "SUMMARY_HALLUCINATION"
+  ],
+  "explanation": "The answer invents an 'NKDA' entry in the triage note and claims a documentation conflict. The triage note actually confirms the penicillin anaphylaxis allergy, and all sources are consistent.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

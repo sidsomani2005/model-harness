@@ -1,0 +1,847 @@
+{
+  "saved_utc": "20261106T192938767461Z",
+  "verifier_run": {
+    "target_run_id": "bank__med_03_twin__c1",
+    "verifier_variant": "haiku",
+    "overall": "NO_ISSUE_FOUND",
+    "claim_verdicts": [
+      {
+        "claim_id": "c1",
+        "claim_text": "The confirmed pathogen is Streptococcus pneumoniae.",
+        "status": "SUPPORTED",
+        "severity": "material",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L012",
+            "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+            "quote_verified": true
+          }
+        ],
+        "why": "Blood culture set 1 grew Streptococcus pneumoniae identified by MALDI-TOF and confirmed by optochin and bile solubility, so calling it the confirmed pathogen is supported by L012. The claim is not tied to a cited line, but the record supports it.",
+        "uncertainty": "Susceptibility testing is pending, and the urine antigen was never received, so the drug susceptibility profile is unknown.",
+        "traps": [],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "claim_text": "Blood culture set 1 grew an organism at 22 hours.",
+        "status": "SUPPORTED",
+        "severity": "minor",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L012",
+            "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+            "quote_verified": true
+          }
+        ],
+        "why": "Line L012 directly states that blood culture set 1 showed growth detected at 22 hours. The claim says only that an organism grew at 22 hours, which matches.",
+        "uncertainty": "",
+        "traps": [],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "claim_text": "The organism from blood culture set 1 was identified as Streptococcus pneumoniae by MALDI-TOF.",
+        "status": "SUPPORTED",
+        "severity": "material",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L012",
+            "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+            "quote_verified": true
+          }
+        ],
+        "why": "Line L012 states that set 1 grew Streptococcus pneumoniae identified by MALDI-TOF, matching the claim exactly. No other line contradicts it.",
+        "uncertainty": "Susceptibility testing is still pending, but the identification itself is reported as complete.",
+        "traps": [],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "claim_text": "Susceptibilities are pending.",
+        "status": "SUPPORTED",
+        "severity": "minor",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L012",
+            "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+            "quote_verified": true
+          }
+        ],
+        "why": "Line L012 explicitly states that susceptibility testing is pending for blood culture set 1, so the claim matches the record.",
+        "uncertainty": "",
+        "traps": [],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check"
+        ]
+      },
+      {
+        "claim_id": "c5",
+        "claim_text": "Blood culture set 2 showed no growth at 36 hours.",
+        "status": "SUPPORTED",
+        "severity": "minor",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L012",
+            "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+            "quote_verified": true
+          }
+        ],
+        "why": "Line L012 directly states that blood culture set 2 showed no growth at 36 hours, matching the claim.",
+        "uncertainty": "The record gives no-growth at 36 hours as an interim result; a final culture result is not shown in the lines provided.",
+        "traps": [],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check(full chart)"
+        ]
+      }
+    ],
+    "total_model_calls": 7,
+    "input_tokens": 21047,
+    "output_tokens": 2133,
+    "estimated_cost_usd": 0.0031712,
+    "latency_ms": 5215,
+    "raw_model_outputs_path": null,
+    "case_id": "med_03_twin",
+    "traps_found": [],
+    "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (status_caveat): Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.\n- Note (other): Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.\n- Note (negative_finding): Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.",
+    "needs_review_reasons": [],
+    "omissions": [
+      {
+        "description": "Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.",
+        "kind": "status_caveat",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L009",
+            "quote": "2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested",
+            "quote_verified": true
+          },
+          {
+            "file": "lab_results.txt",
+            "line_id": "L010",
+            "quote": "2026-01-22 10:00 | sputum recollection | not received by laboratory",
+            "quote_verified": true
+          },
+          {
+            "file": "lab_results.txt",
+            "line_id": "L011",
+            "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
+            "quote_verified": true
+          }
+        ],
+        "material": false,
+        "confirmed": false,
+        "confirm_status": "not_checked",
+        "related_claim_id": "c1"
+      },
+      {
+        "description": "Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.",
+        "kind": "other",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L012",
+            "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+            "quote_verified": true
+          }
+        ],
+        "material": false,
+        "confirmed": false,
+        "confirm_status": "not_checked",
+        "related_claim_id": "c3"
+      },
+      {
+        "description": "Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.",
+        "kind": "negative_finding",
+        "citations": [
+          {
+            "file": "lab_results.txt",
+            "line_id": "L013",
+            "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+            "quote_verified": true
+          }
+        ],
+        "material": false,
+        "confirmed": false,
+        "confirm_status": "not_checked",
+        "related_claim_id": "c1"
+      }
+    ],
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 0,
+    "models_used": [
+      "claude-haiku-5-5"
+    ],
+    "fake_backend": false,
+    "code_version": null
+  },
+  "stages": {
+    "variant": "haiku",
+    "case_id": "med_03_twin",
+    "source_sha256": "16039e00a87304212a3cce0c8157be303a52ecabeb7ae5f4ddb8c566ff49b792",
+    "index": {
+      "lines": 36,
+      "malformed": [],
+      "short_chart": true
+    },
+    "target_citations": {
+      "resolved": [
+        "lab_results.txt:L012"
+      ],
+      "nonexistent": []
+    },
+    "claims": {
+      "claims": [
+        {
+          "claim_id": "c1",
+          "text": "The confirmed pathogen is Streptococcus pneumoniae.",
+          "kind": "fact_from_source",
+          "certainty": "definitive",
+          "importance": "high",
+          "is_final_conclusion": true,
+          "entities": [
+            "Streptococcus pneumoniae"
+          ],
+          "cited_lines": []
+        },
+        {
+          "claim_id": "c2",
+          "text": "Blood culture set 1 grew an organism at 22 hours.",
+          "kind": "fact_from_source",
+          "certainty": "definitive",
+          "importance": "medium",
+          "is_final_conclusion": false,
+          "entities": [
+            "blood culture set 1"
+          ],
+          "cited_lines": [
+            "L012"
+          ]
+        },
+        {
+          "claim_id": "c3",
+          "text": "The organism from blood culture set 1 was identified as Streptococcus pneumoniae by MALDI-TOF.",
+          "kind": "fact_from_source",
+          "certainty": "definitive",
+          "importance": "high",
+          "is_final_conclusion": false,
+          "entities": [
+            "blood culture set 1",
+            "MALDI-TOF",
+            "Streptococcus pneumoniae"
+          ],
+          "cited_lines": [
+            "L012"
+          ]
+        },
+        {
+          "claim_id": "c4",
+          "text": "Susceptibilities are pending.",
+          "kind": "status",
+          "certainty": "definitive",
+          "importance": "medium",
+          "is_final_conclusion": false,
+          "entities": [
+            "susceptibilities"
+          ],
+          "cited_lines": [
+            "L012"
+          ]
+        },
+        {
+          "claim_id": "c5",
+          "text": "Blood culture set 2 showed no growth at 36 hours.",
+          "kind": "absence",
+          "certainty": "definitive",
+          "importance": "medium",
+          "is_final_conclusion": false,
+          "entities": [
+            "blood culture set 2"
+          ],
+          "cited_lines": [
+            "L012"
+          ]
+        }
+      ],
+      "answer_abstains": false,
+      "answer_reports_conflict": false
+    },
+    "evidence_packs": {
+      "c1": {
+        "cited": [],
+        "unresolved": [],
+        "context": [],
+        "retrieved": [
+          "P011",
+          "L012",
+          "L011",
+          "P008"
+        ]
+      },
+      "c2": {
+        "cited": [
+          "L012"
+        ],
+        "unresolved": [],
+        "context": [
+          "L001",
+          "L002",
+          "L010",
+          "L011",
+          "L012",
+          "L013"
+        ],
+        "retrieved": [
+          "L005",
+          "L007",
+          "L006",
+          "P008",
+          "L008",
+          "L003",
+          "L004"
+        ]
+      },
+      "c3": {
+        "cited": [
+          "L012"
+        ],
+        "unresolved": [],
+        "context": [
+          "L001",
+          "L002",
+          "L010",
+          "L011",
+          "L012",
+          "L013"
+        ],
+        "retrieved": [
+          "L005",
+          "P008",
+          "L006",
+          "L007",
+          "P011",
+          "L008",
+          "L004"
+        ]
+      },
+      "c4": {
+        "cited": [
+          "L012"
+        ],
+        "unresolved": [],
+        "context": [
+          "L001",
+          "L002",
+          "L010",
+          "L011",
+          "L012",
+          "L013"
+        ],
+        "retrieved": []
+      },
+      "c5": {
+        "cited": [
+          "L012"
+        ],
+        "unresolved": [],
+        "context": [
+          "L001",
+          "L002",
+          "L010",
+          "L011",
+          "L012",
+          "L013"
+        ],
+        "retrieved": [
+          "L007",
+          "L006",
+          "L005",
+          "R005",
+          "P008",
+          "L008",
+          "P010",
+          "P009",
+          "L004"
+        ]
+      }
+    },
+    "sweep": {
+      "full_chart": true,
+      "result": {
+        "items": [
+          {
+            "description": "Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.",
+            "kind": "status_caveat",
+            "line_ids": [
+              "L009",
+              "L010",
+              "L011"
+            ],
+            "quotes": [
+              "specimen rejected: more than 25 squamous epithelial cells per low-power field",
+              "sputum recollection | not received by laboratory",
+              "specimen not received by laboratory as of 2026-01-22 10:00"
+            ],
+            "material": false,
+            "related_claim_id": "c1"
+          },
+          {
+            "description": "Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.",
+            "kind": "other",
+            "line_ids": [
+              "L012"
+            ],
+            "quotes": [
+              "confirmed optochin-susceptible and bile-soluble"
+            ],
+            "material": false,
+            "related_claim_id": "c3"
+          },
+          {
+            "description": "Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.",
+            "kind": "negative_finding",
+            "line_ids": [
+              "L013"
+            ],
+            "quotes": [
+              "influenza A, influenza B, RSV and SARS-CoV-2: not detected"
+            ],
+            "material": false,
+            "related_claim_id": "c1"
+          }
+        ]
+      }
+    }
+  },
+  "model_calls": [
+    {
+      "label": "claims",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 1876,
+      "output_tokens": 558,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2413,
+      "cost_usd": 0.0004666,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 3000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "QUESTION:\nWhich specific pathogen is confirmed by the record?\n\nANSWER TO DECOMPOSE:\n<<<\nStreptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was\nidentified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2\nshowed no growth at 36 hours [L012].\n\n>>>"
+          }
+        ],
+        "system": "You split an answer into atomic, checkable claims. You do not judge whether claims are true.\n\nRules:\n- One proposition per claim. \"The roof was inspected on 4 May and passed\" -> two claims.\n- Keep the answer's own certainty. \"may have contributed\" is hedged; \"caused\" is definitive. Never strengthen or weaken a claim.\n- Keep negations exactly (\"no leaks were found\" stays negative).\n- Prefer claims that matter to the bottom line: conclusions, causes, timing, status (confirmed vs suspected), stated absences, plans, and any claim that sources conflict.\n- Skip pure restatements of the question, generic disclaimers, and advice to consult someone.\n- Copy cited line IDs exactly as the answer wrote them; [] if none for that claim.\n- Return at most 8 claims, most important first.\n\nExample (building inspection, not the domain you will see):\nQuestion: Did the 4 May inspection find water damage, and what caused it?\nAnswer: The 4 May inspection [R004] found staining on the ceiling of unit 3B. This was caused by the roof leak reported on 9 May [W012]. No other units were affected. The inspector's report is pending sign-off.\nClaims:\nc1 fact_from_source definitive high: \"The 4 May inspection found staining on the ceiling of unit 3B.\" cited [R004]\nc2 causal_attribution definitive high final: \"The staining was caused by the roof leak reported on 9 May.\" cited [W012]\nc3 absence definitive medium: \"No other units were affected.\" cited []\nc4 status definitive low: \"The inspector's report is pending sign-off.\" cited []\n",
+        "effort": "low",
+        "schema": "ClaimList"
+      },
+      "text": "{\"claims\":[{\"claim_id\":\"c1\",\"text\":\"The confirmed pathogen is Streptococcus pneumoniae.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":true,\"entities\":[\"Streptococcus pneumoniae\"],\"cited_lines\":[]},{\"claim_id\":\"c2\",\"text\":\"Blood culture set 1 grew an organism at 22 hours.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"blood culture set 1\"],\"cited_lines\":[\"L012\"]},{\"claim_id\":\"c3\",\"text\":\"The organism from blood culture set 1 was identified as Streptococcus pneumoniae by MALDI-TOF.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":false,\"entities\":[\"blood culture set 1\",\"MALDI-TOF\",\"Streptococcus pneumoniae\"],\"cited_lines\":[\"L012\"]},{\"claim_id\":\"c4\",\"text\":\"Susceptibilities are pending.\",\"kind\":\"status\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"susceptibilities\"],\"cited_lines\":[\"L012\"]},{\"claim_id\":\"c5\",\"text\":\"Blood culture set 2 showed no growth at 36 hours.\",\"kind\":\"absence\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"blood culture set 2\"],\"cited_lines\":[\"L012\"]}],\"answer_abstains\":false,\"answer_reports_conflict\":false}",
+      "parsed": {
+        "claims": [
+          {
+            "claim_id": "c1",
+            "text": "The confirmed pathogen is Streptococcus pneumoniae.",
+            "kind": "fact_from_source",
+            "certainty": "definitive",
+            "importance": "high",
+            "is_final_conclusion": true,
+            "entities": [
+              "Streptococcus pneumoniae"
+            ],
+            "cited_lines": []
+          },
+          {
+            "claim_id": "c2",
+            "text": "Blood culture set 1 grew an organism at 22 hours.",
+            "kind": "fact_from_source",
+            "certainty": "definitive",
+            "importance": "medium",
+            "is_final_conclusion": false,
+            "entities": [
+              "blood culture set 1"
+            ],
+            "cited_lines": [
+              "L012"
+            ]
+          },
+          {
+            "claim_id": "c3",
+            "text": "The organism from blood culture set 1 was identified as Streptococcus pneumoniae by MALDI-TOF.",
+            "kind": "fact_from_source",
+            "certainty": "definitive",
+            "importance": "high",
+            "is_final_conclusion": false,
+            "entities": [
+              "blood culture set 1",
+              "MALDI-TOF",
+              "Streptococcus pneumoniae"
+            ],
+            "cited_lines": [
+              "L012"
+            ]
+          },
+          {
+            "claim_id": "c4",
+            "text": "Susceptibilities are pending.",
+            "kind": "status",
+            "certainty": "definitive",
+            "importance": "medium",
+            "is_final_conclusion": false,
+            "entities": [
+              "susceptibilities"
+            ],
+            "cited_lines": [
+              "L012"
+            ]
+          },
+          {
+            "claim_id": "c5",
+            "text": "Blood culture set 2 showed no growth at 36 hours.",
+            "kind": "absence",
+            "certainty": "definitive",
+            "importance": "medium",
+            "is_final_conclusion": false,
+            "entities": [
+              "blood culture set 2"
+            ],
+            "cited_lines": [
+              "L012"
+            ]
+          }
+        ],
+        "answer_abstains": false,
+        "answer_reports_conflict": false
+      }
+    },
+    {
+      "label": "check:c4",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 2840,
+      "output_tokens": 155,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1485,
+      "cost_usd": 0.0003615,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c4 (status, definitive):\nSusceptibilities are pending.\nLines the answer cited for it: L012\n\nCITED BY THE ANSWER:\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\n\nNEIGHBOURING CONTEXT:\nlab_results.txt [L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nlab_results.txt [L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\nlab_results.txt [L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\nlab_results.txt [L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\nlab_results.txt [L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nStreptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was\nidentified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2\nshowed no growth at 36 hours [L012].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"susceptibility testing pending\",\"role\":\"supports\"}],\"reason\":\"Line L012 explicitly states that susceptibility testing is pending for blood culture set 1, so the claim matches the record.\",\"uncertainty\":\"\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "L012",
+            "quote": "susceptibility testing pending",
+            "role": "supports"
+          }
+        ],
+        "reason": "Line L012 explicitly states that susceptibility testing is pending for blood culture set 1, so the claim matches the record.",
+        "uncertainty": "",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": false,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "check:c2",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3303,
+      "output_tokens": 188,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1565,
+      "cost_usd": 0.0004243,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c2 (fact_from_source, definitive):\nBlood culture set 1 grew an organism at 22 hours.\nLines the answer cited for it: L012\n\nCITED BY THE ANSWER:\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\n\nNEIGHBOURING CONTEXT:\nlab_results.txt [L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nlab_results.txt [L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\nlab_results.txt [L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\nlab_results.txt [L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\nlab_results.txt [L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\nlab_results.txt [L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected\nlab_results.txt [L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours\nlab_results.txt [L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected\nphysician_notes.txt [P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.  (note dated 2026-01-20T19:15)\nlab_results.txt [L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory\nlab_results.txt [L003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470 | Report printed 2026-01-22 10:00 EST\nlab_results.txt [L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nStreptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was\nidentified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2\nshowed no growth at 36 hours [L012].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"set 1: growth detected at 22 hours, Streptococcus pneumoniae identified\",\"role\":\"supports\"}],\"reason\":\"Line L012 directly states that blood culture set 1 showed growth detected at 22 hours. The claim says only that an organism grew at 22 hours, which matches.\",\"uncertainty\":\"\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "L012",
+            "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified",
+            "role": "supports"
+          }
+        ],
+        "reason": "Line L012 directly states that blood culture set 1 showed growth detected at 22 hours. The claim says only that an organism grew at 22 hours, which matches.",
+        "uncertainty": "",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": false,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "check:c1",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 2705,
+      "output_tokens": 295,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2062,
+      "cost_usd": 0.000418,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c1 (fact_from_source, definitive, bottom line of the answer):\nThe confirmed pathogen is Streptococcus pneumoniae.\nLines the answer cited for it: none\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\nphysician_notes.txt [P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.  (note dated 2026-01-21T10:00)\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\nlab_results.txt [L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\nphysician_notes.txt [P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.  (note dated 2026-01-20T19:15)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nStreptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was\nidentified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2\nshowed no growth at 36 hours [L012].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)\",\"role\":\"supports\"}],\"reason\":\"Blood culture set 1 grew Streptococcus pneumoniae identified by MALDI-TOF and confirmed by optochin and bile solubility, so calling it the confirmed pathogen is supported by L012. The claim is not tied to a cited line, but the record supports it.\",\"uncertainty\":\"Susceptibility testing is pending, and the urine antigen was never received, so the drug susceptibility profile is unknown.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "L012",
+            "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+            "role": "supports"
+          }
+        ],
+        "reason": "Blood culture set 1 grew Streptococcus pneumoniae identified by MALDI-TOF and confirmed by optochin and bile solubility, so calling it the confirmed pathogen is supported by L012. The claim is not tied to a cited line, but the record supports it.",
+        "uncertainty": "Susceptibility testing is pending, and the urine antigen was never received, so the drug susceptibility profile is unknown.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "check:c3",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3318,
+      "output_tokens": 247,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2174,
+      "cost_usd": 0.0004553,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c3 (fact_from_source, definitive):\nThe organism from blood culture set 1 was identified as Streptococcus pneumoniae by MALDI-TOF.\nLines the answer cited for it: L012\n\nCITED BY THE ANSWER:\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\n\nNEIGHBOURING CONTEXT:\nlab_results.txt [L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nlab_results.txt [L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\nlab_results.txt [L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\nlab_results.txt [L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\nlab_results.txt [L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\nlab_results.txt [L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\nlab_results.txt [L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected\nphysician_notes.txt [P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.  (note dated 2026-01-20T19:15)\nlab_results.txt [L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected\nlab_results.txt [L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours\nphysician_notes.txt [P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.  (note dated 2026-01-21T10:00)\nlab_results.txt [L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory\nlab_results.txt [L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nStreptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was\nidentified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2\nshowed no growth at 36 hours [L012].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)\",\"role\":\"supports\"}],\"reason\":\"Line L012 states that set 1 grew Streptococcus pneumoniae identified by MALDI-TOF, matching the claim exactly. No other line contradicts it.\",\"uncertainty\":\"Susceptibility testing is still pending, but the identification itself is reported as complete.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "L012",
+            "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+            "role": "supports"
+          }
+        ],
+        "reason": "Line L012 states that set 1 grew Streptococcus pneumoniae identified by MALDI-TOF, matching the claim exactly. No other line contradicts it.",
+        "uncertainty": "Susceptibility testing is still pending, but the identification itself is reported as complete.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": false,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "global_sweep",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 2977,
+      "output_tokens": 499,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2243,
+      "cost_usd": 0.0005472000000000001,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 3000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "QUESTION:\nWhich specific pathogen is confirmed by the record?\n\nANSWER CLAIMS:\nc1 [definitive, bottom line] The confirmed pathogen is Streptococcus pneumoniae.\nc2 [definitive] Blood culture set 1 grew an organism at 22 hours.\nc3 [definitive] The organism from blood culture set 1 was identified as Streptococcus pneumoniae by MALDI-TOF.\nc4 [definitive] Susceptibilities are pending.\nc5 [definitive] Blood culture set 2 showed no growth at 36 hours.\n\n\nCHART LINES (complete chart):\n=== physician_notes.txt ===\n[P001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST\n[P003] Patient: SYNTH-ID-03 (synthetic) | 63-year-old female | MRN: SYN-311470\n[P004] --- Emergency Department Provider Note | 2026-01-20 19:15 EST | Author: emergency physician (M. Osei, MD)\n[P005] History: three days of fever, cough productive of rust-colored sputum, and right-sided pleuritic chest pain.\n[P006] Examination: temperature 39.1 C, heart rate 112, respiratory rate 24, SpO2 91% on room air; crackles at the right lung base.\n[P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.\n[P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.\n[P009] --- Progress Note | Hospital Day 2 | 2026-01-21 10:00 EST | Author: hospitalist (E. Johansson, MD)\n[P010] Improving; afebrile since 04:00. SpO2 95% on 2 L/min nasal cannula.\n[P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.\n[P012] Plan: continue ceftriaxone and azithromycin; follow up cultures and urine antigen.\n[P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)\n[P014] Clinically improving; tolerating diet; SpO2 96% on room air.\n[P015] Assessment: pneumococcal pneumonia, improving.\n[P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).\n\n=== lab_results.txt ===\n[L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\n[L003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470 | Report printed 2026-01-22 10:00 EST\n[L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)\n[L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected\n[L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected\n[L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours\n[L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory\n[L009] 2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\n[L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\n[L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\n[L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\n[L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\n=== radiology_report.txt ===\n[R001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[R002] Document: Radiology Report, chest X-ray PA and lateral | Exam time 2026-01-20 19:40 EST\n[R003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470\n[R004] Indication: fever, productive cough, hypoxemia.\n[R005] Findings: dense consolidation in the right lower lobe with air bronchograms. No pleural effusion. No pneumothorax.\n[R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.\n[R007] Electronically signed by radiologist (H. Kim, MD) 2026-01-20 20:02 EST."
+          }
+        ],
+        "system": "You audit an answer about a SYNTHETIC clinical record for what it leaves out.\n\nYou are given the question, the answer's extracted claims, and chart lines. List ONLY evidence in the chart that the answer fails to account for AND that would change or qualify its bottom line, for example:\n- another entry that contradicts a claim (two sources disagree and the answer picks one silently);\n- the record marks something as suspected, preliminary, pending or unconfirmed while the answer treats it as established;\n- a later or earlier entry that changes the timeline the answer relies on;\n- a documented negative finding or missing result the answer ignores.\n\nDo not list things the answer already mentions, hedges, or flags as uncertain. Do not list trivia. Do not give medical advice or judge treatment. If nothing material is omitted, return an empty list. Every line ID and quote must be copied exactly from the chart lines shown.",
+        "effort": "low",
+        "schema": "SweepResult"
+      },
+      "text": "{\"items\":[{\"description\":\"Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.\",\"kind\":\"status_caveat\",\"line_ids\":[\"L009\",\"L010\",\"L011\"],\"quotes\":[\"specimen rejected: more than 25 squamous epithelial cells per low-power field\",\"sputum recollection | not received by laboratory\",\"specimen not received by laboratory as of 2026-01-22 10:00\"],\"material\":false,\"related_claim_id\":\"c1\"},{\"description\":\"Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.\",\"kind\":\"other\",\"line_ids\":[\"L012\"],\"quotes\":[\"confirmed optochin-susceptible and bile-soluble\"],\"material\":false,\"related_claim_id\":\"c3\"},{\"description\":\"Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.\",\"kind\":\"negative_finding\",\"line_ids\":[\"L013\"],\"quotes\":[\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\"],\"material\":false,\"related_claim_id\":\"c1\"}]}",
+      "parsed": {
+        "items": [
+          {
+            "description": "Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.",
+            "kind": "status_caveat",
+            "line_ids": [
+              "L009",
+              "L010",
+              "L011"
+            ],
+            "quotes": [
+              "specimen rejected: more than 25 squamous epithelial cells per low-power field",
+              "sputum recollection | not received by laboratory",
+              "specimen not received by laboratory as of 2026-01-22 10:00"
+            ],
+            "material": false,
+            "related_claim_id": "c1"
+          },
+          {
+            "description": "Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.",
+            "kind": "other",
+            "line_ids": [
+              "L012"
+            ],
+            "quotes": [
+              "confirmed optochin-susceptible and bile-soluble"
+            ],
+            "material": false,
+            "related_claim_id": "c3"
+          },
+          {
+            "description": "Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.",
+            "kind": "negative_finding",
+            "line_ids": [
+              "L013"
+            ],
+            "quotes": [
+              "influenza A, influenza B, RSV and SARS-CoV-2: not detected"
+            ],
+            "material": false,
+            "related_claim_id": "c1"
+          }
+        ]
+      }
+    },
+    {
+      "label": "check:c5",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 4028,
+      "output_tokens": 191,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1305,
+      "cost_usd": 0.0004983,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c5 (absence, definitive):\nBlood culture set 2 showed no growth at 36 hours.\nLines the answer cited for it: L012\n\nCOMPLETE CHART:\n=== physician_notes.txt ===\n[P001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST\n[P003] Patient: SYNTH-ID-03 (synthetic) | 63-year-old female | MRN: SYN-311470\n[P004] --- Emergency Department Provider Note | 2026-01-20 19:15 EST | Author: emergency physician (M. Osei, MD)\n[P005] History: three days of fever, cough productive of rust-colored sputum, and right-sided pleuritic chest pain.\n[P006] Examination: temperature 39.1 C, heart rate 112, respiratory rate 24, SpO2 91% on room air; crackles at the right lung base.\n[P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.\n[P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.\n[P009] --- Progress Note | Hospital Day 2 | 2026-01-21 10:00 EST | Author: hospitalist (E. Johansson, MD)\n[P010] Improving; afebrile since 04:00. SpO2 95% on 2 L/min nasal cannula.\n[P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.\n[P012] Plan: continue ceftriaxone and azithromycin; follow up cultures and urine antigen.\n[P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)\n[P014] Clinically improving; tolerating diet; SpO2 96% on room air.\n[P015] Assessment: pneumococcal pneumonia, improving.\n[P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).\n\n=== lab_results.txt ===\n[L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\n[L003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470 | Report printed 2026-01-22 10:00 EST\n[L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)\n[L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected\n[L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected\n[L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours\n[L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory\n[L009] 2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\n[L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\n[L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\n[L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours\n[L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\n=== radiology_report.txt ===\n[R001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[R002] Document: Radiology Report, chest X-ray PA and lateral | Exam time 2026-01-20 19:40 EST\n[R003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470\n[R004] Indication: fever, productive cough, hypoxemia.\n[R005] Findings: dense consolidation in the right lower lobe with air bronchograms. No pleural effusion. No pneumothorax.\n[R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.\n[R007] Electronically signed by radiologist (H. Kim, MD) 2026-01-20 20:02 EST.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nStreptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was\nidentified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2\nshowed no growth at 36 hours [L012].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"set 2: no growth at 36 hours\",\"role\":\"supports\"}],\"reason\":\"Line L012 directly states that blood culture set 2 showed no growth at 36 hours, matching the claim.\",\"uncertainty\":\"The record gives no-growth at 36 hours as an interim result; a final culture result is not shown in the lines provided.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "L012",
+            "quote": "set 2: no growth at 36 hours",
+            "role": "supports"
+          }
+        ],
+        "reason": "Line L012 directly states that blood culture set 2 showed no growth at 36 hours, matching the claim.",
+        "uncertainty": "The record gives no-growth at 36 hours as an interim result; a final culture result is not shown in the lines provided.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": false,
+        "confidence": "high"
+      }
+    }
+  ]
+}

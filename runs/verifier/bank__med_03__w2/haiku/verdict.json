@@ -1,0 +1,259 @@
+{
+  "target_run_id": "bank__med_03__w2",
+  "verifier_variant": "haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "c1",
+      "claim_text": "No pathogen has been confirmed.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L013",
+          "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        }
+      ],
+      "why": "No culture, antigen, or PCR in the record is shown as positive; blood cultures show only no growth so far, the sputum specimen was rejected, and the urine antigen was never received. The claim that no pathogen is confirmed is therefore consistent with the lines, though the physician note's pneumococcal label is a clinical impression rather than a lab confirmation.",
+      "uncertainty": "Final blood culture report is pending, and the sputum recollection and urine antigen were not received, so a pathogen could still emerge.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check(full chart)"
+      ]
+    },
+    {
+      "claim_id": "c2",
+      "claim_text": "The final blood culture report was negative.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The cited line is a preliminary report at 36 hours with the final report pending, so the claim that a final negative report exists is not supported. The record shows no final blood culture result at all.",
+      "uncertainty": "The final 5-day blood culture report is not in the shown record; it may later be negative, but that is not documented here.",
+      "traps": [
+        "UNJUSTIFIED_CERTAINTY"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c3",
+      "claim_text": "The sputum specimen was rejected.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested",
+          "quote_verified": true
+        }
+      ],
+      "why": "Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated by the cited line.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c4",
+      "claim_text": "The viral panel was negative.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L013",
+          "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+          "quote_verified": true
+        }
+      ],
+      "why": "Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 all not detected, which matches the claim that the viral panel was negative. The claim is narrow and the line states it directly.",
+      "uncertainty": "The panel covers only the listed viruses; the claim is worded as a general negative result, and the answer's citation of L012 as a 'final' blood culture report is not part of this claim.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c5",
+      "claim_text": "Pneumococcal pneumonia is a clinical impression only.",
+      "status": "CONTRADICTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P015",
+          "quote": "Assessment: pneumococcal pneumonia, improving.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The cited note P015 states pneumococcal pneumonia as the assessment without marking it as provisional, so the claim that it is only a clinical impression is not what P015 says. The earlier impression at P007 and the later P011 phrasing ('likely Streptococcus pneumoniae') are hedged, but P015 itself is stated as a diagnosis.",
+      "uncertainty": "Whether the physician intended the diagnosis as clinical rather than microbiologically confirmed is not stated in the lines shown; the answer's own cited lines do not confirm a pathogen.",
+      "traps": [
+        "UNJUSTIFIED_CERTAINTY"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    }
+  ],
+  "total_model_calls": 8,
+  "input_tokens": 24378,
+  "output_tokens": 2900,
+  "estimated_cost_usd": 0.0038878,
+  "latency_ms": 5723,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03__w2/haiku/raw.json",
+  "case_id": "med_03",
+  "traps_found": [
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "Error detected.\n- Claim \"The final blood culture report was negative.\" is CONTRADICTED [UNJUSTIFIED_CERTAINTY]: The cited line is a preliminary report at 36 hours with the final report pending, so the claim that a final negative report exists is not supported. The record shows no final blood culture result at all.\n  Evidence: lab_results.txt [L012] \"2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)\"\n  Still unknown: The final 5-day blood culture report is not in the shown record; it may later be negative, but that is not documented here.\n- Note (status_caveat): Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result\n- Note (status_caveat): Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection\n- Note (negative_finding): Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention",
+  "needs_review_reasons": [],
+  "omissions": [
+    {
+      "description": "Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result",
+      "kind": "status_caveat",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c2"
+    },
+    {
+      "description": "Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection",
+      "kind": "status_caveat",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L010",
+          "quote": "2026-01-22 10:00 | sputum recollection | not received by laboratory",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c3"
+    },
+    {
+      "description": "Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention",
+      "kind": "negative_finding",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c5"
+    },
+    {
+      "description": "Viral panel was reported negative for the listed viruses only; answer says panel negative without noting its limited scope",
+      "kind": "status_caveat",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L013",
+          "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c4"
+    },
+    {
+      "description": "Physician notes repeatedly describe the pneumonia as likely or suggestive of pneumococcal infection, and the 2026-01-22 note states pneumococcal pneumonia as an assessment; the answer's framing as clinical impression is consistent but the chart's sustained clinical labeling is not acknowledged",
+      "kind": "uncertainty",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P007",
+          "quote": "Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P011",
+          "quote": "Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P015",
+          "quote": "Assessment: pneumococcal pneumonia, improving.",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c5"
+    }
+  ],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [
+    "claude-haiku-5-5"
+  ],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

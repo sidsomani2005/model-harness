@@ -1,0 +1,181 @@
+{
+  "target_run_id": "bank__med_01__w2",
+  "verifier_variant": "haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "c1",
+      "claim_text": "Spironolactone cannot explain the initial onset of elevated potassium.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose) | S. Alvarez, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The first spironolactone dose (2026-03-03 10:20) came after the initial elevated potassium was already documented on 2026-03-02, so spironolactone cannot explain the onset. However, a later note (P024) attributes the hyperkalemia to spironolactone, which conflicts with this timeline and is not acknowledged in the claim.",
+      "uncertainty": "The record does not establish the cause of the hyperkalemia; the 03-04 note's attribution to spironolactone conflicts with the dosing timeline, and the 03-02 note lists etiology as not yet clear.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "chronology"
+      ]
+    },
+    {
+      "claim_id": "c2",
+      "claim_text": "The first elevated potassium (5.7 mmol/L) was collected on 2026-03-02 at 05:45.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H) | creatinine 1.8 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        }
+      ],
+      "why": "Line L006 records potassium 5.7 mmol/L (H) at 2026-03-02 05:45, and the prior draw L005 at 2026-03-01 14:20 shows 4.6 mmol/L, so this is the first elevated value in the shown record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c3",
+      "claim_text": "Spironolactone was first given on 2026-03-03 at 10:20.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose) | S. Alvarez, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR line M013 directly records the first spironolactone dose at 2026-03-03 10:20, matching the claim exactly.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c4",
+      "claim_text": "The initial hyperkalemia was caused by lisinopril in the setting of acute kidney injury.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M006",
+          "quote": "2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The cited physician note (P016) says the etiology of the hyperkalemia is not yet clear and lists ACE inhibitor effect only as one item in a differential. The MAR (M006) shows lisinopril was given on 2026-03-01 at 21:00, before the first elevated potassium, so the timing is compatible with a cause but does not establish it.",
+      "uncertainty": "The record does not confirm lisinopril as the cause; the differential includes reduced renal potassium clearance, and a later note (P024) attributes hyperkalemia to spironolactone, which the claim does not address. Cause (2026-03-01T21:00) precedes effect (2026-03-02T09:30) (date inherited from note header): temporally possible, but timing alone does not prove causation.",
+      "traps": [
+        "UNJUSTIFIED_CERTAINTY"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "chronology",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c5",
+      "claim_text": "Lisinopril was held.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M010",
+          "quote": "2026-03-02 21:00 | lisinopril | 10 mg PO | held (order: hold for hyperkalemia) | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR line M010 records lisinopril 10 mg PO at 2026-03-02 21:00 as held, so the claim that lisinopril was held is directly stated by the cited line.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    }
+  ],
+  "total_model_calls": 11,
+  "input_tokens": 32312,
+  "output_tokens": 4332,
+  "estimated_cost_usd": 0.0053972,
+  "latency_ms": 17196,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__w2/haiku/raw.json",
+  "case_id": "med_01",
+  "traps_found": [
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "Error detected.\n- Claim \"The initial hyperkalemia was caused by lisinopril in the setting of acute kidney injury.\" is NOT_ESTABLISHED [UNJUSTIFIED_CERTAINTY]: The cited physician note (P016) says the etiology of the hyperkalemia is not yet clear and lists ACE inhibitor effect only as one item in a differential. The MAR (M006) shows lisinopril was given on 2026-03-01 at 21:00, before the first elevated potassium, so the timing is compatible with a cause but does not establish it.\n  Evidence: physician_notes.txt [P016] \"Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).\"; medication_administration_record.txt [M006] \"2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN\"\n  Still unknown: The record does not confirm lisinopril as the cause; the differential includes reduced renal potassium clearance, and a later note (P024) attributes hyperkalemia to spironolactone, which the claim does not address. Cause (2026-03-01T21:00) precedes effect (2026-03-02T09:30) (date inherited from note header): temporally possible, but timing alone does not prove causation.\n- Note (uncertainty): The 03-02 progress note says the etiology of the new hyperkalemia is not yet clear, with the differential including reduced renal potassium clearance as well as ACE inhibitor effect. The answer states definitively that lisinopril caused the initial hyperkalemia and does not mention this uncertainty.\n- Note (contradiction): A later note attributes the 2026-03-04 hyperkalemia to spironolactone, a conflicting attribution the answer does not address when it rules spironolactone out as an explanation.",
+  "needs_review_reasons": [],
+  "omissions": [
+    {
+      "description": "The 03-02 progress note says the etiology of the new hyperkalemia is not yet clear, with the differential including reduced renal potassium clearance as well as ACE inhibitor effect. The answer states definitively that lisinopril caused the initial hyperkalemia and does not mention this uncertainty.",
+      "kind": "uncertainty",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c4"
+    },
+    {
+      "description": "A later note attributes the 2026-03-04 hyperkalemia to spironolactone, a conflicting attribution the answer does not address when it rules spironolactone out as an explanation.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "Assessment: hyperkalemia, likely secondary to spironolactone.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "rejected",
+      "related_claim_id": "c1"
+    }
+  ],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [
+    "claude-haiku-5-5"
+  ],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

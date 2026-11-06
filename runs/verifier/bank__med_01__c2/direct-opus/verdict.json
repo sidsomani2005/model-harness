@@ -1,0 +1,127 @@
+{
+  "target_run_id": "bank__med_01__c2",
+  "verifier_variant": "direct-opus",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "First elevated potassium: 5.7 mmol/L collected 2026-03-02 05:45; admission value 4.6",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L005",
+          "quote": "2026-03-01 14:20 | potassium 4.6 mmol/L",
+          "quote_verified": true
+        }
+      ],
+      "why": "The lab report shows a normal admission potassium followed by the first high value at 05:45 on 3/2.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "First spironolactone dose 2026-03-03 10:20; not a pre-admission medication",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Not taking a mineralocorticoid receptor antagonist (spironolactone or eplerenone) before admission.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR and the admission H&P confirm spironolactone was first given after the initial hyperkalemia.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Elevation precedes the drug by about 28.5 hours",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20",
+          "quote_verified": true
+        }
+      ],
+      "why": "From 05:45 on 3/2 to 10:20 on 3/3 is 28 hours 35 minutes, so about 28.5 hours is correct.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "Cause of the initial elevation is not established; spironolactone contribution to the 3/4 value is not established",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "etiology not yet clear",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "hyperkalemia, likely secondary to spironolactone",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record leaves the initial etiology unclear, and the 3/4 attribution is stated only as 'likely', so calling it not established is accurate.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 4470,
+  "output_tokens": 910,
+  "estimated_cost_usd": 0.03608,
+  "latency_ms": 8426,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__c2/direct-opus/raw.json",
+  "case_id": "med_01",
+  "traps_found": [],
+  "explanation": "The answer's timeline matches the record: the potassium rise came before any spironolactone exposure, and the stated uncertainties are accurately framed.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

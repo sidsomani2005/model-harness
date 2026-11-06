@@ -1,0 +1,92 @@
+{
+  "target_run_id": "bank__med_01_twin__w1",
+  "verifier_variant": "direct-haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Spironolactone was first given on 2026-03-03 at 10:20, after the onset, so it cannot explain the initial potassium elevation.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Spironolactone 12.5 mg PO daily was started by outpatient cardiology on 2026-02-19 and taken daily since",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (resumed home medication)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR shows only the first inpatient dose, but the record states spironolactone was started on 2026-02-19 and taken daily before admission, so exposure preceded the 2026-03-02 onset.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "A drug started after the onset cannot explain it, so the answer to whether spironolactone can explain the onset is 'No.'",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "differential includes reduced renal potassium clearance, ACE inhibitor effect and recent spironolactone use",
+          "quote_verified": true
+        }
+      ],
+      "why": "The physician differential explicitly keeps recent spironolactone use open as a contributor, and the record does not establish that it is excluded, so a definitive 'No' is unjustified.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The first elevated potassium was 5.7 mmol/L on 2026-03-02 at 05:45.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The lab report confirms 5.7 mmol/L at that time and the prior value of 4.6 mmol/L on 2026-03-01 was within reference range.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 4437,
+  "output_tokens": 1691,
+  "estimated_cost_usd": 0.0012892000000000001,
+  "latency_ms": 7093,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01_twin__w1/direct-haiku/raw.json",
+  "case_id": "med_01_twin",
+  "traps_found": [
+    "TEMPORAL_CAUSALITY",
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "The answer correctly identifies the first elevated potassium but treats the first inpatient spironolactone dose as the start of exposure. The record documents home spironolactone since 2026-02-19 and lists it as a possible contributor, so the definitive 'No' and the claim that the drug cannot explain the onset are unsupported. The answer also fails to state the known and unknown elements the question requested.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

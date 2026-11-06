@@ -1,0 +1,124 @@
+{
+  "target_run_id": "bank__med_01__w2",
+  "verifier_variant": "direct-haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Spironolactone cannot explain the initial onset of elevated potassium because the first elevated potassium (5.7 mmol/L) was collected 2026-03-02 05:45, before spironolactone was first given 2026-03-03 10:20.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The timeline confirms the first high potassium predates the first spironolactone dose, so spironolactone cannot be the cause of the initial elevation.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The initial hyperkalemia was caused by lisinopril in the setting of acute kidney injury.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M006",
+          "quote": "2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The physician note explicitly states the etiology was not yet clear with ACE inhibitor effect only one item in a differential, so a definitive causal attribution to lisinopril is unsupported.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Lisinopril was held because it was the cause of the initial hyperkalemia.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M010",
+          "quote": "held (order: hold for hyperkalemia)",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P017",
+          "quote": "hold lisinopril",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record documents the hold for hyperkalemia but does not state that lisinopril was judged the cause; the answer adds that causal reasoning.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The answer omits that the record does not establish the initial cause and lists the unknowns, and the 2026-03-04 note attributes hyperkalemia to spironolactone.",
+      "status": "CONFLICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "Assessment: hyperkalemia, likely secondary to spironolactone.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The covering physician attributed later hyperkalemia to spironolactone, and the answer neither mentions this conflicting attribution nor the unknown etiology of the initial rise, making it misleading.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 4407,
+  "output_tokens": 1137,
+  "estimated_cost_usd": 0.0010092,
+  "latency_ms": 4869,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__w2/direct-haiku/raw.json",
+  "case_id": "med_01",
+  "traps_found": [
+    "UNJUSTIFIED_CERTAINTY",
+    "TEMPORAL_CAUSALITY"
+  ],
+  "explanation": "The timeline argument that spironolactone cannot explain the first elevated potassium is correct, but the answer then asserts as fact that lisinopril caused the initial hyperkalemia, although the physician note lists it only as a differential item with etiology unclear. It also omits that the record leaves the initial cause unknown and that a later note attributes hyperkalemia to spironolactone.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

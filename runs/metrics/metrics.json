@@ -1,0 +1,918 @@
+{
+  "variants": [
+    "direct-haiku",
+    "direct-opus",
+    "haiku"
+  ],
+  "tables": {
+    "target": {
+      "n_items": 6,
+      "description": "real target first answers (human-labeled)",
+      "variants": {
+        "direct-haiku": {
+          "variant": "direct-haiku",
+          "n_scored": 0,
+          "n_case_clusters": 3,
+          "error_recall": {
+            "k": 0,
+            "n": 0,
+            "rate": null,
+            "counts": {}
+          },
+          "false_alarm_rate": {
+            "k": 0,
+            "n": 0,
+            "rate": null,
+            "counts": {}
+          },
+          "abstention": {
+            "ambiguous_insufficient": {
+              "k": 0,
+              "n": 0,
+              "rate": null
+            },
+            "false_abstentions_on_correct": 0,
+            "insufficient_on_wrong": 0
+          },
+          "trap_attribution": {
+            "checked": 0,
+            "matched": 0,
+            "no_trap_reported": 0,
+            "rate": null,
+            "note": "automatic match on traps_found; confirm by teammate review"
+          },
+          "evidence_validity": {
+            "citations": 0,
+            "valid": 0,
+            "rate": null,
+            "invalid_examples": [],
+            "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
+          },
+          "cost_usd": {
+            "mean": null,
+            "median": null,
+            "n": 0
+          },
+          "latency_ms": {
+            "median": null,
+            "p90": null,
+            "n": 0
+          },
+          "missing_verdicts": 0,
+          "unlabeled": 6,
+          "target_refusals": 0,
+          "stub_verdicts": 0,
+          "per_case": {}
+        },
+        "direct-opus": {
+          "variant": "direct-opus",
+          "n_scored": 0,
+          "n_case_clusters": 3,
+          "error_recall": {
+            "k": 0,
+            "n": 0,
+            "rate": null,
+            "counts": {}
+          },
+          "false_alarm_rate": {
+            "k": 0,
+            "n": 0,
+            "rate": null,
+            "counts": {}
+          },
+          "abstention": {
+            "ambiguous_insufficient": {
+              "k": 0,
+              "n": 0,
+              "rate": null
+            },
+            "false_abstentions_on_correct": 0,
+            "insufficient_on_wrong": 0
+          },
+          "trap_attribution": {
+            "checked": 0,
+            "matched": 0,
+            "no_trap_reported": 0,
+            "rate": null,
+            "note": "automatic match on traps_found; confirm by teammate review"
+          },
+          "evidence_validity": {
+            "citations": 0,
+            "valid": 0,
+            "rate": null,
+            "invalid_examples": [],
+            "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
+          },
+          "cost_usd": {
+            "mean": null,
+            "median": null,
+            "n": 0
+          },
+          "latency_ms": {
+            "median": null,
+            "p90": null,
+            "n": 0
+          },
+          "missing_verdicts": 0,
+          "unlabeled": 6,
+          "target_refusals": 0,
+          "stub_verdicts": 0,
+          "per_case": {}
+        },
+        "haiku": {
+          "variant": "haiku",
+          "n_scored": 0,
+          "n_case_clusters": 3,
+          "error_recall": {
+            "k": 0,
+            "n": 0,
+            "rate": null,
+            "counts": {}
+          },
+          "false_alarm_rate": {
+            "k": 0,
+            "n": 0,
+            "rate": null,
+            "counts": {}
+          },
+          "abstention": {
+            "ambiguous_insufficient": {
+              "k": 0,
+              "n": 0,
+              "rate": null
+            },
+            "false_abstentions_on_correct": 0,
+            "insufficient_on_wrong": 0
+          },
+          "trap_attribution": {
+            "checked": 0,
+            "matched": 0,
+            "no_trap_reported": 0,
+            "rate": null,
+            "note": "automatic match on traps_found; confirm by teammate review"
+          },
+          "evidence_validity": {
+            "citations": 0,
+            "valid": 0,
+            "rate": null,
+            "invalid_examples": [],
+            "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
+          },
+          "cost_usd": {
+            "mean": null,
+            "median": null,
+            "n": 0
+          },
+          "latency_ms": {
+            "median": null,
+            "p90": null,
+            "n": 0
+          },
+          "missing_verdicts": 0,
+          "unlabeled": 6,
+          "target_refusals": 0,
+          "stub_verdicts": 0,
+          "per_case": {}
+        }
+      }
+    },
+    "bank": {
+      "n_items": 19,
+      "description": "constructed answer bank (team-written, independently labeled)",
+      "variants": {
+        "direct-haiku": {
+          "variant": "direct-haiku",
+          "n_scored": 19,
+          "n_case_clusters": 3,
+          "error_recall": {
+            "k": 9,
+            "n": 10,
+            "rate": 0.9,
+            "counts": {
+              "ERROR_DETECTED": 9,
+              "NO_ISSUE_FOUND": 1
+            }
+          },
+          "false_alarm_rate": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "counts": {
+              "NO_ISSUE_FOUND": 9
+            }
+          },
+          "abstention": {
+            "ambiguous_insufficient": {
+              "k": 0,
+              "n": 0,
+              "rate": null
+            },
+            "false_abstentions_on_correct": 0,
+            "insufficient_on_wrong": 0
+          },
+          "trap_attribution": {
+            "checked": 9,
+            "matched": 7,
+            "no_trap_reported": 1,
+            "rate": 0.7778,
+            "note": "automatic match on traps_found; confirm by teammate review"
+          },
+          "evidence_validity": {
+            "citations": 111,
+            "valid": 111,
+            "rate": 1.0,
+            "invalid_examples": [],
+            "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
+          },
+          "cost_usd": {
+            "mean": 0.0010138894736842106,
+            "median": 0.0010354000000000001,
+            "n": 19
+          },
+          "latency_ms": {
+            "median": 5702,
+            "p90": 7970,
+            "n": 19
+          },
+          "missing_verdicts": 0,
+          "unlabeled": 0,
+          "target_refusals": 0,
+          "stub_verdicts": 0,
+          "per_case": {
+            "med_01": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_01_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_02": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_02_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1
+              }
+            },
+            "med_03": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1,
+                "NO_ISSUE_FOUND": 1
+              }
+            },
+            "med_03_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1
+              }
+            }
+          }
+        },
+        "direct-opus": {
+          "variant": "direct-opus",
+          "n_scored": 19,
+          "n_case_clusters": 3,
+          "error_recall": {
+            "k": 10,
+            "n": 10,
+            "rate": 1.0,
+            "counts": {
+              "ERROR_DETECTED": 10
+            }
+          },
+          "false_alarm_rate": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "counts": {
+              "NO_ISSUE_FOUND": 9
+            }
+          },
+          "abstention": {
+            "ambiguous_insufficient": {
+              "k": 0,
+              "n": 0,
+              "rate": null
+            },
+            "false_abstentions_on_correct": 0,
+            "insufficient_on_wrong": 0
+          },
+          "trap_attribution": {
+            "checked": 10,
+            "matched": 9,
+            "no_trap_reported": 0,
+            "rate": 0.9,
+            "note": "automatic match on traps_found; confirm by teammate review"
+          },
+          "evidence_validity": {
+            "citations": 114,
+            "valid": 114,
+            "rate": 1.0,
+            "invalid_examples": [],
+            "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
+          },
+          "cost_usd": {
+            "mean": 0.031990315789473686,
+            "median": 0.03322,
+            "n": 19
+          },
+          "latency_ms": {
+            "median": 8226,
+            "p90": 9746,
+            "n": 19
+          },
+          "missing_verdicts": 0,
+          "unlabeled": 0,
+          "target_refusals": 0,
+          "stub_verdicts": 0,
+          "per_case": {
+            "med_01": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_01_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_02": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_02_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1
+              }
+            },
+            "med_03": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_03_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1
+              }
+            }
+          }
+        },
+        "haiku": {
+          "variant": "haiku",
+          "n_scored": 19,
+          "n_case_clusters": 3,
+          "error_recall": {
+            "k": 10,
+            "n": 10,
+            "rate": 1.0,
+            "counts": {
+              "ERROR_DETECTED": 10
+            }
+          },
+          "false_alarm_rate": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "counts": {
+              "NO_ISSUE_FOUND": 9
+            }
+          },
+          "abstention": {
+            "ambiguous_insufficient": {
+              "k": 0,
+              "n": 0,
+              "rate": null
+            },
+            "false_abstentions_on_correct": 0,
+            "insufficient_on_wrong": 0
+          },
+          "trap_attribution": {
+            "checked": 10,
+            "matched": 8,
+            "no_trap_reported": 0,
+            "rate": 0.8,
+            "note": "automatic match on traps_found; confirm by teammate review"
+          },
+          "evidence_validity": {
+            "citations": 191,
+            "valid": 191,
+            "rate": 1.0,
+            "invalid_examples": [],
+            "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
+          },
+          "cost_usd": {
+            "mean": 0.0054531894736842106,
+            "median": 0.0055436,
+            "n": 19
+          },
+          "latency_ms": {
+            "median": 11188,
+            "p90": 20935,
+            "n": 19
+          },
+          "missing_verdicts": 0,
+          "unlabeled": 0,
+          "target_refusals": 0,
+          "stub_verdicts": 0,
+          "per_case": {
+            "med_01": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_01_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_02": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_02_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1
+              }
+            },
+            "med_03": {
+              "correct": {
+                "NO_ISSUE_FOUND": 2
+              },
+              "wrong": {
+                "ERROR_DETECTED": 2
+              }
+            },
+            "med_03_twin": {
+              "correct": {
+                "NO_ISSUE_FOUND": 1
+              },
+              "wrong": {
+                "ERROR_DETECTED": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "target_runs": [
+    {
+      "run_id": "20261106T192200Z_med_01_sonnet_first",
+      "case_id": "med_01",
+      "is_twin": false,
+      "label": null,
+      "trap": null,
+      "model": "claude-sonnet-5-5",
+      "timestamp_utc": "2026-11-06T19:22:00Z",
+      "stop_reason": "end_turn",
+      "labeled_by": null,
+      "label_notes": null
+    },
+    {
+      "run_id": "20261106T192208Z_med_01_twin_sonnet_first",
+      "case_id": "med_01_twin",
+      "is_twin": true,
+      "label": null,
+      "trap": null,
+      "model": "claude-sonnet-5-5",
+      "timestamp_utc": "2026-11-06T19:22:08Z",
+      "stop_reason": "end_turn",
+      "labeled_by": null,
+      "label_notes": null
+    },
+    {
+      "run_id": "20261106T192224Z_med_02_sonnet_first",
+      "case_id": "med_02",
+      "is_twin": false,
+      "label": null,
+      "trap": null,
+      "model": "claude-sonnet-5-5",
+      "timestamp_utc": "2026-11-06T19:22:24Z",
+      "stop_reason": "end_turn",
+      "labeled_by": null,
+      "label_notes": null
+    },
+    {
+      "run_id": "20261106T192230Z_med_02_twin_sonnet_first",
+      "case_id": "med_02_twin",
+      "is_twin": true,
+      "label": null,
+      "trap": null,
+      "model": "claude-sonnet-5-5",
+      "timestamp_utc": "2026-11-06T19:22:30Z",
+      "stop_reason": "end_turn",
+      "labeled_by": null,
+      "label_notes": null
+    },
+    {
+      "run_id": "20261106T192237Z_med_03_sonnet_first",
+      "case_id": "med_03",
+      "is_twin": false,
+      "label": null,
+      "trap": null,
+      "model": "claude-sonnet-5-5",
+      "timestamp_utc": "2026-11-06T19:22:37Z",
+      "stop_reason": "end_turn",
+      "labeled_by": null,
+      "label_notes": null
+    },
+    {
+      "run_id": "20261106T192243Z_med_03_twin_sonnet_first",
+      "case_id": "med_03_twin",
+      "is_twin": true,
+      "label": null,
+      "trap": null,
+      "model": "claude-sonnet-5-5",
+      "timestamp_utc": "2026-11-06T19:22:43Z",
+      "stop_reason": "end_turn",
+      "labeled_by": null,
+      "label_notes": null
+    }
+  ],
+  "items": [
+    {
+      "item_id": "bank__med_01__c1",
+      "source": "bank",
+      "case_id": "med_01",
+      "is_twin": false,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_01__c2",
+      "source": "bank",
+      "case_id": "med_01",
+      "is_twin": false,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_01__w1",
+      "source": "bank",
+      "case_id": "med_01",
+      "is_twin": false,
+      "label": "wrong",
+      "trap": "TEMPORAL_CAUSALITY",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_01__w2",
+      "source": "bank",
+      "case_id": "med_01",
+      "is_twin": false,
+      "label": "wrong",
+      "trap": "UNJUSTIFIED_CERTAINTY",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_01_twin__c1",
+      "source": "bank",
+      "case_id": "med_01_twin",
+      "is_twin": true,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_01_twin__w1",
+      "source": "bank",
+      "case_id": "med_01_twin",
+      "is_twin": true,
+      "label": "wrong",
+      "trap": "TEMPORAL_CAUSALITY",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_01_twin__w2",
+      "source": "bank",
+      "case_id": "med_01_twin",
+      "is_twin": true,
+      "label": "wrong",
+      "trap": "UNJUSTIFIED_CERTAINTY",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_02__c1",
+      "source": "bank",
+      "case_id": "med_02",
+      "is_twin": false,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_02__c2",
+      "source": "bank",
+      "case_id": "med_02",
+      "is_twin": false,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_02__w1",
+      "source": "bank",
+      "case_id": "med_02",
+      "is_twin": false,
+      "label": "wrong",
+      "trap": "SILENT_CONTRADICTION",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_02__w2",
+      "source": "bank",
+      "case_id": "med_02",
+      "is_twin": false,
+      "label": "wrong",
+      "trap": "SILENT_CONTRADICTION",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_02_twin__c1",
+      "source": "bank",
+      "case_id": "med_02_twin",
+      "is_twin": true,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_02_twin__w1",
+      "source": "bank",
+      "case_id": "med_02_twin",
+      "is_twin": true,
+      "label": "wrong",
+      "trap": "SUMMARY_HALLUCINATION",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_03__c1",
+      "source": "bank",
+      "case_id": "med_03",
+      "is_twin": false,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_03__c2",
+      "source": "bank",
+      "case_id": "med_03",
+      "is_twin": false,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_03__w1",
+      "source": "bank",
+      "case_id": "med_03",
+      "is_twin": false,
+      "label": "wrong",
+      "trap": "UNJUSTIFIED_CERTAINTY",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_03__w2",
+      "source": "bank",
+      "case_id": "med_03",
+      "is_twin": false,
+      "label": "wrong",
+      "trap": "UNJUSTIFIED_CERTAINTY",
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "bank__med_03_twin__c1",
+      "source": "bank",
+      "case_id": "med_03_twin",
+      "is_twin": true,
+      "label": "correct",
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "bank__med_03_twin__w1",
+      "source": "bank",
+      "case_id": "med_03_twin",
+      "is_twin": true,
+      "label": "wrong",
+      "trap": "SUMMARY_HALLUCINATION",
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "ERROR_DETECTED"
+      }
+    },
+    {
+      "item_id": "20261106T192200Z_med_01_sonnet_first",
+      "source": "target",
+      "case_id": "med_01",
+      "is_twin": false,
+      "label": null,
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "20261106T192208Z_med_01_twin_sonnet_first",
+      "source": "target",
+      "case_id": "med_01_twin",
+      "is_twin": true,
+      "label": null,
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "ERROR_DETECTED",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "20261106T192224Z_med_02_sonnet_first",
+      "source": "target",
+      "case_id": "med_02",
+      "is_twin": false,
+      "label": null,
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "20261106T192230Z_med_02_twin_sonnet_first",
+      "source": "target",
+      "case_id": "med_02_twin",
+      "is_twin": true,
+      "label": null,
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "NO_ISSUE_FOUND"
+      }
+    },
+    {
+      "item_id": "20261106T192237Z_med_03_sonnet_first",
+      "source": "target",
+      "case_id": "med_03",
+      "is_twin": false,
+      "label": null,
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "NO_ISSUE_FOUND",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "INSUFFICIENT_TO_VERIFY"
+      }
+    },
+    {
+      "item_id": "20261106T192243Z_med_03_twin_sonnet_first",
+      "source": "target",
+      "case_id": "med_03_twin",
+      "is_twin": true,
+      "label": null,
+      "trap": null,
+      "verdicts": {
+        "direct-haiku": "ERROR_DETECTED",
+        "direct-opus": "NO_ISSUE_FOUND",
+        "haiku": "ERROR_DETECTED"
+      }
+    }
+  ],
+  "notes": [
+    "Small-N, preliminary. Items are clustered by case; variants of one case are not independent scenarios.",
+    "Rates exclude unlabeled target answers, refusals and missing verdicts; those are counted separately.",
+    "INSUFFICIENT_TO_VERIFY is never counted as a detection."
+  ]
+}

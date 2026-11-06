@@ -1,0 +1,103 @@
+{
+  "target_run_id": "bank__med_02__w2",
+  "verifier_variant": "direct-opus",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The patient has a severe penicillin allergy: anaphylaxis after amoxicillin in May 2019 that required intramuscular epinephrine.",
+      "status": "CONFLICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine",
+          "quote_verified": true
+        },
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list and clinic note support the allergy, but the most recent ED triage note records NKDA, and the answer presents the allergy without mentioning this conflict.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "No allergy testing has been performed.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "no allergy testing or supervised challenge has been performed",
+          "quote_verified": true
+        }
+      ],
+      "why": "The clinic note states this directly as of 2024-08-12.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "No other drug allergies are documented.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A007",
+          "quote": "No other allergies or intolerances are recorded.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list explicitly states that no other entries are recorded.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2887,
+  "output_tokens": 1003,
+  "estimated_cost_usd": 0.031608,
+  "latency_ms": 9166,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__w2/direct-opus/raw.json",
+  "case_id": "med_02",
+  "traps_found": [
+    "SILENT_CONTRADICTION"
+  ],
+  "explanation": "The facts about the penicillin anaphylaxis are well supported by the allergy list and the 2024 clinic note. However, the current ED triage note (2026-02-14) records 'NKDA', which directly contradicts them. The answer summarizes the chart's allergy information without disclosing this documentation discrepancy, and the discrepancy is clinically consequential in an active ED encounter. Omitting it makes the summary misleading.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

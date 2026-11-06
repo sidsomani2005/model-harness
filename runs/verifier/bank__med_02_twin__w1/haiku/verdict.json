@@ -1,0 +1,183 @@
+{
+  "target_run_id": "bank__med_02_twin__w1",
+  "verifier_variant": "haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "c1",
+      "claim_text": "A severe penicillin allergy is documented.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records penicillins as a severe allergy (A004), with anaphylaxis reaction and emergency epinephrine treatment (A005), so the claim that a severe penicillin allergy is documented is directly stated.",
+      "uncertainty": "The answer also cites an 'NKDA' entry in the triage note, which does not appear in the shown lines; the triage note N006 actually lists penicillins with anaphylaxis, so no conflict is visible in the shown lines for this claim.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c2",
+      "claim_text": "The 2026-02-14 triage note lists \"NKDA\".",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The cited triage note line N006 documents a penicillin and amoxicillin allergy with anaphylaxis, not NKDA. The claim that the triage note lists NKDA is therefore contradicted by the line the answer itself cites.",
+      "uncertainty": "",
+      "traps": [
+        "SUMMARY_HALLUCINATION"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c3",
+      "claim_text": "The documentation conflicts regarding the patient's drug allergies.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C008",
+          "quote": "Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A007",
+          "quote": "No other allergies or intolerances are recorded.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list, the clinic note, and the ED triage note all record the same penicillin allergy with anaphylaxis, and the triage note was verified against the allergy list. The triage note does not say NKDA, so the conflict the answer reports does not appear in the record.",
+      "uncertainty": "The answer's claim that the triage note lists NKDA is not found in the shown lines; the record shown contains no conflicting allergy documentation.",
+      "traps": [
+        "SUMMARY_HALLUCINATION"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check(full chart)",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c4",
+      "claim_text": "The record does not resolve the conflict in the documentation.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        }
+      ],
+      "why": "The claim says the record does not resolve the documentation conflict, but the answer's own premise is that the sources disagree (the answer quotes 'NKDA', which does not appear in the cited lines), and the record shows a consistent penicillin anaphylaxis entry in the allergy list, clinic note, and triage note with no NKDA line shown. The claim's claimed unresolved conflict is not supported by the shown lines.",
+      "uncertainty": "The answer cites an 'NKDA' entry that does not appear in any shown line, so I cannot verify it; the chart shown may be incomplete.",
+      "traps": [
+        "SUMMARY_HALLUCINATION"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check(full chart)",
+        "confirmation"
+      ]
+    }
+  ],
+  "total_model_calls": 10,
+  "input_tokens": 28444,
+  "output_tokens": 4662,
+  "estimated_cost_usd": 0.0051754,
+  "latency_ms": 11425,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02_twin__w1/haiku/raw.json",
+  "case_id": "med_02_twin",
+  "traps_found": [
+    "SUMMARY_HALLUCINATION"
+  ],
+  "explanation": "Error detected.\n- Claim \"The 2026-02-14 triage note lists \"NKDA\".\" is CONTRADICTED [SUMMARY_HALLUCINATION]: The cited triage note line N006 documents a penicillin and amoxicillin allergy with anaphylaxis, not NKDA. The claim that the triage note lists NKDA is therefore contradicted by the line the answer itself cites.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\"\n- Claim \"The documentation conflicts regarding the patient's drug allergies.\" is CONTRADICTED [SUMMARY_HALLUCINATION]: The allergy list, the clinic note, and the ED triage note all record the same penicillin allergy with anaphylaxis, and the triage note was verified against the allergy list. The triage note does not say NKDA, so the conflict the answer reports does not appear in the record.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\"; allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"; clinic_note_2024.txt [C008] \"Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\"\n  Still unknown: The answer's claim that the triage note lists NKDA is not found in the shown lines; the record shown contains no conflicting allergy documentation.\n- Claim \"The record does not resolve the conflict in the documentation.\" is CONTRADICTED [SUMMARY_HALLUCINATION]: The claim says the record does not resolve the documentation conflict, but the answer's own premise is that the sources disagree (the answer quotes 'NKDA', which does not appear in the cited lines), and the record shows a consistent penicillin anaphylaxis entry in the allergy list, clinic note, and triage note with no NKDA line shown. The claim's claimed unresolved conflict is not supported by the shown lines.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\"; allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"\n  Still unknown: The answer cites an 'NKDA' entry that does not appear in any shown line, so I cannot verify it; the chart shown may be incomplete.\n- Note (contradiction): The answer claims the triage note lists NKDA, but the triage note documents penicillin anaphylaxis, verified against the allergy list. No chart line contains NKDA. The documents agree on penicillin anaphylaxis, so the claimed conflict is not supported by the chart.",
+  "needs_review_reasons": [],
+  "omissions": [
+    {
+      "description": "The answer claims the triage note lists NKDA, but the triage note documents penicillin anaphylaxis, verified against the allergy list. No chart line contains NKDA. The documents agree on penicillin anaphylaxis, so the claimed conflict is not supported by the chart.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "rejected",
+      "related_claim_id": "c2"
+    }
+  ],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [
+    "claude-haiku-5-5"
+  ],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

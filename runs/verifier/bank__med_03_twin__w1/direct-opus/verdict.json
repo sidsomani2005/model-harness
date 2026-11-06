@@ -1,0 +1,132 @@
+{
+  "target_run_id": "bank__med_03_twin__w1",
+  "verifier_variant": "direct-opus",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "No specific pathogen is confirmed.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+          "quote_verified": true
+        }
+      ],
+      "why": "Blood culture set 1 grew Streptococcus pneumoniae, identified by MALDI-TOF and confirmed by optochin susceptibility and bile solubility, so a specific pathogen is confirmed.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Blood cultures show no growth at 36 hours with the final report pending [L012]",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 1: growth detected at 22 hours",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 2: no growth at 36 hours",
+          "quote_verified": true
+        }
+      ],
+      "why": "Only set 2 had no growth at 36 hours; set 1 grew S. pneumoniae, and only susceptibility testing is pending, so the answer misattributes set 2's result to both sets.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The sputum specimen was rejected [L009]",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "specimen rejected: more than 25 squamous epithelial cells per low-power field",
+          "quote_verified": true
+        }
+      ],
+      "why": "The lab report states the sputum specimen was rejected.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The urine antigen was not received [L011]",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        }
+      ],
+      "why": "The lab report states the urine antigen specimen was not received.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b5",
+      "claim_text": "Pneumococcus is only a clinical impression [P015]",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "Streptococcus pneumoniae identified",
+          "quote_verified": true
+        }
+      ],
+      "why": "Pneumococcus is microbiologically confirmed in blood culture, not merely a clinical impression.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3590,
+  "output_tokens": 943,
+  "estimated_cost_usd": 0.03322,
+  "latency_ms": 9746,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03_twin__w1/direct-opus/raw.json",
+  "case_id": "med_03_twin",
+  "traps_found": [
+    "SILENT_CONTRADICTION",
+    "ENTITY_BLEED"
+  ],
+  "explanation": "The answer cites L012 but drops its key finding. Blood culture set 1 grew Streptococcus pneumoniae, confirmed by MALDI-TOF, optochin susceptibility and bile solubility. The answer instead applies set 2's no-growth result to both sets and concludes no pathogen is confirmed, which the record contradicts.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

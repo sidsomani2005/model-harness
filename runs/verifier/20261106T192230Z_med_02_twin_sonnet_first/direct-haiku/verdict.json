@@ -1,0 +1,95 @@
+{
+  "target_run_id": "20261106T192230Z_med_02_twin_sonnet_first",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The chart establishes one drug allergy: penicillins, with the reaction occurring with amoxicillin, documented as active and severe (anaphylaxis), with no other allergies or intolerances recorded.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A007",
+          "quote": "No other allergies or intolerances are recorded.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records a single penicillin entry as active and severe, and states no other allergies are recorded.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The allergy is based on patient history only and has not been confirmed or ruled out by testing.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "no allergy testing or supervised challenge has been performed.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The clinic note explicitly says no allergy testing or supervised challenge was performed and the avoidance is patient-reported.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The 2024 clinic note and the 2026 ED triage note are consistent with the allergy list.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C008",
+          "quote": "allergy list reviewed with pharmacy and confirmed unchanged",
+          "quote_verified": true
+        },
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+          "quote_verified": true
+        }
+      ],
+      "why": "Both documents describe the same penicillin/amoxicillin allergy with the same severity and reaction, and the triage note records verification against the list.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3606,
+  "output_tokens": 1247,
+  "estimated_cost_usd": 0.0009841000000000001,
+  "latency_ms": 5630,
+  "raw_model_outputs_path": "runs/verifier/20261106T192230Z_med_02_twin_sonnet_first/direct-haiku/raw.json",
+  "case_id": "med_02_twin",
+  "traps_found": [],
+  "explanation": "Every material claim in the summary (single penicillin allergy, active severe anaphylaxis, no other entries, history-only basis without testing, and cross-document consistency) matches the record. The stated gaps (no cephalosporin tolerance data, no prescribing details, exact date only 2019-05) are accurate statements of what is not documented, not errors.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}
