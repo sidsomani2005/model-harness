@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WingMan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050307; --panel:rgba(16,11,20,.78); --panel-solid:#100b14; --raise:rgba(255,255,255,.035);
+  --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.22);
+  --ink:#f6f3f8; --muted:#a59fae; --faint:#6f6878;
+  --magenta:#c2187a; --violet:#a54cf2; --coral:#f0566c; --accent:linear-gradient(100deg,#c2187a 0%,#8f3fe0 100%);
+  --err:#ff7088; --err-bg:rgba(255,112,136,.10);
+  --ok:#86e1b5; --ok-bg:rgba(134,225,181,.09);
+  --warn:#f4c46e; --warn-bg:rgba(244,196,110,.10);
+  --hl:rgba(165,76,242,.16); --hl-bar:#a54cf2;
+  --sans:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* Deck-style glow, toned down so content stays calm */
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(38vw 32vw at 58% -8%, rgba(194,24,122,.30), transparent 70%),
+    radial-gradient(34vw 30vw at 102% 4%, rgba(165,76,242,.30), transparent 70%),
+    radial-gradient(36vw 30vw at 104% 104%, rgba(240,86,108,.22), transparent 70%),
+    radial-gradient(30vw 26vw at -6% 10%, rgba(120,20,70,.22), transparent 70%),
+    var(--bg)}
+button,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+
+/* ---------- header ---------- */
+header{display:flex;align-items:center;gap:28px;padding:20px 28px 14px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;min-width:0}
+.wordmark{font-weight:300;font-size:34px;letter-spacing:-.01em;line-height:1}
+.tagline{color:var(--muted);font-weight:300;font-size:15px}
+nav{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.02)}
+nav button{border:0;background:none;padding:6px 16px;border-radius:999px;color:var(--muted);cursor:pointer;font-weight:500}
+nav button[aria-selected=true]{background:rgba(255,255,255,.08);color:var(--ink)}
+.chips{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:12px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--faint)}
+.dot.on{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+
+/* ---------- layout ---------- */
+.view{padding:0 28px 28px}
+.review{display:grid;grid-template-columns:240px minmax(0,1fr);gap:20px}
+.rail{display:flex;flex-direction:column;gap:10px;min-width:0}
+.rail h3,.section-h{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600;margin:6px 2px 2px}
+.case-card{text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+.case-card:hover{border-color:var(--line-strong)}
+.case-card[aria-current=true]{border-color:rgba(165,76,242,.6);background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--accent) border-box;border:1px solid transparent}
+.case-card .id{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.case-card .t{font-size:14px;margin-top:2px}
+.case-card .cat{font-size:12px;color:var(--faint);margin-top:4px}
+.twin{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--panel)}
+.twin .lbl{font-size:13px}
+.twin .sub{font-size:12px;color:var(--faint)}
+.switch{position:relative;width:40px;height:22px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(255,255,255,.05);cursor:pointer;flex:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:transform .18s}
+.switch[aria-checked=true]{background:var(--accent);border-color:transparent}
+.switch[aria-checked=true]::after{transform:translateX(18px);background:#fff}
+.switch:disabled{opacity:.35;cursor:not-allowed}
+
+.work{min-width:0;display:flex;flex-direction:column;gap:14px}
+.question{border:1px solid var(--line-strong);border-radius:var(--r);padding:16px 20px;background:rgba(10,7,13,.55)}
+.question .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.question .q{font-size:19px;font-weight:300;margin-top:4px}
+.question .twin-note{color:var(--warn);font-size:13px;margin-top:6px}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1.05fr);gap:14px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;flex-direction:column;min-width:0;max-height:calc(100vh - 260px);min-height:420px}
+.panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.panel-h h2{margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.panel-b{padding:14px 16px;overflow:auto;flex:1}
+
+/* chart */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tab{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 10px;font-size:12.5px;color:var(--muted);cursor:pointer;font-family:var(--mono)}
+.tab[aria-selected=true]{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+.tab .n{display:inline-block;margin-left:6px;width:6px;height:6px;border-radius:50%;background:var(--violet);vertical-align:middle}
+.chart{font-family:var(--mono);font-size:12.5px;line-height:1.6;padding:8px 0;overflow:auto;flex:1}
+.ln{display:grid;grid-template-columns:52px 1fr;gap:8px;padding:2px 14px 2px 12px;border-left:2px solid transparent;color:#d9d3df}
+.ln .lid{color:var(--faint);user-select:none}
+.ln span{min-width:0;overflow-wrap:anywhere}
+.ln.hl{background:var(--hl);border-left-color:var(--hl-bar);color:var(--ink)}
+.ln.hl.bad{background:var(--err-bg);border-left-color:var(--err)}
+.ln.flash{animation:flash 1.2s ease-out}
+@keyframes flash{0%{box-shadow:inset 0 0 0 999px rgba(255,255,255,.08)}100%{box-shadow:none}}
+
+/* answer */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field label{font-size:12px;color:var(--faint)}
+select{background:var(--panel-solid);border:1px solid var(--line-strong);border-radius:10px;padding:8px 10px;width:100%}
+.src{display:inline-flex;align-items:center;gap:6px;font-size:12px;border-radius:999px;padding:3px 10px;border:1px solid var(--line)}
+.src.real{border-color:rgba(165,76,242,.55);color:#d7b9ff}
+.src.bank{color:var(--muted)}
+.src.custom{color:var(--warn);border-color:rgba(244,196,110,.4)}
+.meta{font-size:12px;color:var(--faint);margin:8px 0 10px}
+.answer-text{white-space:pre-wrap;font-size:14px;line-height:1.65;margin:0}
+textarea{width:100%;min-height:220px;resize:vertical;background:rgba(0,0,0,.35);border:1px solid var(--line-strong);border-radius:10px;padding:12px;line-height:1.6}
+.cite-tok{font-family:var(--mono);font-size:12px;color:#d7b9ff;cursor:pointer;border-bottom:1px dotted rgba(215,185,255,.5)}
+.actions{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:9px 16px;font-weight:600;cursor:pointer;background:var(--accent);color:#fff;display:inline-flex;align-items:center;gap:8px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:none;border:1px solid var(--line-strong);color:var(--ink);font-weight:500}
+.hint{font-size:12px;color:var(--faint)}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* findings */
+.verdict{border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--line)}
+.verdict .lab{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.verdict .v{font-size:24px;font-weight:400;margin-top:2px}
+.v-ERROR_DETECTED{background:var(--err-bg);border-color:rgba(255,112,136,.35)} .v-ERROR_DETECTED .v{color:var(--err)}
+.v-NO_ISSUE_FOUND{background:var(--ok-bg);border-color:rgba(134,225,181,.3)} .v-NO_ISSUE_FOUND .v{color:var(--ok)}
+.v-INSUFFICIENT_TO_VERIFY,.v-TARGET_REFUSAL{background:var(--warn-bg);border-color:rgba(244,196,110,.3)} .v-INSUFFICIENT_TO_VERIFY .v,.v-TARGET_REFUSAL .v{color:var(--warn)}
+.explain{font-size:14px;color:#ddd6e3;margin:0 0 12px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--raise)}
+.stat .k{font-size:11px;color:var(--faint)}
+.stat .val{font-size:15px;font-variant-numeric:tabular-nums}
+.traps{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.trap{font-size:11.5px;border:1px solid rgba(255,112,136,.4);color:var(--err);border-radius:999px;padding:2px 9px}
+.card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--raise);cursor:pointer;transition:border-color .15s}
+.card:hover,.card.active{border-color:var(--line-strong)}
+.card .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.pill{font-size:11px;font-weight:600;letter-spacing:.06em;border-radius:999px;padding:2px 9px}
+.p-CONTRADICTED{background:var(--err-bg);color:var(--err)} .p-SUPPORTED{background:var(--ok-bg);color:var(--ok)}
+.p-NOT_ESTABLISHED,.p-CONFLICTED{background:var(--warn-bg);color:var(--warn)} .p-OMITTED{background:rgba(165,76,242,.14);color:#d7b9ff}
+.sev{font-size:11px;color:var(--faint)}
+.card .claim{font-size:14px}
+.card .why{font-size:13px;color:var(--muted);margin-top:4px}
+.card .unk{font-size:12.5px;color:var(--faint);margin-top:4px}
+.cites{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cite{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:#d7b9ff;background:rgba(165,76,242,.07)}
+.note{font-size:12.5px;color:var(--faint);margin:8px 0}
+.empty{color:var(--faint);font-size:14px;padding:18px 4px;line-height:1.6}
+.empty code,.res code{font-family:var(--mono);font-size:12px;color:#d7b9ff}
+.skel{height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));background-size:200% 100%;animation:sh 1.4s infinite;margin:10px 0}
+@keyframes sh{to{background-position:-200% 0}}
+.err-box{border:1px solid rgba(255,112,136,.35);background:var(--err-bg);color:#ffd2da;border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+
+/* results */
+.res{max-width:1200px}
+.res h2{font-weight:300;font-size:26px;margin:6px 0 4px}
+.res p.lead{color:var(--muted);margin:0 0 18px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);margin-bottom:22px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums}
+.section-h{margin:22px 2px 10px}
+
+footer{padding:10px 28px 22px;color:var(--faint);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:1180px){.cols{grid-template-columns:1fr 1fr}.cols .findings{grid-column:1 / -1}}
+@media (max-width:860px){
+  header{padding:16px}.view{padding:0 16px 20px}.review{grid-template-columns:minmax(0,1fr)}.cols{grid-template-columns:minmax(0,1fr)}
+  .rail{flex-direction:row;overflow-x:auto;padding-bottom:4px}.rail h3{display:none}.case-card{min-width:200px}
+  .panel{max-height:none}.question .q{font-size:17px}.stats{grid-template-columns:repeat(2,1fr)}
+  .chips{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<header>
+  <div class="brand">
+    <span class="wordmark">WingMan</span>
+    <span class="tagline">A lightweight clinical reasoning verification system.</span>
+  </div>
+  <nav role="tablist" aria-label="Views">
+    <button role="tab" id="tabReview" aria-selected="true">Review</button>
+    <button role="tab" id="tabResults" aria-selected="false">Results</button>
+  </nav>
+  <div class="chips">
+    <span class="chip">Synthetic records only</span>
+    <span class="chip" id="liveChip"><span class="dot" id="liveDot"></span><span id="liveTxt">Checking…</span></span>
+  </div>
+</header>
+
+<main class="view" id="viewReview">
+  <div class="review">
+    <aside class="rail" aria-label="Cases">
+      <h3>Cases</h3>
+      <div id="caseList" style="display:contents"></div>
+      <div class="twin">
+        <div><div class="lbl">Counterfactual twin</div><div class="sub">One chart fact changed</div></div>
+        <button class="switch" id="twinSwitch" role="switch" aria-checked="false" aria-label="Show counterfactual twin"></button>
+      </div>
+    </aside>
+    <section class="work">
+      <div class="question"><div class="k" id="qLabel">Question</div><div class="q" id="question">Loading…</div><div class="twin-note" id="twinNote" hidden></div></div>
+      <div class="cols">
+        <article class="panel" aria-label="Patient chart">
+          <div class="panel-h"><h2>Chart</h2><span class="hint" id="chartHint"></span></div>
+          <div class="tabs" id="fileTabs" role="tablist"></div>
+          <div class="chart" id="chart"></div>
+        </article>
+        <article class="panel" aria-label="Answer under review">
+          <div class="panel-h"><h2>Answer</h2><span id="srcBadge"></span></div>
+          <div class="panel-b">
+            <div class="field"><label for="answerSel">Answer to check</label><select id="answerSel"></select></div>
+            <div class="meta" id="answerMeta"></div>
+            <div id="answerBody"></div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="verifyBtn" type="button">Verify with WingMan</button>
+            <select id="variantSel" aria-label="Verifier variant" style="width:auto"></select>
+            <span class="hint" id="verifyHint"></span>
+          </div>
+        </article>
+        <article class="panel findings" aria-label="Findings">
+          <div class="panel-h"><h2>Findings</h2><span class="hint" id="findSrc"></span></div>
+          <div class="panel-b" id="findings" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+  </div>
+</main>
+
+<main class="view" id="viewResults" hidden>
+  <div class="res" id="results"></div>
+</main>
+
+<footer>
+  <span>By Sid Somani, Rishith Ravi, Eashan Gupta</span>
+  <span>Research prototype. Not a medical device and not clinical decision support. “No issue found” is not “medically verified”.</span>
+</footer>
+
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = String(text); return e; };
+const LABEL = {ERROR_DETECTED:'Error detected', NO_ISSUE_FOUND:'No issue found', INSUFFICIENT_TO_VERIFY:'Insufficient to verify', TARGET_REFUSAL:'Target refused'};
+const STATUS = {CONTRADICTED:'Contradicted', SUPPORTED:'Supported', NOT_ESTABLISHED:'Not established', CONFLICTED:'Conflicted'};
+const human = s => String(s || '').replace(/_/g,' ').toLowerCase().replace(/^\w/, c => c.toUpperCase());
+const fmtCost = x => x == null ? '—' : (x < 0.01 ? '$' + Number(x).toFixed(5) : '$' + Number(x).toFixed(3));
+const fmtK = x => { x = x || 0; return x >= 1000 ? (x / 1000).toFixed(1) + 'k' : String(x); };
+const fmtMs = x => x == null ? '—' : (x >= 1000 ? (x/1000).toFixed(1) + ' s' : Math.round(x) + ' ms');
+
+let D = null;
+const S = {c: 0, twin: false, a: 0, variant: 'haiku', file: 0, hl: {}, flash: null, busy: false, custom: {}, live: {}, err: null, activeCard: null};
+
+const view = () => { const c = D.cases[S.c]; return S.twin && c.twin ? c.twin : c.original; };
+const answers = () => view().answers;
+const CUSTOM = '__custom__';
+const answerKey = () => view().case_id + '|' + (S.a === CUSTOM ? CUSTOM : (answers()[S.a] || {}).id);
+
+async function load() {
+  try {
+    const r = await fetch('/api/state', {cache: 'no-store'});
+    D = await r.json();
+    if (!r.ok) throw new Error(D.error || r.statusText);
+  } catch (e) { $('question').textContent = 'Could not load data: ' + e.message; return; }
+  const on = D.status && D.status.api_key;
+  $('liveDot').classList.toggle('on', !!on);
+  $('liveTxt').textContent = on ? 'Live verifier ready' : 'Replay only · no API key';
+  // Deep link: #case=med_01&twin=1&answer=<answer id>&variant=haiku&finding=1&view=results
+  const h = new URLSearchParams(location.hash.slice(1));
+  const ci = D.cases.findIndex(c => c.original.case_id === h.get('case'));
+  if (ci >= 0) S.c = ci;
+  if (h.get('twin') === '1' && D.cases[S.c] && D.cases[S.c].twin) S.twin = true;
+  if (h.get('variant')) S.variant = h.get('variant');
+  if (D.cases.length) { const ai = answers().findIndex(a => a.id === h.get('answer')); if (ai >= 0) S.a = ai; }
+  renderCases(); renderAll(); renderResults();
+  const fi = parseInt(h.get('finding') || '0', 10);
+  if (fi > 0) { const cards = document.querySelectorAll('#findings .card'); if (cards[fi - 1]) cards[fi - 1].click(); }
+  if (h.get('view') === 'results') showTab(true);
+}
+
+/* ---------- cases ---------- */
+function renderCases() {
+  const box = $('caseList'); box.innerHTML = '';
+  D.cases.forEach((c, i) => {
+    const b = el('button', 'case-card'); b.type = 'button';
+    b.setAttribute('aria-current', String(i === S.c));
+    b.appendChild(el('div', 'id', c.original.case_id));
+    b.appendChild(el('div', 't', c.title || c.original.case_id));
+    b.appendChild(el('div', 'cat', c.category || ''));
+    b.onclick = () => { S.c = i; S.twin = false; S.a = 0; S.file = 0; S.hl = {}; S.err = null; renderCases(); renderAll(); };
+    box.appendChild(b);
+  });
+}
+
+function renderAll() {
+  if (!D.cases.length) { $('question').textContent = 'No cases found.'; return; }
+  const c = D.cases[S.c], sw = $('twinSwitch');
+  sw.disabled = !c.twin; sw.setAttribute('aria-checked', String(S.twin));
+  const v = view();
+  $('qLabel').textContent = (S.twin ? 'Twin · ' : '') + v.case_id;
+  $('question').textContent = v.question;
+  const tn = $('twinNote'); tn.hidden = !S.twin;
+  tn.textContent = S.twin ? 'Counterfactual twin: one controlled fact in the chart differs from the original case.' : '';
+  renderVariantSel(); renderAnswerSel(); renderChart(); renderAnswer(); renderFindings();
+}
+
+/* ---------- chart ---------- */
+function renderChart() {
+  const v = view(), tabs = $('fileTabs'); tabs.innerHTML = '';
+  if (S.file >= v.files.length) S.file = 0;
+  const filesWithHl = new Set(Object.keys(S.hl).map(k => k.split('|')[0]));
+  v.files.forEach((f, i) => {
+    const t = el('button', 'tab', f.name); t.type = 'button'; t.setAttribute('role', 'tab');
+    t.setAttribute('aria-selected', String(i === S.file));
+    if (filesWithHl.has(f.name)) t.appendChild(el('span', 'n'));
+    t.onclick = () => { S.file = i; renderChart(); };
+    tabs.appendChild(t);
+  });
+  const f = v.files[S.file], box = $('chart'); box.innerHTML = '';
+  $('chartHint').textContent = f ? f.lines.length + ' lines' : '';
+  if (!f) return;
+  f.lines.forEach(l => {
+    const key = f.name + '|' + l.id, mark = S.hl[key];
+    const row = el('div', 'ln' + (mark ? ' hl' : '') + (mark === 'bad' ? ' bad' : ''));
+    row.id = 'ln-' + key;
+    row.appendChild(el('span', 'lid', l.id)); row.appendChild(el('span', null, l.text));
+    box.appendChild(row);
+  });
+  if (S.flash) {
+    const row = document.getElementById('ln-' + S.flash);
+    if (row) { row.scrollIntoView({block: 'center', behavior: 'smooth'}); row.classList.add('flash'); }
+    S.flash = null;
+  }
+}
+
+function focusCitations(cits, bad) {
+  S.hl = {};
+  cits.forEach(c => { S.hl[c.file + '|' + c.line_id] = bad ? 'bad' : 'ok'; });
+  const first = cits[0];
+  if (first) {
+    const idx = view().files.findIndex(f => f.name === first.file);
+    if (idx >= 0) S.file = idx;
+    S.flash = first.file + '|' + first.line_id;
+  }
+  renderChart();
+}
+
+function focusLineId(lineId) {
+  const f = view().files.find(f => f.lines.some(l => l.id === lineId));
+  if (f) focusCitations([{file: f.name, line_id: lineId}], false);
+}
+
+/* ---------- answer ---------- */
+function renderVariantSel() {
+  const set = new Set([...(D.variants || []), ...((D.status && D.status.live_variants) || [])]);
+  const s = $('variantSel'); s.innerHTML = '';
+  [...set].forEach(v => { const o = el('option', null, v); o.value = v; s.appendChild(o); });
+  if (!set.has(S.variant)) S.variant = set.has('haiku') ? 'haiku' : [...set][0];
+  s.value = S.variant;
+}
+
+function renderAnswerSel() {
+  const s = $('answerSel'); s.innerHTML = '';
+  const list = answers();
+  const real = list.map((a, i) => [a, i]).filter(([a]) => a.kind === 'target');
+  const bank = list.map((a, i) => [a, i]).filter(([a]) => a.kind === 'bank');
+  const grp = (label, items) => {
+    if (!items.length) return;
+    const g = document.createElement('optgroup'); g.label = label;
+    items.forEach(([a, i]) => {
+      const o = el('option', null, a.kind === 'target' ? 'First answer · ' + a.meta.model + ' · ' + a.meta.timestamp_utc : 'Answer ' + a.id.split('__').pop() + ' · labeled ' + a.meta.label);
+      o.value = i; g.appendChild(o);
+    });
+    s.appendChild(g);
+  };
+  grp('Real target first answers', real);
+  grp('Constructed answer bank', bank);
+  const g = document.createElement('optgroup'); g.label = 'Try it';
+  const o = el('option', null, 'Write your own answer…'); o.value = CUSTOM; g.appendChild(o); s.appendChild(g);
+  if (S.a !== CUSTOM && !list[S.a]) S.a = list.length ? 0 : CUSTOM;
+  s.value = String(S.a);
+}
+
+// YAML block text carries hard wraps: join wrapped lines, keep paragraphs and list items.
+function reflow(text) {
+  return String(text || '').trim().split(/\n\s*\n/).map(par =>
+    par.split('\n').reduce((out, line) => {
+      const t = line.trim();
+      if (!out.length) return [t];
+      if (/^([-*•]|\d+[.)])\s/.test(t)) return [...out, t];
+      out[out.length - 1] += ' ' + t; return out;
+    }, []).join('\n')).join('\n\n');
+}
+
+function linkifyCitations(text) {
+  const frag = document.createDocumentFragment();
+  const re = /\b([A-Z]{1,2}\d{3})\b/g; let last = 0, m;
+  while ((m = re.exec(text))) {
+    frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+    const t = el('span', 'cite-tok', m[1]); t.tabIndex = 0; t.title = 'Show ' + m[1] + ' in the chart';
+    const id = m[1]; t.onclick = () => focusLineId(id);
+    t.onkeydown = e => { if (e.key === 'Enter') focusLineId(id); };
+    frag.appendChild(t); last = re.lastIndex;
+  }
+  frag.appendChild(document.createTextNode(text.slice(last)));
+  return frag;
+}
+
+function renderAnswer() {
+  const body = $('answerBody'), meta = $('answerMeta'), badge = $('srcBadge');
+  body.innerHTML = ''; meta.textContent = ''; badge.innerHTML = '';
+  if (S.a === CUSTOM) {
+    badge.appendChild(el('span', 'src custom', 'Your answer'));
+    meta.textContent = 'Write or paste any answer to this question. WingMan checks it against the chart.';
+    const ta = el('textarea'); ta.placeholder = 'e.g. No. The first high potassium [L006] came before the first spironolactone dose [M013]…';
+    ta.value = S.custom[view().case_id] || '';
+    ta.oninput = () => { S.custom[view().case_id] = ta.value; updateVerifyBtn(); };
+    ta.setAttribute('aria-label', 'Your answer'); body.appendChild(ta);
+  } else {
+    const a = answers()[S.a];
+    if (!a) { body.appendChild(el('div', 'empty', 'No answers saved for this case.')); updateVerifyBtn(); return; }
+    if (a.kind === 'target') {
+      badge.appendChild(el('span', 'src real', 'Real first answer'));
+      meta.textContent = a.meta.model + ' · ' + a.meta.timestamp_utc + ' · stop: ' + a.meta.stop_reason;
+    } else {
+      badge.appendChild(el('span', 'src bank', 'Constructed'));
+      meta.textContent = 'Team-written test answer, labeled ' + a.meta.label + (a.meta.trap ? ' (' + human(a.meta.trap) + ')' : '') + '. Not a model output.';
+    }
+    const p = el('p', 'answer-text'); p.appendChild(linkifyCitations(reflow(a.text) || '(empty answer)')); body.appendChild(p);
+  }
+  updateVerifyBtn();
+}
+
+function currentAnswerText() {
+  if (S.a === CUSTOM) return S.custom[view().case_id] || '';
+  const a = answers()[S.a]; return a ? a.text : '';
+}
+
+function updateVerifyBtn() {
+  const b = $('verifyBtn'), hint = $('verifyHint'), on = D.status && D.status.api_key;
+  b.innerHTML = '';
+  if (S.busy) { b.appendChild(el('span', 'spin')); b.appendChild(document.createTextNode('Verifying…')); }
+  else b.appendChild(document.createTextNode(S.a === CUSTOM ? 'Verify with WingMan' : 'Re-verify live'));
+  b.disabled = S.busy || !on || !currentAnswerText().trim();
+  hint.textContent = on ? '' : 'Set ANTHROPIC_API_KEY to run live';
+}
+
+async function verifyLive() {
+  const key = answerKey(), variant = S.variant;
+  S.busy = true; S.err = null; updateVerifyBtn(); renderFindings();
+  try {
+    const r = await fetch('/api/verify', {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({case_id: view().case_id, answer: currentAnswerText(), variant})});
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || r.statusText);
+    S.live[key + '|' + variant] = {vr: j.verdict, at: new Date()};
+  } catch (e) { S.err = e.message; }
+  S.busy = false; updateVerifyBtn(); renderFindings();
+}
+
+/* ---------- findings ---------- */
+function verdictFor() {
+  const live = S.live[answerKey() + '|' + S.variant];
+  if (live) return {vr: live.vr, src: 'Live run · ' + live.at.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})};
+  if (S.a === CUSTOM) return null;
+  const a = answers()[S.a]; const vr = a && a.verdicts ? a.verdicts[S.variant] : null;
+  return vr ? {vr, src: 'Saved verdict'} : null;
+}
+
+function citeChips(cits, bad) {
+  const box = el('div', 'cites');
+  cits.forEach(c => box.appendChild(el('span', 'cite', c.file.replace(/\.txt$/, '') + ' · ' + c.line_id)));
+  return box;
+}
+
+function card(statusKey, statusText, sev, title, why, unk, cits, bad) {
+  const c = el('div', 'card'); c.tabIndex = 0; c.setAttribute('role', 'button');
+  const row = el('div', 'row');
+  row.appendChild(el('span', 'pill p-' + statusKey, statusText));
+  if (sev) row.appendChild(el('span', 'sev', sev));
+  c.appendChild(row); c.appendChild(el('div', 'claim', title));
+  if (why) c.appendChild(el('div', 'why', why));
+  if (unk) c.appendChild(el('div', 'unk', 'Unknown: ' + unk));
+  if (cits && cits.length) c.appendChild(citeChips(cits, bad));
+  const go = () => { document.querySelectorAll('#findings .card').forEach(x => x.classList.remove('active')); c.classList.add('active'); focusCitations(cits || [], bad); };
+  c.onclick = go; c.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+  return c;
+}
+
+function renderFindings() {
+  const box = $('findings'); box.innerHTML = ''; $('findSrc').textContent = '';
+  if (S.err) box.appendChild(el('div', 'err-box', S.err));
+  if (S.busy) {
+    box.appendChild(el('p', 'note', 'Haiku is extracting claims and checking each one against the full chart…'));
+    for (let i = 0; i < 6; i++) { const s = el('div', 'skel'); s.style.width = (60 + (i * 7) % 35) + '%'; box.appendChild(s); }
+    return;
+  }
+  const f = verdictFor();
+  if (!f) {
+    const e = el('div', 'empty');
+    if (S.a === CUSTOM) e.textContent = 'Write an answer, then press Verify with WingMan.';
+    else { e.appendChild(document.createTextNode('No saved verdict for this answer and variant yet. Generate one with ')); e.appendChild(el('code', null, 'python -m medproof.cli verify --variant ' + S.variant)); e.appendChild(document.createTextNode(D.status && D.status.api_key ? ' or press Re-verify live.' : '.')); }
+    box.appendChild(e); return;
+  }
+  const vr = f.vr; $('findSrc').textContent = f.src;
+  const v = el('div', 'verdict v-' + vr.overall);
+  const lab = el('div', 'lab'); lab.appendChild(el('span', null, 'Verdict')); lab.appendChild(el('span', null, vr.verifier_variant));
+  v.appendChild(lab); v.appendChild(el('div', 'v', LABEL[vr.overall] || vr.overall));
+  box.appendChild(v);
+  if (vr.explanation) box.appendChild(el('p', 'explain', vr.explanation));
+  const st = el('div', 'stats');
+  [['Model calls', vr.total_model_calls], ['Cost', fmtCost(vr.estimated_cost_usd)], ['Latency', fmtMs(vr.latency_ms)],
+   ['Tokens in / out', fmtK(vr.input_tokens) + ' / ' + fmtK(vr.output_tokens)]].forEach(([k, val]) => {
+    const s = el('div', 'stat'); s.appendChild(el('div', 'k', k)); s.appendChild(el('div', 'val', val)); st.appendChild(s);
+  });
+  box.appendChild(st);
+  if (vr.traps_found && vr.traps_found.length) {
+    const t = el('div', 'traps'); vr.traps_found.forEach(x => t.appendChild(el('span', 'trap', human(x)))); box.appendChild(t);
+  }
+  (vr.needs_review_reasons || []).forEach(r => box.appendChild(el('p', 'note', 'Needs review: ' + r)));
+  if (vr.fake_backend) box.appendChild(el('div', 'err-box', 'Offline test output (fake backend). Not a real verdict.'));
+  const claims = vr.claim_verdicts || [], oms = vr.omissions || [];
+  if (claims.length) box.appendChild(el('div', 'section-h', 'Claims checked'));
+  claims.forEach(cv => box.appendChild(card(cv.status, STATUS[cv.status] || cv.status,
+    cv.severity, cv.claim_text, cv.why, cv.uncertainty, cv.citations, cv.status === 'CONTRADICTED')));
+  if (oms.length) box.appendChild(el('div', 'section-h', 'Evidence the answer left out'));
+  oms.forEach(om => {
+    const bad = om.material && om.confirmed;
+    const status = om.confirm_status ? human(om.confirm_status) : (om.confirmed ? 'Confirmed' : 'Unconfirmed');
+    box.appendChild(card('OMITTED', 'Omitted', (om.material ? 'material' : 'minor') + ' · ' + status, om.description, '', '', om.citations, bad));
+  });
+  if (!claims.length && !oms.length) box.appendChild(el('p', 'note', 'No claim-level findings in this verdict.'));
+}
+
+/* ---------- results ---------- */
+function rate(b) { return b && b.n ? b.k + ' / ' + b.n + ' (' + Math.round(100 * b.rate) + '%)' : '—'; }
+function renderResults() {
+  const box = $('results'); box.innerHTML = '';
+  box.appendChild(el('h2', null, 'Results'));
+  box.appendChild(el('p', 'lead', 'Measured from saved runs only. Real target first answers and constructed test answers are kept in separate tables.'));
+  const M = D.metrics;
+  if (!M) { const e = el('div', 'empty'); e.appendChild(document.createTextNode('No metrics yet. Run ')); e.appendChild(el('code', null, 'python -m medproof.cli evaluate')); e.appendChild(document.createTextNode(' after verifying.')); box.appendChild(e); return; }
+  (M.notes || []).forEach(n => box.appendChild(el('p', 'note', n)));
+  [['target', 'Real target first answers'], ['bank', 'Constructed answer bank']].forEach(([key, title]) => {
+    const t = M.tables && M.tables[key]; if (!t) return;
+    box.appendChild(el('div', 'section-h', title + ' · ' + t.n_items + ' items'));
+    const vs = Object.entries(t.variants || {});
+    if (!vs.length) { box.appendChild(el('div', 'empty', 'No verdicts saved yet.')); return; }
+    const wrap = el('div', 'tbl-wrap'), tb = el('table'), hr = el('tr');
+    ['Verifier', 'Catch rate', 'False alarms', 'Insufficient on wrong', 'Valid citations', 'Cost / verdict', 'Median latency', 'p90 latency'].forEach(h => hr.appendChild(el('th', null, h)));
+    const th = el('thead'); th.appendChild(hr); tb.appendChild(th); const bd = el('tbody');
+    vs.forEach(([v, m]) => {
+      const r = el('tr'); const ev = m.evidence_validity || {};
+      [[v, ''], [rate(m.error_recall), 'num'], [rate(m.false_alarm_rate), 'num'], [m.abstention ? m.abstention.insufficient_on_wrong : '—', 'num'],
+       [(ev.valid ?? 0) + ' / ' + (ev.citations ?? 0), 'num'], [fmtCost(m.cost_usd && m.cost_usd.mean), 'num'],
+       [fmtMs(m.latency_ms && m.latency_ms.median), 'num'], [fmtMs(m.latency_ms && m.latency_ms.p90), 'num']].forEach(([x, cls]) => r.appendChild(el('td', cls, x)));
+      bd.appendChild(r);
+    });
+    tb.appendChild(bd); wrap.appendChild(tb); box.appendChild(wrap);
+  });
+}
+
+/* ---------- wiring ---------- */
+$('twinSwitch').onclick = () => { S.twin = !S.twin; S.a = 0; S.file = 0; S.hl = {}; S.err = null; renderAll(); };
+$('answerSel').onchange = e => { S.a = e.target.value === CUSTOM ? CUSTOM : +e.target.value; S.hl = {}; S.err = null; renderChart(); renderAnswer(); renderFindings(); };
+$('variantSel').onchange = e => { S.variant = e.target.value; S.hl = {}; renderChart(); renderFindings(); };
+$('verifyBtn').onclick = verifyLive;
+const showTab = r => { $('tabReview').setAttribute('aria-selected', String(!r)); $('tabResults').setAttribute('aria-selected', String(r)); $('viewReview').hidden = r; $('viewResults').hidden = !r; };
+$('tabReview').onclick = () => showTab(false); $('tabResults').onclick = () => showTab(true);
+load();
+})();
+</script>
+</body>
+</html>

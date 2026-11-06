@@ -97,7 +97,7 @@ TEMPLATE = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MedProof Report</title>
+<title>WingMan Report</title>
 <style>
 :root{--bg:#f7f8f8;--panel:#ffffff;--ink:#22272b;--muted:#5d666d;--line:#dde2e4;--teal:#2f7f7a;
 --teal-soft:#e3f1ef;--red:#b3261e;--red-soft:#fbe9e7;--amber:#8a5a00;--amber-soft:#fdf3dc;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -152,7 +152,7 @@ th{background:#f0f2f3}
 <body>
 <div class="banner">Research prototype. All records are SYNTHETIC; not a medical device and not clinical decision support.</div>
 <header>
-  <h1>MedProof</h1>
+  <h1>WingMan</h1>
   <p>A medical AI answer can be plausible and still contradict the record.</p>
   <p class="note" id="generated"></p>
 </header>

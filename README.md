@@ -1,14 +1,16 @@
-# MedProof
+# WingMan
 
-**Medical AI can sound right while reasoning incorrectly about a patient's record. MedProof breaks an answer into small evidence checks and uses cheap models to catch contradictions, impossible timelines and unsupported certainty.**
+*A lightweight clinical reasoning verification system.* By Sid Somani, Rishith Ravi and Eashan Gupta.
+
+**Medical AI can sound right while reasoning incorrectly about a patient's record. WingMan breaks an answer into small evidence checks and uses cheap models to catch contradictions, impossible timelines and unsupported certainty.**
 
 Mercor Hack Day, Georgia Tech, 2026-11-06. Full design: [MedProof_Mercor_Hack_Day_SPEC.md](MedProof_Mercor_Hack_Day_SPEC.md). Team split: [WORKPLAN.md](WORKPLAN.md).
 
-> **Safety.** Every record in this repository is synthetic and labeled `SYNTHETIC CASE — NOT A REAL PATIENT`. MedProof is a research prototype. It is not a medical device and not clinical decision support. It reports "no issue found", never "medically verified".
+> **Safety.** Every record in this repository is synthetic and labeled `SYNTHETIC CASE — NOT A REAL PATIENT`. WingMan is a research prototype. It is not a medical device and not clinical decision support. It reports "no issue found", never "medically verified".
 
 ## Thesis
 
-A single large judge reads a whole answer and returns one opinion. MedProof instead:
+A single large judge reads a whole answer and returns one opinion. WingMan instead:
 
 1. extracts the answer's check-worthy claims,
 2. retrieves supporting **and contradicting** evidence from the whole chart, not only the lines the answer cited,
@@ -51,6 +53,22 @@ pytest
 `verify` and `baselines` cover both the real target first answers and the answer bank. `evaluate` writes `runs/metrics/metrics.json` and `metrics.md`. When target answers are not yet labeled, it also writes a label template for humans to fill in. `demo --offline` replays saved logs only. `demo --live` runs the verifier on a preserved answer and falls back to replay if the network fails.
 
 Open `report/index.html` in a browser. Deep links select a case, answer and finding, for example `index.html#case=med_01&answer=<run id>&variant=haiku&finding=1`.
+
+## Demo UI
+
+```bash
+python -m medproof.cli wingman          # then open http://127.0.0.1:8765
+```
+
+The WingMan page shows each case's chart, the answer under review (real target first answers and
+constructed test answers are labeled differently), and the verifier's findings. Clicking a finding
+or a citation highlights the source lines. The twin switch shows the counterfactual chart, and the
+Results tab shows the measured metrics. With `ANTHROPIC_API_KEY` set, **Verify with WingMan** runs
+the real verifier on any selected or hand-written answer; those live results are saved under
+`runs/live/` and never overwrite official logs. Without a key the page replays saved results only.
+Deep links work, for example `#case=med_01&answer=<answer id>&finding=1`.
+
+The Python package is still named `medproof`; WingMan is the product name.
 
 ## Blind target protocol
 

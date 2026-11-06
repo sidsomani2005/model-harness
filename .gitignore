@@ -12,6 +12,7 @@ dist/
 # run scratch (official logs under runs/target, runs/verifier, runs/metrics ARE committed)
 runs/dry_run/
 runs/scratch/
+runs/live/
 runs/**/live_*.json
 submission/
 *.zip

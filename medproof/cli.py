@@ -299,6 +299,13 @@ def _print_verdict(vr: VerifierRun, pc: PublicCase, label: str) -> None:
                   f"cost=${vr.estimated_cost_usd:.6f} latency={vr.latency_ms}ms")
 
 
+def cmd_wingman(args) -> int:
+    from medproof.wingman import serve
+
+    serve(Path(args.cases), Path(args.runs), args.host, args.port)
+    return 0
+
+
 def cmd_demo(args) -> int:
     case_id = f"{args.case}_twin" if args.twin else args.case
     try:
@@ -403,6 +410,12 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--output", default="report/index.html")
     s.add_argument("--runs", default=str(DEFAULT_ROOT))
     s.set_defaults(func=cmd_report)
+
+    s = sub.add_parser("wingman", help="start the WingMan demo web UI")
+    s.add_argument("--runs", default=str(DEFAULT_ROOT))
+    s.add_argument("--host", default="127.0.0.1")
+    s.add_argument("--port", type=int, default=8765)
+    s.set_defaults(func=cmd_wingman)
 
     s = sub.add_parser("demo", help="replay a saved case verdict (offline) or run the verifier live")
     s.add_argument("--case", required=True)

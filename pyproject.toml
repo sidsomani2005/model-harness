@@ -27,6 +27,9 @@ laya = []
 [tool.setuptools.packages.find]
 include = ["medproof*"]
 
+[tool.setuptools.package-data]
+medproof = ["web/*.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
