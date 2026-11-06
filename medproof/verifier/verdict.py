@@ -45,8 +45,10 @@ def assemble(claims: list[ClaimVerdict], omissions: list[OmissionFinding], *,
         traps.append(Trap.SILENT_CONTRADICTION)
 
     review = [f"{v.claim_id}: {r}" for v in claims if v.severity == Severity.material for r in v.needs_review_reasons]
-    review += [f"omission not confirmed: {o.description}" for o in omissions
-               if o.material and not o.confirmed and o.kind == "contradiction"]
+    # A rejected or unverifiable sweep finding has been checked and dismissed; only a
+    # confirmation that could not run leaves real doubt.
+    review += [f"omission could not be confirmed: {o.description}" for o in omissions
+               if o.material and o.kind == "contradiction" and o.confirm_status == "failed"]
 
     if errors or omission_errors:
         overall = Overall.ERROR_DETECTED

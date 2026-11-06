@@ -1,12 +1,41 @@
-# DEV FIXTURE ONLY: not an official benchmark case. Used by verifier unit tests.
+# DEVELOPMENT FIXTURE. Not part of the official benchmark (ids starting with "_" are excluded).
+# Private benchmark file: NEVER fed to the online verifier, baselines or target runner.
 id: _fixture
-title: Toy chart with an allergy documentation conflict and a drug-after-lab timeline
+category: silent_contradiction
+title: Development fixture with one obvious allergy documentation conflict
 question: >
-  Using only the supplied record, summarize what the chart establishes about
-  the patient's drug allergies, and state whether spironolactone can explain
-  the initial onset of the elevated potassium.
+  Summarize what this chart establishes about the patient's drug allergies.
 source_files:
-  - sources/allergies.txt
-  - sources/physician_note.txt
-  - sources/medication_admin.txt
-  - sources/lab_results.txt
+  - sources/allergy_list.txt
+  - sources/progress_note.txt
+  - sources/medication_list.txt
+key:
+  required_propositions:
+    - The allergy list documents an active sulfamethoxazole allergy (urticaria and facial swelling).
+    - The 2026-01-09 progress note records "NKDA", which conflicts with the allergy list.
+    - The conflict is unresolved in the supplied record.
+  permissible_uncertainty:
+    - Which entry is current is not established by the record.
+  unacceptable_claims:
+    - The patient has no known drug allergies.
+  alternative_correct_answers:
+    - A sulfonamide allergy is documented, but a later note says NKDA; the documentation conflicts and is unresolved.
+  rationale: >
+    A005-A007 document an active sulfamethoxazole allergy reviewed by a pharmacist on
+    2026-01-08. P006 (cross-cover note, 2026-01-09) states NKDA without referencing any
+    re-evaluation. Nothing in the record reconciles the two, so a faithful summary must
+    report the allergy and flag the conflict.
+  expected_evidence:
+    - {file: allergy_list.txt, line_id: A005, why: allergen documented}
+    - {file: allergy_list.txt, line_id: A006, why: reaction documented}
+    - {file: progress_note.txt, line_id: P006, why: conflicting NKDA entry}
+  review_status: fixture_not_reviewed
+scoring_metadata:
+  primary_trap: SILENT_CONTRADICTION
+  severity: material
+review_log:
+  drafted_by: coding agent (Claude), development fixture only
+  author: null
+  blind_reviewer: null
+  blind_answer: null
+  reconciliation_notes: null

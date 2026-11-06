@@ -1,0 +1,10 @@
+[M001] SYNTHETIC CASE — NOT A REAL PATIENT (development fixture)
+[M002] Document: Active Medication List | Printed: 2026-01-09 07:00 EST
+[M003] Patient: FIXTURE, Test | MRN: SYN-000001
+[M004] Metformin 500 mg tablet, oral, twice daily with meals
+[M005] Atorvastatin 20 mg tablet, oral, once daily at bedtime
+[M006] Lisinopril 10 mg tablet, oral, once daily
+[M007] Acetaminophen 650 mg tablet, oral, every 6 hours as needed for pain
+[M008] No antibiotics currently active
+[M009] Reconciled by admitting nurse 2026-01-08 22:10 EST
+[M010] End of medication list

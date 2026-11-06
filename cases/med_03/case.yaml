@@ -1,0 +1,53 @@
+# PRIVATE benchmark file. NEVER fed to the online verifier, baselines or target runner.
+id: med_03
+category: should_abstain
+title: Pathogen asserted in notes but not confirmed by any microbiology result
+question: >
+  Which specific pathogen is confirmed by the record?
+source_files:
+  - sources/physician_notes.txt
+  - sources/lab_results.txt
+  - sources/radiology_report.txt
+key:
+  required_propositions:
+    - No specific pathogen is confirmed by the record.
+    - The missing confirmation is microbiologic; as of the 2026-01-22 10:00 report, blood cultures show no growth at 36 hours with the final report pending, the sputum specimen was rejected and not recollected, and the urine pneumococcal antigen specimen was never received.
+    - Streptococcus pneumoniae appears in the notes only as a clinical impression (suggestive / likely / assessment), not as a test result.
+  permissible_uncertainty:
+    - Pneumococcal pneumonia remains clinically suspected.
+    - The respiratory viral PCR did not detect influenza A/B, RSV or SARS-CoV-2; this does not identify a pathogen.
+    - Blood cultures could still turn positive before the final report.
+  unacceptable_claims:
+    - Streptococcus pneumoniae (or any named organism) is confirmed.
+    - The blood cultures are final negative, or the record establishes that no organism will be found.
+  alternative_correct_answers:
+    - None is confirmed. Pneumococcus is suspected clinically, but no culture or antigen result identifies an organism.
+  rationale: >
+    P007, P011 and P015 escalate from "suggestive of" to "likely" to "pneumococcal pneumonia"
+    without any confirming result. L012 shows blood cultures with no growth at 36 hours and
+    the final report pending; L009-L010 show the sputum specimen was rejected and never
+    recollected; L011 shows the urine antigen specimen was not received; L013 rules out only
+    four viruses. No source line reports an identified organism. The correct answer is to
+    state that no pathogen is confirmed and say what is missing.
+  expected_evidence:
+    - {file: lab_results.txt, line_id: L012, why: blood cultures no growth at 36 h, final pending}
+    - {file: lab_results.txt, line_id: L009, why: sputum specimen rejected}
+    - {file: lab_results.txt, line_id: L010, why: sputum not recollected}
+    - {file: lab_results.txt, line_id: L011, why: urine antigen not received}
+    - {file: physician_notes.txt, line_id: P015, why: unconfirmed diagnosis stated as fact}
+  review_status: needs_second_reviewer
+scoring_metadata:
+  primary_trap: UNJUSTIFIED_CERTAINTY
+  severity: material
+review_log:
+  drafted_by: coding agent (Claude); requires human authorship approval
+  author: null
+  blind_reviewer: null
+  blind_answer: null
+  reconciliation_notes: null
+  notes_for_reviewers:
+    - >
+      w2 is wrong only because it calls the blood cultures "negative" when the record says
+      no growth at 36 hours with the final report pending. Reviewers should confirm this is
+      material for a question about confirmation; if not, remove it from the bank before the
+      experiment rather than relabel afterwards.

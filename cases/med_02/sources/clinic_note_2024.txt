@@ -1,0 +1,8 @@
+[C001] SYNTHETIC CASE — NOT A REAL PATIENT
+[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)
+[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815
+[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.
+[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.
+[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.
+[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.
+[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.

@@ -1,0 +1,24 @@
+# PRIVATE labeled answers for the twin. Constructed by the team, NOT target outputs.
+case_id: med_03_twin
+review_status: needs_second_reviewer
+answers:
+  - answer_id: c1
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: prose
+    rationale: Names the organism and its source result, with pending items noted.
+    text: |
+      Streptococcus pneumoniae. Blood culture set 1 grew an organism at 22 hours that was
+      identified as Streptococcus pneumoniae by MALDI-TOF; susceptibilities are pending and set 2
+      showed no growth at 36 hours [L012].
+  - answer_id: w1
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: SUMMARY_HALLUCINATION
+    style: original_case_answer_on_changed_record
+    rationale: Repeats the original case's abstention; in the twin L012 reports an identified organism, so the claimed no-growth result for both sets is contradicted.
+    text: |
+      No specific pathogen is confirmed. Blood cultures show no growth at 36 hours with the final
+      report pending [L012], the sputum specimen was rejected [L009], and the urine antigen was
+      not received [L011]. Pneumococcus is only a clinical impression [P015].

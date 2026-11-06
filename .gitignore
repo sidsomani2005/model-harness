@@ -1,8 +1,17 @@
+# secrets
 .env
+# local environments / caches
 .venv/
 __pycache__/
 *.pyc
-.pytest_cache/
-runs/verifier/
-runs/scratch/
 *.egg-info/
+.pytest_cache/
+.DS_Store
+build/
+dist/
+# run scratch (official logs under runs/target, runs/verifier, runs/metrics ARE committed)
+runs/dry_run/
+runs/scratch/
+runs/**/live_*.json
+submission/
+*.zip

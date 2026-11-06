@@ -1,0 +1,16 @@
+[M001] SYNTHETIC CASE — NOT A REAL PATIENT
+[M002] Document: Medication Administration Record (MAR) extract, cardiorenal medications only | Facility: Synthetic Regional Medical Center
+[M003] Patient: SYNTH-HF-01 (synthetic) | MRN: SYN-104221 | All times EST
+[M004] Columns: date time | medication | dose and route | administration status | nurse
+[M005] 2026-03-01 18:00 | furosemide | 40 mg IV | given | K. Hill, RN
+[M006] 2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN
+[M007] 2026-03-01 21:00 | metoprolol succinate | 50 mg PO | given | K. Hill, RN
+[M008] 2026-03-02 06:00 | furosemide | 40 mg IV | given | S. Alvarez, RN
+[M009] 2026-03-02 10:15 | sodium zirconium cyclosilicate | 10 g PO | given | S. Alvarez, RN
+[M010] 2026-03-02 21:00 | lisinopril | 10 mg PO | held (order: hold for hyperkalemia) | K. Hill, RN
+[M011] 2026-03-02 21:00 | metoprolol succinate | 50 mg PO | given | K. Hill, RN
+[M012] 2026-03-03 06:00 | furosemide | 40 mg IV | given | S. Alvarez, RN
+[M013] 2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (resumed home medication) | S. Alvarez, RN
+[M014] 2026-03-03 21:00 | metoprolol succinate | 50 mg PO | given | K. Hill, RN
+[M015] 2026-03-04 06:00 | furosemide | 40 mg IV | given | T. Brooks, RN
+[M016] 2026-03-04 09:30 | spironolactone | 12.5 mg PO | held (order: hold for hyperkalemia) | T. Brooks, RN

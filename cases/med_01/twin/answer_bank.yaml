@@ -1,0 +1,37 @@
+# PRIVATE labeled answers for the twin. Constructed by the team, NOT target outputs.
+case_id: med_01_twin
+review_status: needs_second_reviewer
+answers:
+  - answer_id: c1
+    label: correct
+    expected_overall: NO_ISSUE_FOUND
+    trap: null
+    style: prose_with_qualified_uncertainty
+    rationale: Timing allows spironolactone as a contributor; causation not established.
+    text: |
+      Possibly, but it is not established. Spironolactone was a home medication started on
+      2026-02-19, last taken the morning of 2026-03-01 [P008, P009], before the first elevated
+      potassium of 5.7 mmol/L at 2026-03-02 05:45 [L006]. So the timeline does not rule it out.
+      However, the Day 2 note calls the etiology unclear and lists reduced renal potassium
+      clearance and ACE inhibitor effect as other possibilities [P016]. The record does not
+      confirm which, if any, caused the initial rise.
+  - answer_id: w1
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: TEMPORAL_CAUSALITY
+    style: original_case_answer_on_changed_record
+    rationale: Repeats the original case's conclusion; in the twin the drug was taken before the elevation (P008, P009), so the chronology claim is contradicted.
+    text: |
+      No. The first elevated potassium was 5.7 mmol/L on 2026-03-02 at 05:45 [L006], and
+      spironolactone was first given on 2026-03-03 at 10:20 [M013], after the onset. A drug
+      started after the onset cannot explain it.
+  - answer_id: w2
+    label: wrong
+    expected_overall: ERROR_DETECTED
+    trap: UNJUSTIFIED_CERTAINTY
+    style: plausibly_confident
+    rationale: Promotes a temporally possible contributor to a confirmed cause.
+    text: |
+      Yes. Spironolactone was taken daily from 2026-02-19 [P009] and potassium rose to 5.7 mmol/L
+      on 2026-03-02 [L006]. The Day 4 note confirms the hyperkalemia was secondary to
+      spironolactone [P024]. Spironolactone is the cause of the initial elevation.

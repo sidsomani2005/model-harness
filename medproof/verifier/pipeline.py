@@ -38,14 +38,15 @@ VARIANTS = {
 class OmissionConfirm(BaseModel):
     lines_show_it: bool = Field(description="The quoted lines really say what the description claims")
     answer_acknowledges: bool = Field(description="The answer already mentions, hedges or flags this")
-    changes_bottom_line: bool = Field(description="Accounting for it would change or qualify the answer's conclusion")
+    changes_bottom_line: bool = Field(description="Accounting for it would change or qualify the answer to THE QUESTION asked")
     reason: str
 
 
-CONFIRM_OMISSION_SYSTEM = """You double-check a reviewer's finding about a SYNTHETIC clinical record. Be strict: say lines_show_it=true only if the quoted lines, read literally, show what the finding says. Say answer_acknowledges=true if the answer mentions it in any form, including hedges or "documentation conflicts". No medical advice."""
+CONFIRM_OMISSION_SYSTEM = """You double-check a reviewer's finding about a SYNTHETIC clinical record. Be strict: say lines_show_it=true only if the quoted lines, read literally, show what the finding says. Say answer_acknowledges=true if the answer mentions it in any form, including hedges or "documentation conflicts". Say changes_bottom_line=true only if accounting for it would change or qualify the answer to the specific question asked; evidence about a different time period, aspect, or question does not count. No medical advice."""
 
 
-async def _confirm_omission(item: ev.SweepItem, answer: str, index: SourceIndex, meter: Meter) -> OmissionFinding:
+async def _confirm_omission(item: ev.SweepItem, question: str, answer: str, index: SourceIndex,
+                            meter: Meter) -> OmissionFinding:
     cits: list[Citation] = []
     for i, lid in enumerate(item.line_ids):
         c = chk.validate_citation(index, lid, item.quotes[i] if i < len(item.quotes) else "")
@@ -56,18 +57,25 @@ async def _confirm_omission(item: ev.SweepItem, answer: str, index: SourceIndex,
     if not (item.material and item.kind == "contradiction"):
         return finding
     if not any(c.quote_verified for c in cits):
-        return finding  # unconfirmed: no real line carries it
+        finding.confirm_status = "unverifiable"  # no real line carries it: treated as a checker invention
+        return finding
     lines = "\n".join(f"{c.file} [{c.line_id}] {c.quote}" for c in cits)
-    user = f"FINDING: {item.description}\n\nLINES:\n{lines}\n\nANSWER:\n<<<\n{answer}\n>>>"
+    user = (f"QUESTION:\n{question}\n\nFINDING: {item.description}\n\nLINES:\n{lines}\n\n"
+            f"ANSWER:\n<<<\n{answer}\n>>>")
     r = await llm.check(CONFIRM_OMISSION_SYSTEM, user, OmissionConfirm, label="confirm_omission", meter=meter,
                         max_tokens=800)
     oc: OmissionConfirm | None = r.parsed  # type: ignore[assignment]
-    finding.confirmed = bool(oc and oc.lines_show_it and not oc.answer_acknowledges and oc.changes_bottom_line)
+    if oc is None:
+        finding.confirm_status = "failed"
+        return finding
+    finding.confirmed = bool(oc.lines_show_it and not oc.answer_acknowledges and oc.changes_bottom_line)
+    finding.confirm_status = "confirmed" if finding.confirmed else "rejected"
     return finding
 
 
-async def averify(case: PublicCase, answer: str, variant: str = "haiku", target_run_id: str | None = None,
-                  target_stop_reason: str | None = None, save: bool = True) -> VerifierRun:
+async def averify(case: PublicCase, answer: str, variant: str = "haiku", target_run_id: str | None = None, *,
+                  target_stop_reason: str | None = None, save: bool = True,
+                  runs_root: str | Path | None = None) -> VerifierRun:
     if variant == "haiku-laya":
         raise NotImplementedError("Laya prioritization (P2) is optional and not implemented yet")
     if variant not in VARIANTS:
@@ -80,7 +88,7 @@ async def averify(case: PublicCase, answer: str, variant: str = "haiku", target_
 
     def finish(overall: Overall, claim_verdicts=(), omissions=(), traps=(), review=(), explanation="") -> VerifierRun:
         run = VerifierRun(
-            target_run_id=target_run_id, case_id=case.case_id, verifier_variant=variant, overall=overall,
+            target_run_id=target_run_id or f"adhoc__{case.case_id}", case_id=case.case_id, verifier_variant=variant, overall=overall,
             claim_verdicts=list(claim_verdicts), omissions=list(omissions), traps_found=list(traps),
             explanation=explanation, needs_review_reasons=list(review),
             total_model_calls=meter.n_calls, input_tokens=int(meter.total("input_tokens")),
@@ -91,7 +99,7 @@ async def averify(case: PublicCase, answer: str, variant: str = "haiku", target_
             models_used=meter.models, fake_backend=meter.any_fake,
         )
         if save:
-            run.raw_model_outputs_path = str(_save(run, stages, meter))
+            run.raw_model_outputs_path = str(_save(run, stages, meter, Path(runs_root) if runs_root else RUNS_DIR))
         return run
 
     # Refusal or empty answer: record, do not interpret.
@@ -136,7 +144,7 @@ async def averify(case: PublicCase, answer: str, variant: str = "haiku", target_
         sweep, _, full = gathered[-1]
         stages["sweep"] = {"full_chart": full, "result": sweep.model_dump(mode="json") if sweep else None}
         if sweep:
-            omissions = list(await asyncio.gather(*[_confirm_omission(i, answer, index, meter) for i in sweep.items]))
+            omissions = list(await asyncio.gather(*[_confirm_omission(i, case.question, answer, index, meter) for i in sweep.items]))
 
     overall, traps, review, explanation = vd.assemble(claim_verdicts, omissions)
     return finish(overall, claim_verdicts, omissions, traps, review, explanation)
@@ -147,10 +155,10 @@ def _insufficient(reason: str):
     return overall, (), (), traps, review, explanation
 
 
-def _save(run: VerifierRun, stages: dict, meter: Meter) -> Path:
+def _save(run: VerifierRun, stages: dict, meter: Meter, root: Path) -> Path:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     tid = run.target_run_id or f"adhoc_{run.case_id}_{stamp}"
-    d = RUNS_DIR / "verifier" / tid / run.verifier_variant
+    d = root / "verifier" / tid / run.verifier_variant
     d.mkdir(parents=True, exist_ok=True)
     path = d / "raw.json"
     path.write_text(json.dumps({
@@ -162,7 +170,18 @@ def _save(run: VerifierRun, stages: dict, meter: Meter) -> Path:
     return path
 
 
-def verify(case: PublicCase, answer: str, variant: str = "haiku", target_run_id: str | None = None,
-           target_stop_reason: str | None = None, save: bool = True) -> VerifierRun:
-    """Synchronous entry point used by the CLI and the benchmark (WORKPLAN Step 0 contract)."""
-    return asyncio.run(averify(case, answer, variant, target_run_id, target_stop_reason, save))
+def verify(case: PublicCase, answer: str, variant: str = "haiku", target_run_id: str | None = None, *,
+           target_stop_reason: str | None = None, save: bool = True,
+           runs_root: str | Path | None = None) -> VerifierRun:
+    """Synchronous entry point used by the CLI and the benchmark (WORKPLAN Step 0 contract).
+
+    `runs_root` must match the root the caller saves verdict.json under, so raw logs and
+    verdicts never land in different trees (e.g. scratch vs official).
+    """
+    async def _run() -> VerifierRun:
+        try:
+            return await averify(case, answer, variant, target_run_id, target_stop_reason=target_stop_reason,
+                                 save=save, runs_root=runs_root)
+        finally:
+            await llm.aclose()  # close the HTTP client inside its own event loop
+    return asyncio.run(_run())

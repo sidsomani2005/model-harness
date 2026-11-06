@@ -1,0 +1,13 @@
+[L001] SYNTHETIC CASE — NOT A REAL PATIENT
+[L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST
+[L003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470 | Report printed 2026-01-22 10:00 EST
+[L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)
+[L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected
+[L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected
+[L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours
+[L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory
+[L009] 2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested
+[L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory
+[L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00
+[L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hours
+[L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected

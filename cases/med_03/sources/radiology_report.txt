@@ -1,0 +1,7 @@
+[R001] SYNTHETIC CASE — NOT A REAL PATIENT
+[R002] Document: Radiology Report, chest X-ray PA and lateral | Exam time 2026-01-20 19:40 EST
+[R003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470
+[R004] Indication: fever, productive cough, hypoxemia.
+[R005] Findings: dense consolidation in the right lower lobe with air bronchograms. No pleural effusion. No pneumothorax.
+[R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.
+[R007] Electronically signed by radiologist (H. Kim, MD) 2026-01-20 20:02 EST.

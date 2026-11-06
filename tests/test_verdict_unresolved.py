@@ -42,9 +42,20 @@ def test_minor_issues_never_fail_an_answer():
 
 
 def test_unconfirmed_omission_does_not_fail():
-    o = OmissionFinding(description="allergy conflict", kind="contradiction", material=True, confirmed=False)
+    # second check could not run -> real doubt -> insufficient
+    o = OmissionFinding(description="allergy conflict", kind="contradiction", material=True, confirmed=False,
+                        confirm_status="failed")
     overall, _, review, _ = assemble([cv(ClaimStatus.SUPPORTED)], [o])
     assert overall == Overall.INSUFFICIENT_TO_VERIFY and review
+
+
+def test_rejected_omission_is_only_a_note():
+    # second check looked and dismissed it (or no real line carries it) -> does not block
+    for status in ("rejected", "unverifiable"):
+        o = OmissionFinding(description="allergy conflict", kind="contradiction", material=True, confirmed=False,
+                            confirm_status=status)
+        overall, _, review, _ = assemble([cv(ClaimStatus.SUPPORTED)], [o])
+        assert overall == Overall.NO_ISSUE_FOUND and not review
 
 
 def test_confirmed_omission_is_silent_contradiction():

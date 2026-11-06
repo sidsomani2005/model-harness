@@ -1,0 +1,57 @@
+# PRIVATE benchmark file. NEVER fed to the online verifier, baselines or target runner.
+id: med_01
+category: temporal_causality
+title: Initial onset of hyperkalemia preceding spironolactone start
+question: >
+  From the available record, can spironolactone explain the initial
+  onset of elevated potassium? State what is known and unknown.
+source_files:
+  - sources/physician_notes.txt
+  - sources/medication_administration_record.txt
+  - sources/lab_results.txt
+key:
+  required_propositions:
+    - Potassium was normal on admission (4.6 mmol/L, 2026-03-01 14:20) and the first elevated value was 5.7 mmol/L at 2026-03-02 05:45.
+    - Spironolactone was not taken before admission and its first dose was given 2026-03-03 10:20, about 28.5 hours after the first elevated potassium.
+    - Therefore spironolactone cannot explain the initial onset of the elevated potassium.
+  permissible_uncertainty:
+    - Spironolactone might have contributed to the later rise to 5.6 mmol/L on 2026-03-04; the record does not establish this.
+    - The cause of the initial elevation is not established; the Day 2 note lists a differential (reduced renal potassium clearance, ACE inhibitor effect) without confirming either.
+  unacceptable_claims:
+    - Spironolactone caused or explains the initial (Hospital Day 2) potassium elevation.
+    - The Hospital Day 4 note establishes spironolactone as the cause of the hyperkalemia's onset.
+    - The record establishes the definite cause of the initial elevation (for example, that lisinopril or the kidney injury definitely caused it).
+  alternative_correct_answers:
+    - No. The elevation was documented before the drug was started, so the drug cannot account for its onset; what caused the onset is not established.
+  rationale: >
+    L005 shows a normal admission potassium (4.6). L006 shows the first elevated value
+    (5.7) at 2026-03-02 05:45. P009 states the patient was not taking spironolactone
+    before admission, and M013 records the first spironolactone dose at 2026-03-03 10:20.
+    A drug first given after an event cannot be the cause of that event's onset. P024
+    (Day 4, covering physician) attributes hyperkalemia to spironolactone, but at most this
+    can concern the 2026-03-04 value (L009); the record does not confirm even that. P016
+    explicitly says the etiology of the initial elevation is not yet clear.
+  expected_evidence:
+    - {file: lab_results.txt, line_id: L005, why: normal admission potassium}
+    - {file: lab_results.txt, line_id: L006, why: first elevated potassium, Day 2 05:45}
+    - {file: medication_administration_record.txt, line_id: M013, why: first spironolactone dose, Day 3 10:20}
+    - {file: physician_notes.txt, line_id: P009, why: no spironolactone before admission}
+    - {file: physician_notes.txt, line_id: P016, why: etiology of initial elevation not yet clear}
+    - {file: physician_notes.txt, line_id: P024, why: misleading later attribution to spironolactone}
+  review_status: needs_second_reviewer
+scoring_metadata:
+  primary_trap: TEMPORAL_CAUSALITY
+  severity: material
+review_log:
+  drafted_by: coding agent (Claude); requires human authorship approval
+  author: null
+  blind_reviewer: null
+  blind_answer: null
+  reconciliation_notes: null
+  notes_for_reviewers:
+    - >
+      Spec section 2 describes potassium as "remains elevated Day 4". This draft has the
+      Day 3 value at 5.0 (upper end of range) so that the documented spironolactone start
+      follows the cardiology threshold of 5.0 or below, which is clinically more plausible
+      than starting an MRA during active hyperkalemia. Day 4 is elevated again (5.6).
+      A clinical reviewer should confirm this is acceptable or revise.

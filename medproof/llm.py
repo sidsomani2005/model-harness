@@ -64,10 +64,14 @@ def cost_usd(
 
 @dataclass
 class LLMResult:
+    """Contract shared with the benchmark lane: `model` is the id requested, `response_model`
+    the id the API reported (they differ only if the provider routed elsewhere)."""
+
     model: str
-    text: str
-    parsed: BaseModel | None
-    stop_reason: str | None
+    text: str | None = None
+    parsed: Any = None
+    stop_reason: str | None = None
+    response_model: str | None = None
     input_tokens: int = 0
     output_tokens: int = 0
     cache_read_input_tokens: int = 0
@@ -85,10 +89,25 @@ class LLMResult:
     def ok(self) -> bool:
         return self.stop_reason in ("end_turn", "stop_sequence") and self.parse_error is None
 
+    def model_dump(self, exclude: set[str] | None = None, **_: Any) -> dict:
+        """pydantic-style dump (benchmark lane contract): every field, JSON-safe."""
+        out = {
+            "model": self.model, "response_model": self.response_model, "text": self.text,
+            "parsed": self.parsed.model_dump(mode="json") if isinstance(self.parsed, BaseModel) else self.parsed,
+            "stop_reason": self.stop_reason, "stop_details": self.stop_details,
+            "input_tokens": self.input_tokens, "output_tokens": self.output_tokens,
+            "cache_read_input_tokens": self.cache_read_input_tokens,
+            "cache_creation_input_tokens": self.cache_creation_input_tokens,
+            "latency_ms": self.latency_ms, "cost_usd": self.cost_usd, "parse_error": self.parse_error,
+            "fake": self.fake, "label": self.label, "request": self.request, "raw": self.raw,
+        }
+        return {k: v for k, v in out.items() if k not in (exclude or set())}
+
     def to_log(self) -> dict:
         return {
             "label": self.label,
             "model": self.model,
+            "response_model": self.response_model,
             "stop_reason": self.stop_reason,
             "stop_details": self.stop_details,
             "input_tokens": self.input_tokens,
@@ -101,7 +120,7 @@ class LLMResult:
             "fake": self.fake,
             "request": self.request,
             "text": self.text,
-            "parsed": self.parsed.model_dump(mode="json") if self.parsed else None,
+            "parsed": self.parsed.model_dump(mode="json") if isinstance(self.parsed, BaseModel) else self.parsed,
         }
 
 
@@ -132,7 +151,7 @@ class Meter:
 
     @property
     def models(self) -> list[str]:
-        return sorted({c.model for c in self.calls})
+        return sorted({c.response_model or c.model for c in self.calls})
 
 
 # ---------------------------------------------------------------- backends
@@ -164,6 +183,14 @@ def _get_client() -> anthropic.AsyncAnthropic:
     return _client
 
 
+async def aclose() -> None:
+    """Close the async client bound to the current loop (call before the loop ends)."""
+    global _client, _client_loop
+    if _client is not None and _client_loop is asyncio.get_running_loop():
+        await _client.close()
+        _client, _client_loop = None, None
+
+
 def _get_semaphore() -> asyncio.Semaphore:
     global _semaphore, _semaphore_loop
     loop = asyncio.get_running_loop()
@@ -186,7 +213,7 @@ def _parse(schema: type[BaseModel] | None, text: str) -> tuple[BaseModel | None,
 
 async def call(
     model: str,
-    system: str,
+    system: str | None,
     user: str,
     *,
     schema: type[BaseModel] | None = None,
@@ -196,13 +223,19 @@ async def call(
     meter: Meter | None = None,
     extra: dict[str, Any] | None = None,
 ) -> LLMResult:
-    """One fresh, single-turn Messages call. Returns an LLMResult; never raises on refusal/truncation."""
+    """One fresh, single-turn Messages call. Returns an LLMResult; never raises on refusal/truncation.
+
+    - `system=None` sends no system prompt; `effort=None` sends no effort (model default config).
+    - Only transient transport/429/5xx errors are retried (by the SDK, before any response exists);
+      a completed response is never retried here and there is no fallback to another model.
+    """
     request: dict[str, Any] = {
         "model": model,
         "max_tokens": max_tokens,
-        "system": system,
         "messages": [{"role": "user", "content": user}],
     }
+    if system is not None:
+        request["system"] = system
     output_config: dict[str, Any] = {}
     if effort:
         output_config["effort"] = effort
@@ -244,7 +277,7 @@ async def call(
     out_tok = u.output_tokens or 0
     cr = getattr(u, "cache_read_input_tokens", 0) or 0
     cw = getattr(u, "cache_creation_input_tokens", 0) or 0
-    answered_model = resp.model or model
+    answered_model = resp.model or model  # reported by the API
     text = "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
     stop_details = getattr(resp, "stop_details", None)
 
@@ -257,7 +290,8 @@ async def call(
         parsed, err = _parse(schema, text)
 
     result = LLMResult(
-        model=answered_model,
+        model=model,
+        response_model=answered_model,
         text=text,
         parsed=parsed,
         stop_reason=resp.stop_reason,

@@ -91,3 +91,25 @@ async def test_checker_failure_is_insufficient(fixture_case):
     llm.use_fake_backend(lambda req: "not json")
     run = await averify(fixture_case, WRONG)
     assert run.overall == Overall.INSUFFICIENT_TO_VERIFY
+
+
+def test_raw_log_follows_runs_root(fixture_case, tmp_path):
+    from medproof.verifier.pipeline import verify
+    llm.use_fake_backend(scripted(answer_is_wrong=False))
+    run = verify(fixture_case, RIGHT, target_run_id="t_root", runs_root=tmp_path / "scratch")
+    assert Path(run.raw_model_outputs_path) == tmp_path / "scratch" / "verifier" / "t_root" / "haiku" / "raw.json"
+    run2 = verify(fixture_case, RIGHT, target_run_id="t_nosave", save=False)
+    assert run2.raw_model_outputs_path is None
+
+
+async def test_case_id_never_reaches_a_prompt(fixture_case):
+    """case ids like med_01_twin must not leak into checker prompts."""
+    seen = []
+    base = scripted(answer_is_wrong=True)
+
+    def spy(req):
+        seen.append(req["system"] + req["messages"][0]["content"])
+        return base(req)
+    llm.use_fake_backend(spy)
+    await averify(fixture_case, WRONG, target_run_id="t_leak")
+    assert seen and not any(fixture_case.case_id in s for s in seen)

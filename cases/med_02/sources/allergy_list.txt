@@ -1,0 +1,8 @@
+[A001] SYNTHETIC CASE — NOT A REAL PATIENT
+[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST
+[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815
+[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe
+[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine
+[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD
+[A007] No other allergies or intolerances are recorded.
+[A008] Inactive or removed entries: none.

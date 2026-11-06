@@ -1,15 +1,19 @@
-"""Shared data contracts (WORKPLAN Step 0, spec §8).
+"""Shared data contracts (WORKPLAN Step 0; spec section 8).
 
-Changing anything here affects both lanes: coordinate before editing.
+`PublicCase` is the ONLY case object the online verifier, the baselines and the
+target runner ever receive. It carries no key, trap, rubric or twin metadata, and
+`extra="forbid"` stops anyone from bolting them on.
 
-Invariant: `PublicCase` is the ONLY case object the online verifier and the
-target runner receive. It carries no key, trap, rubric, answer-bank or twin
-label fields, and `extra="forbid"` stops anyone from bolting them on.
+The `TargetRun`, `ClaimVerdict` and `VerifierRun` fields required by spec section 8
+are kept. Optional fields are added where spec section 1 (outputs) or section 4
+(Path A logging) asks for more; every addition has a default so section-8 JSON
+validates unchanged. Changing this file affects both lanes: coordinate first.
 """
 
 from __future__ import annotations
 
 from enum import Enum
+from typing import Any, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -50,19 +54,20 @@ class SourceLine(BaseModel):
     file: str
     line_id: str
     text: str
-    timestamp: str | None = None  # ISO-8601, as written or inherited from the note header
+    # verifier-side enrichments (source_index); optional for everyone else
+    timestamp: Optional[str] = None  # ISO-8601, as written or inherited from the note header
     timestamp_inherited: bool = False
-    line_no: int = 0  # 0-based physical position inside the file
+    line_no: int = 0  # 0-based position inside the file
 
 
 class PublicCase(BaseModel):
-    """What the verifier and target runner may see. Nothing else."""
+    """Everything the online path may see: id, question, source text, and its hash."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     case_id: str
     question: str
-    sources: dict[str, str]  # file name -> raw text with [ID] line prefixes
+    sources: dict[str, str]  # file name (e.g. "lab_results.txt") -> full file text
     source_sha256: str
 
 
@@ -72,69 +77,83 @@ class PublicCase(BaseModel):
 class Citation(BaseModel):
     file: str
     line_id: str
-    quote: str
-    quote_verified: bool = True  # quote matched the source text (exactly or after normalization)
+    quote: str = ""
+    quote_verified: bool = True  # verifier: the checker's quote matched the source line
 
 
 class ClaimVerdict(BaseModel):
     claim_id: str
     claim_text: str
     status: ClaimStatus
-    severity: Severity = Severity.minor
+    severity: Severity = Severity.material
     citations: list[Citation] = Field(default_factory=list)
     why: str = ""
     uncertainty: str = ""
+    # verifier audit trail
     traps: list[Trap] = Field(default_factory=list)
     needs_review: bool = False
     needs_review_reasons: list[str] = Field(default_factory=list)
-    checks: list[str] = Field(default_factory=list)  # which stages contributed (audit trail)
-
-
-class TargetRun(BaseModel):
-    run_id: str
-    case_id: str
-    case_version_sha256: str
-    model: str
-    timestamp_utc: str
-    exact_prompt: str
-    system_prompt: str = ""
-    answer_raw: str
-    first_attempt: bool = True
-    stop_reason: str | None = None
-    input_tokens: int = 0
-    output_tokens: int = 0
-    latency_ms: int = 0
-    request_config: dict = Field(default_factory=dict)
+    checks: list[str] = Field(default_factory=list)
 
 
 class OmissionFinding(BaseModel):
-    """Material evidence in the chart that the answer did not account for (global sweep)."""
+    """Material evidence in the chart that the answer did not account for (verifier global sweep)."""
 
     description: str
     kind: str  # contradiction | uncertainty | negative_finding | status_caveat | other
     citations: list[Citation] = Field(default_factory=list)
     material: bool = False
     confirmed: bool = False
-    related_claim_id: str | None = None
+    # confirmed | rejected (second check disagreed) | unverifiable (no real line carries it)
+    # | failed (second check errored) | not_checked (not a material contradiction)
+    confirm_status: str = "not_checked"
+    related_claim_id: Optional[str] = None
 
 
 class VerifierRun(BaseModel):
-    target_run_id: str | None = None
-    case_id: str
+    # spec section 8
+    target_run_id: Optional[str] = None
     verifier_variant: str
     overall: Overall
     claim_verdicts: list[ClaimVerdict] = Field(default_factory=list)
-    omissions: list[OmissionFinding] = Field(default_factory=list)
-    traps_found: list[Trap] = Field(default_factory=list)
-    explanation: str = ""
-    needs_review_reasons: list[str] = Field(default_factory=list)
     total_model_calls: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
-    cache_read_input_tokens: int = 0
-    cache_creation_input_tokens: int = 0
     estimated_cost_usd: float = 0.0
     latency_ms: int = 0
+    raw_model_outputs_path: Optional[str] = None
+    # additions (spec section 1 outputs 3, 5, 6)
+    case_id: Optional[str] = None
+    traps_found: list[Trap] = Field(default_factory=list)
+    explanation: str = ""
+    needs_review_reasons: list[str] = Field(default_factory=list)
+    omissions: list[OmissionFinding] = Field(default_factory=list)
+    cache_read_input_tokens: int = 0
+    cache_creation_input_tokens: int = 0
     models_used: list[str] = Field(default_factory=list)
     fake_backend: bool = False  # True only in offline unit tests; never report these as results
-    raw_model_outputs_path: str | None = None
+
+
+class TargetRun(BaseModel):
+    # spec section 8
+    run_id: str
+    case_id: str
+    case_version_sha256: str
+    model: str
+    timestamp_utc: str
+    exact_prompt: str
+    answer_raw: str
+    first_attempt: bool = True
+    stop_reason: Optional[str] = None
+    input_tokens: int = 0
+    output_tokens: int = 0
+    latency_ms: int = 0
+    # additions required by spec section 4, Path A step 5
+    exact_system_prompt: Optional[str] = None
+    request_config: dict[str, Any] = Field(default_factory=dict)
+    response_model: Optional[str] = None
+    stop_details: Optional[dict[str, Any]] = None
+    cache_creation_input_tokens: int = 0
+    cache_read_input_tokens: int = 0
+    estimated_cost_usd: Optional[float] = None
+    is_twin: bool = False

@@ -238,8 +238,8 @@ async def run_temporal(claim: ExtractedClaim, pack: EvidencePack, index: SourceI
         return None, "Timeline anchors cited non-existent lines; ignored.", [], r
     status, why = temporal_judgement(index, cause, effect, te.effect_scope, claim.certainty)
     if status == ClaimStatus.CONTRADICTED and (not te.claim_asserts_causation or denies_causation(claim.text)):
-        # The claim denies the causal link; the timeline is consistent with it, not against it.
-        return None, (f"Timeline is consistent with the claim: {cause.file} [{cause.line_id}] ({cause.timestamp}) "
+        # The claim denies the causal link; the source timestamps prove it.
+        return ClaimStatus.SUPPORTED, (f"Timeline is consistent with the claim: {cause.file} [{cause.line_id}] ({cause.timestamp}) "
                       f"comes after {effect.file} [{effect.line_id}] ({effect.timestamp})."), [cause, effect], r
     return status, why, [cause, effect], r
 
@@ -332,16 +332,30 @@ async def verify_claim(claim: ExtractedClaim, pack: EvidencePack, index: SourceI
                 cits.append(Citation(file=l.file, line_id=l.line_id, quote=l.text[:240], quote_verified=True))
         uncertainty = uncertainty or "Contribution to later values is not established by the record."
 
+    if t_status == ClaimStatus.SUPPORTED and status != ClaimStatus.SUPPORTED:
+        # deterministic evidence (timestamps) proves the denial; recorded for audit
+        checks.append("chronology_overrode_narrow_check")
+        status, why = ClaimStatus.SUPPORTED, t_why
+        for l in t_lines:
+            if all((l.file, l.line_id) != (c.file, c.line_id) for c in cits):
+                cits.append(Citation(file=l.file, line_id=l.line_id, quote=l.text[:240], quote_verified=True))
+
     material = _is_material(claim, chk)
 
     # second opinion for material negative findings (independent call, full chart when short)
-    if material and status != ClaimStatus.SUPPORTED and t_status != ClaimStatus.CONTRADICTED:
+    if material and status != ClaimStatus.SUPPORTED and t_status not in (ClaimStatus.CONTRADICTED, ClaimStatus.SUPPORTED):
         checks.append("confirmation")
         r2 = await run_check(claim, pack, index, meter, full_chart=index.is_short,
                              label=f"confirm:{claim.claim_id}", answer=answer)
         chk2: ClaimCheck | None = r2.parsed  # type: ignore[assignment]
         if chk2 is None:
             review.append("confirmation check failed")
+        elif (status == ClaimStatus.NOT_ESTABLISHED and chk2.status == ClaimStatus.SUPPORTED and not full
+              and index.is_short and chk2.confidence == "high"):
+            # the first pass saw only retrieved lines; the second saw the whole chart and found support
+            checks.append("full_chart_found_support")
+            status, why, uncertainty, traps = ClaimStatus.SUPPORTED, chk2.reason, chk2.uncertainty, []
+            cits = _citations(index, chk2.evidence, {EvidenceRole.supports}) or cits
         elif not statuses_agree(status, chk2.status):
             review.append(f"checkers disagree: {status.value} vs {chk2.status.value}")
         else:
