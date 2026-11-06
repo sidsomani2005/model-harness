@@ -35,7 +35,7 @@ def scripted(answer_is_wrong: bool):
                  "entities": ["penicillin"], "cited_lines": ["A003", "P007"]}]}
         if schema == "TemporalExtraction":
             causal = "caused the initial" in user
-            return {"applicable": causal, "claim_asserts_causation": causal, "cause_line_id": "M004" if causal else None,
+            return {"applicable": causal, "claim_asserts_causation": causal, "about_patient_events": True, "cause_line_id": "M004" if causal else None,
                     "effect_line_id": "L004" if causal else None, "effect_scope": "initial_onset"}
         if schema == "ClaimCheck":
             if answer_is_wrong and "no known drug allergies" in user:

@@ -55,10 +55,18 @@ async def test_timeline_proves_a_denial(index):
     from medproof.verifier.check import run_temporal
     from medproof.verifier.claims import ClaimKind, ExtractedClaim, Importance
     from medproof.verifier.evidence import gather
-    llm.use_fake_backend(lambda req: {"applicable": True, "claim_asserts_causation": False, "cause_line_id": "M004",
+    llm.use_fake_backend(lambda req: {"applicable": True, "claim_asserts_causation": False, "about_patient_events": True, "cause_line_id": "M004",
                                       "effect_line_id": "L004", "effect_scope": "initial_onset"})
     c = ExtractedClaim(claim_id="c1", text="Spironolactone cannot explain the initial potassium rise.",
                        kind=ClaimKind.causal_attribution, certainty=Certainty.definitive, importance=Importance.high,
                        is_final_conclusion=True, entities=["spironolactone"], cited_lines=["M004"])
     status, why, lines, _ = await run_temporal(c, gather(c, index), index, Meter())
     assert status == ClaimStatus.SUPPORTED and {l.line_id for l in lines} == {"M004", "L004"}
+
+
+def test_general_facts_and_reports_are_not_timeline_checked():
+    from medproof.verifier.check import is_patient_causal_claim
+    assert not is_patient_causal_claim("Spironolactone is a well-known cause of hyperkalemia.")
+    assert not is_patient_causal_claim("The treating physician documented that the hyperkalemia was likely secondary to spironolactone.")
+    assert is_patient_causal_claim("The record supports spironolactone as the explanation for the onset of this patient's elevated potassium.")
+    assert is_patient_causal_claim("Spironolactone caused the initial potassium rise.")
