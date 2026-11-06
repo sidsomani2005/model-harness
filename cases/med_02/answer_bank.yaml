@@ -1,7 +1,7 @@
 # PRIVATE labeled answers for verifier evaluation. Constructed by the team, NOT target outputs.
 # No "ambiguous" item: none we could write had a genuinely undecidable correct verdict.
 case_id: med_02
-review_status: needs_second_reviewer
+review_status: approved
 answers:
   - answer_id: c1
     label: correct

@@ -1,0 +1,104 @@
+{
+  "target_run_id": "bank__med_02__w1",
+  "verifier_variant": "direct-haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The patient has no known drug allergies.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin)",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Reaction: anaphylaxis (generalized hives, throat tightness, hypotension)",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "Patient reports avoiding all penicillins since then",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list and 2024 clinic note document a severe penicillin allergy with anaphylaxis, which the NKDA claim contradicts.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "NKDA in the 2026-02-14 ED triage note supersedes older records.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Last reviewed 2024-08-12 by L. Chen, PharmD",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record contains no statement that the triage entry supersedes the allergy list; a brief triage entry conflicts with the more detailed, reviewed allergy documentation and the conflict is not resolved in the record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The ED triage note is the most recent documentation of drug allergies.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N002",
+          "quote": "Document: Emergency Department Triage Note | 2026-02-14 22:47 EST",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note is dated 2026-02-14, later than the other documents, so it is the most recent document, though recency alone does not establish allergy status.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2853,
+  "output_tokens": 820,
+  "estimated_cost_usd": 0.0006952999999999999,
+  "latency_ms": 3956,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__w1/direct-haiku/raw.json",
+  "case_id": "med_02",
+  "traps_found": [
+    "SILENT_CONTRADICTION",
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "The answer states definitively that the patient has no known drug allergies, based on a triage entry, while omitting the documented severe penicillin anaphylaxis in the allergy list and 2024 clinic note. The record shows a conflict that the answer does not disclose or resolve, and the claim that the newer note supersedes older records is not supported by the documents.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

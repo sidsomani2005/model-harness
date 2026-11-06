@@ -162,6 +162,9 @@ class TemporalExtraction(BaseModel):
     applicable: bool = Field(description="True only if the claim is about whether one event caused or explains another")
     claim_asserts_causation: bool = Field(description="True if the claim says the cause DID cause/explain the effect; "
                                           "False if it denies, doubts, or says it cannot")
+    about_patient_events: bool = Field(description="True only if the claim itself asserts a causal link between this "
+                                       "patient's documented events. False for general facts (e.g. 'X is a known cause "
+                                       "of Y') and for claims that only report what a note or clinician said")
     cause_line_id: str | None = Field(description="Line documenting when the proposed cause FIRST started")
     effect_line_id: str | None = Field(description="EARLIEST line documenting the effect")
     effect_scope: EffectScope = Field(description="Which part of the effect the claim attributes to the cause")
@@ -173,10 +176,22 @@ If the claim attributes an effect to a cause, give:
 - effect_line_id: the EARLIEST line that documents the effect (first abnormal value, first symptom);
 - effect_scope: initial_onset if the claim is about how the effect began or simply says X caused Y; persistence_or_later if it only claims X kept it going or affected later values; unspecified if unclear.
 - claim_asserts_causation: false if the claim says the cause did NOT / cannot / is unlikely to explain the effect.
+- about_patient_events: false for general pharmacology/medical facts and for claims that only report what a document or clinician stated ("the physician documented that...").
 Use only line IDs shown. If the claim is not causal, set applicable=false."""
 
 _DENIAL = re.compile(r"\b(cannot|can't|could not|couldn't|did not|didn't|does not|doesn't|is not|isn't|not|no|"
                      r"unlikely|unable|ruled? out|predates?)\b", re.I)
+
+
+_NOT_PATIENT_CAUSAL = re.compile(
+    r"\b(documented|documents|wrote|writes|noted|notes that|stated|states that|recorded|according to|per the|"
+    r"attribut\w+ .* in (?:the|a) note|well[- ]known|known cause|can cause|may cause|commonly|generally|in general)\b",
+    re.I)
+
+
+def is_patient_causal_claim(text: str) -> bool:
+    """Deterministic guard: general facts and reports of documentation are not timeline-checkable assertions."""
+    return not _NOT_PATIENT_CAUSAL.search(text)
 
 
 def denies_causation(text: str) -> bool:
@@ -233,6 +248,8 @@ async def run_temporal(claim: ExtractedClaim, pack: EvidencePack, index: SourceI
     te: TemporalExtraction | None = r.parsed  # type: ignore[assignment]
     if te is None or not te.applicable or not te.cause_line_id or not te.effect_line_id:
         return None, "", [], r
+    if not te.about_patient_events or not is_patient_causal_claim(claim.text):
+        return None, "", [], r  # general fact or report of documentation: the timeline does not apply
     cause, effect = index.resolve(te.cause_line_id), index.resolve(te.effect_line_id)
     if cause is None or effect is None:
         return None, "Timeline anchors cited non-existent lines; ignored.", [], r

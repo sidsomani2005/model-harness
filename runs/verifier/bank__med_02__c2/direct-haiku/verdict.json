@@ -1,0 +1,115 @@
+{
+  "target_run_id": "bank__med_02__c2",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Documented penicillin allergy, severe, anaphylaxis to amoxicillin in 2019, required epinephrine.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin)",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Reaction: anaphylaxis (generalized hives, throat tightness, hypotension)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records penicillin allergy with anaphylaxis after amoxicillin, treated with intramuscular epinephrine, and the answer reports this accurately.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The 2024 clinic note corroborates the amoxicillin reaction history.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department",
+          "quote_verified": true
+        }
+      ],
+      "why": "The clinic note independently describes the 2019 amoxicillin reaction requiring epinephrine.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The 2026-02-14 triage note conflicts with the allergy record by stating NKDA.",
+      "status": "CONFLICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note records no known drug allergies, which directly conflicts with the documented penicillin anaphylaxis, and the answer flags this conflict.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "It is not established which entry is current; the allergy list entry remains active and no re-evaluation is documented after the NKDA entry.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        },
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record shows an active allergy entry and a conflicting NKDA entry with no documented reconciliation, so the answer's uncertainty statement is accurate.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2949,
+  "output_tokens": 1579,
+  "estimated_cost_usd": 0.0010844000000000001,
+  "latency_ms": 6484,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__c2/direct-haiku/raw.json",
+  "case_id": "med_02",
+  "traps_found": [],
+  "explanation": "The answer accurately reports the documented penicillin/amoxicillin anaphylaxis history, its corroboration in the 2024 clinic note, and the conflicting NKDA entry in the 2026 triage note. It appropriately hedges that the current status is not established and does not assert an unsupported resolution.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

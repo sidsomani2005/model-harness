@@ -111,7 +111,11 @@ def cmd_freeze(args) -> int:
 def cmd_run_targets(args) -> int:
     from medproof.targets.anthropic_runner import run_targets
 
-    model = args.model or os.environ.get("TARGET_MODEL", "claude-sonnet-5-5")
+    model = args.model or "claude-sonnet-5-5"  # never silently overridden by .env (spec: one fixed target model)
+    env_model = os.environ.get("TARGET_MODEL")
+    if env_model and env_model != model:
+        console.print(f"[yellow]Ignoring TARGET_MODEL={env_model} from the environment; using {model}. "
+                      f"Pass --model to choose explicitly.[/yellow]")
     base_dirs = discover_cases(args.cases)
     if args.case:
         base_dirs = [d for d in base_dirs if d.name in set(args.case)]
@@ -142,7 +146,8 @@ def cmd_run_targets(args) -> int:
     outcomes = run_targets([(pc, tw) for pc, tw, _ in selected], model=model, runs_root=Path(args.runs), dry_run=args.dry_run)
     bad = 0
     for o in outcomes:
-        color = {"saved": "green", "dry_run": "cyan", "skipped_existing": "yellow", "refusal": "magenta"}.get(o.status, "red")
+        color = {"saved": "green", "dry_run": "cyan", "skipped_existing": "yellow", "refusal": "magenta",
+                 "model_mismatch": "red"}.get(o.status, "red")
         bad += o.status == "error"
         console.print(f"[{color}]{o.status:17}[/{color}] {o.case_id}  {o.detail}  {o.path or ''}")
     return 1 if bad else 0
@@ -324,7 +329,9 @@ def cmd_demo(args) -> int:
             return 1
         answer = match[0].text
     else:
-        runs = [r for r in load_target_runs(runs_root) if r.case_id == case_id]
+        runs = sorted((r for r in load_target_runs(runs_root) if r.case_id == case_id and r.first_attempt
+                       and not (r.response_model and r.response_model != r.model)),
+                      key=lambda r: (r.model != "claude-sonnet-5-5", r.timestamp_utc))
         if not runs:
             console.print(f"[red]No saved target first answer for {case_id}.[/red] Run the official target pass, "
                           f"or replay a constructed item with --bank-answer <id> (it will be labeled as constructed).")

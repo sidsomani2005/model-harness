@@ -1,0 +1,141 @@
+{
+  "target_run_id": "bank__med_01__c2",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "First elevated potassium was 5.7 mmol/L, collected 2026-03-02 05:45.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The lab line directly shows the 05:45 collection with potassium 5.7 flagged high, and admission potassium was 4.6 per L005.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "First spironolactone dose was 2026-03-03 10:20, and spironolactone was not a pre-admission medication.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Not taking a mineralocorticoid receptor antagonist (spironolactone or eplerenone) before admission.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR documents the first dose time and the admission note excludes pre-admission spironolactone.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The elevation precedes the drug by about 28.5 hours.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        }
+      ],
+      "why": "From 2026-03-02 05:45 to 2026-03-03 10:20 is 28.583 hours, consistent with about 28.5 hours.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The actual cause of the initial elevation is not established in the record.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The physician note states etiology was unclear, so the answer's uncertainty statement is faithful.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b5",
+      "claim_text": "Spironolactone cannot account for the initial onset of elevated potassium.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The elevated value predates the first spironolactone dose, so the drug cannot explain the initial onset, a timeline-supported conclusion.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 4470,
+  "output_tokens": 1211,
+  "estimated_cost_usd": 0.0010525,
+  "latency_ms": 4744,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__c2/direct-haiku/raw.json",
+  "case_id": "med_01",
+  "traps_found": [],
+  "explanation": "The answer's timeline claims, first elevated value, first dose, pre-admission status, and the 28.5-hour interval all match the sources. Its statement that the cause of the initial elevation is unknown matches P016. The answer hedges appropriately on the 2026-03-04 value, and it does not add unsupported facts. The record also contains a lisinopril-related differential (P016) and a 16:10 potassium of 5.4 (L007) that the answer omits; this does not make the answer misleading because it does not claim a single cause.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

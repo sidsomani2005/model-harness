@@ -127,7 +127,9 @@ async def run_one(case: PublicCase, model: str, is_twin: bool, runs_root: Path =
     status = "refusal" if result.stop_reason == "refusal" else "saved"
     detail = f"stop_reason={result.stop_reason}"
     if result.response_model and result.response_model != model:
-        detail += f"; WARNING response model {result.response_model} != requested {model}"
+        # preserved as logged, but excluded from scoring (benchmark.collect_items)
+        status = "model_mismatch"
+        detail += f"; INVALID: response model {result.response_model} != requested {model}; excluded from scoring"
     return RunOutcome(case.case_id, status, detail, path)
 
 

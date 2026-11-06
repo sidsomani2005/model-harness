@@ -234,7 +234,7 @@ function renderFindings(){
   const vr = a && a.verdicts ? a.verdicts[state.variant] : null;
   if (!vr) { box.appendChild(el('p', 'empty', 'No saved verdict for this answer and variant.')); return; }
   box.appendChild(el('div', 'overall o-' + vr.overall, vr.overall.replace(/_/g, ' ')));
-  if (vr.explanation) box.appendChild(el('p', null, vr.explanation));
+  if (vr.explanation) { const ex = el('p', null, vr.explanation); ex.style.whiteSpace = 'pre-line'; box.appendChild(ex); }
   if (vr.traps_found && vr.traps_found.length) box.appendChild(el('p', 'note', 'Reasoning traps flagged: ' + vr.traps_found.join(', ')));
   (vr.needs_review_reasons || []).forEach(r => box.appendChild(el('p', 'note', 'Needs review: ' + r)));
   if (!vr.claim_verdicts.length) box.appendChild(el('p', 'empty', 'No claim-level findings in this verdict.'));
@@ -247,7 +247,7 @@ function renderFindings(){
     if (cv.citations.length) card.appendChild(el('div', 'cites', cv.citations.map(c => c.file + ':' + c.line_id + (c.quote ? ' "' + c.quote + '"' : '')).join('  ')));
     const go = () => {
       state.hl = {};
-      const bad = cv.status === 'CONTRADICTED';
+      const bad = cv.status !== 'SUPPORTED';  // CONFLICTED / NOT_ESTABLISHED evidence is not support
       cv.citations.forEach(c => { state.hl[c.file + '|' + c.line_id] = bad ? 'bad' : 'ok'; });
       const first = cv.citations[0];
       if (first) { const idx = current().files.findIndex(f => f.name === first.file); if (idx >= 0) state.file = idx; }

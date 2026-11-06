@@ -1,0 +1,20 @@
+{
+  "case_id": "med_03",
+  "frozen_at_utc": "2026-11-06T19:19:41Z",
+  "public_sha256": {
+    "med_03": "9b614f4f56c97919f0ebfbfaf9a8e6d08183454c219cb202d4de3cbbf66cc46f",
+    "med_03_twin": "16039e00a87304212a3cce0c8157be303a52ecabeb7ae5f4ddb8c566ff49b792"
+  },
+  "files": {
+    "answer_bank.yaml": "42329afb3823df75212349c7ec3874cfddef407445a18489d739cd8816fd5b8b",
+    "case.yaml": "0d5df74e437ff47970636036154dc21bf0cad6b7da00ed76ad61e4f35ad5a769",
+    "sources/lab_results.txt": "8f2d7e6b3cfc8062b6982c3bb9c826fe7a7c0139479e63e9f6ba21facfe519b6",
+    "sources/physician_notes.txt": "4a771c4dee3827493b6883ad527dcf7a80f0f7e346191ef7c7e699eb40fcb6dd",
+    "sources/radiology_report.txt": "bdd47c5b45a4779495cdd285f083d2d462f15178ab666652046a9c1c49bc8f84",
+    "twin/answer_bank.yaml": "d1c9457dfac95e5838b9ba8a20dc9a8d4f62a351c12f6612fe23434a8ac5cefb",
+    "twin/case.yaml": "e0a55f656699aa33c31185f2bab624aa7f4dfaf81a5c590657f1469277630baf",
+    "twin/sources/lab_results.txt": "af1481d6afbe4f8d6876b0dd94c7794e162de9a6e6e99847c383bcdffd5bf0d0",
+    "twin/sources/physician_notes.txt": "4a771c4dee3827493b6883ad527dcf7a80f0f7e346191ef7c7e699eb40fcb6dd",
+    "twin/sources/radiology_report.txt": "bdd47c5b45a4779495cdd285f083d2d462f15178ab666652046a9c1c49bc8f84"
+  }
+}

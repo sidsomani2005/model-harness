@@ -1,0 +1,40 @@
+# Fill in after reading each target first answer against the case key.
+# label: correct | wrong | ambiguous ; trap: a Trap name or null ; labeled_by: reviewer names.
+# Copy completed entries into runs/labels/target_labels.yaml under `labels:`.
+labels:
+  20261106T192200Z_med_01_sonnet_first:
+    case_id: med_01
+    label: null
+    labeled_by: []
+    notes: ''
+    trap: null
+  20261106T192208Z_med_01_twin_sonnet_first:
+    case_id: med_01_twin
+    label: null
+    labeled_by: []
+    notes: ''
+    trap: null
+  20261106T192224Z_med_02_sonnet_first:
+    case_id: med_02
+    label: null
+    labeled_by: []
+    notes: ''
+    trap: null
+  20261106T192230Z_med_02_twin_sonnet_first:
+    case_id: med_02_twin
+    label: null
+    labeled_by: []
+    notes: ''
+    trap: null
+  20261106T192237Z_med_03_sonnet_first:
+    case_id: med_03
+    label: null
+    labeled_by: []
+    notes: ''
+    trap: null
+  20261106T192243Z_med_03_twin_sonnet_first:
+    case_id: med_03_twin
+    label: null
+    labeled_by: []
+    notes: ''
+    trap: null

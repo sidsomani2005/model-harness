@@ -1,0 +1,141 @@
+{
+  "target_run_id": "bank__med_03__c1",
+  "verifier_variant": "direct-opus",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "No specific pathogen is confirmed by the record; S. pneumoniae is only clinically suspected.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P007",
+          "quote": "presentation suggestive of pneumococcal pneumonia",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P011",
+          "quote": "likely Streptococcus pneumoniae",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P015",
+          "quote": "pneumococcal pneumonia, improving",
+          "quote_verified": true
+        }
+      ],
+      "why": "The physician notes give clinical impressions, and no laboratory result identifies an organism.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Blood cultures show no growth at 36 hours; the final report is pending.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "no growth at 36 hours; final report pending (5-day incubation)",
+          "quote_verified": true
+        }
+      ],
+      "why": "This matches the lab report.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The sputum specimen was rejected for oropharyngeal contamination and never recollected.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination)",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L010",
+          "quote": "sputum recollection | not received by laboratory",
+          "quote_verified": true
+        }
+      ],
+      "why": "The rejection is documented; 'never recollected' slightly overstates a recollection that was not received as of the report time, but the answer frames everything as of 2026-01-22, so the wording is not material.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "The urine pneumococcal antigen specimen was not received.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        }
+      ],
+      "why": "This matches the lab record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b5",
+      "claim_text": "The viral PCR panel did not detect influenza, RSV or SARS-CoV-2.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L013",
+          "quote": "influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+          "quote_verified": true
+        }
+      ],
+      "why": "This matches the lab record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3704,
+  "output_tokens": 1082,
+  "estimated_cost_usd": 0.036456,
+  "latency_ms": 9496,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03__c1/direct-opus/raw.json",
+  "case_id": "med_03",
+  "traps_found": [],
+  "explanation": "The answer correctly states that no pathogen is confirmed and accurately summarizes the pending, rejected and missing microbiology. Its only imprecision, saying the sputum was 'never recollected', is minor because the answer is framed as of the 2026-01-22 report.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

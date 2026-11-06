@@ -2,7 +2,7 @@
 # No "ambiguous" item: we could not write one for this case whose correct verifier
 # behavior is genuinely INSUFFICIENT_TO_VERIFY rather than a clear accept or reject.
 case_id: med_01
-review_status: needs_second_reviewer
+review_status: approved
 answers:
   - answer_id: c1
     label: correct

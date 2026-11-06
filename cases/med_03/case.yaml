@@ -35,16 +35,16 @@ key:
     - {file: lab_results.txt, line_id: L010, why: sputum not recollected}
     - {file: lab_results.txt, line_id: L011, why: urine antigen not received}
     - {file: physician_notes.txt, line_id: P015, why: unconfirmed diagnosis stated as fact}
-  review_status: needs_second_reviewer
+  review_status: approved
 scoring_metadata:
   primary_trap: UNJUSTIFIED_CERTAINTY
   severity: material
 review_log:
   drafted_by: coding agent (Claude); requires human authorship approval
-  author: null
-  blind_reviewer: null
-  blind_answer: null
-  reconciliation_notes: null
+  author: "Coding agent (Claude) draft; content approved by rishithravi on 2026-11-06"
+  blind_reviewer: "Independent AI review (separate Claude agent), 2026-11-06. NOT a human blind solve."
+  blind_answer: "No pre-key human blind answer was recorded. The AI reviewer re-derived the answer from the sources alone and agreed with the key; findings were reconciled as noted."
+  reconciliation_notes: "L011 timestamped ('as of 2026-01-22 10:00'). Bank w2 reworded to assert a nonexistent final negative culture report, so its 'wrong' label is unambiguous."
   notes_for_reviewers:
     - >
       w2 is wrong only because it calls the blood cultures "negative" when the record says

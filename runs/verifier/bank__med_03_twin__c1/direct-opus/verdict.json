@@ -1,0 +1,63 @@
+{
+  "target_run_id": "bank__med_03_twin__c1",
+  "verifier_variant": "direct-opus",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Streptococcus pneumoniae is the confirmed pathogen, identified in blood culture set 1 at 22 hours by MALDI-TOF",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The blood culture identification with confirmatory tests directly establishes S. pneumoniae.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Susceptibilities pending; set 2 no growth at 36 hours",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "susceptibility testing pending; set 2: no growth at 36 hours",
+          "quote_verified": true
+        }
+      ],
+      "why": "Matches the report verbatim.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3590,
+  "output_tokens": 439,
+  "estimated_cost_usd": 0.02314,
+  "latency_ms": 4582,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03_twin__c1/direct-opus/raw.json",
+  "case_id": "med_03_twin",
+  "traps_found": [],
+  "explanation": "The answer accurately reports the blood culture identification of S. pneumoniae with the pending susceptibilities and the negative second set. It does not rely on the rejected sputum sample or on the urine antigen, which was never received. No unsupported claims.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

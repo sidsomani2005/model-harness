@@ -1,0 +1,91 @@
+{
+  "target_run_id": "bank__med_02_twin__w1",
+  "verifier_variant": "direct-haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "A severe penicillin allergy is documented [A004, A005, C005].",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records a severe penicillin allergy, and the clinic note also describes the amoxicillin reaction.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The 2026-02-14 triage note lists \"NKDA\" [N006].",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note lists penicillin anaphylaxis, not NKDA, and the word NKDA does not appear in that line or elsewhere in the triage note.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The documentation conflicts and the record does not resolve it.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "verified with patient against the allergy list",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note agrees with the allergy list on penicillin anaphylaxis, so there is no conflict for the record to leave unresolved.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2903,
+  "output_tokens": 1048,
+  "estimated_cost_usd": 0.0008143,
+  "latency_ms": 4099,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02_twin__w1/direct-haiku/raw.json",
+  "case_id": "med_02_twin",
+  "traps_found": [
+    "SUMMARY_HALLUCINATION"
+  ],
+  "explanation": "The answer invents an NKDA entry in the triage note and builds a false documentation conflict on it. The triage note (N006) matches the allergy list on penicillin anaphylaxis, so the answer's central claim is contradicted by the record.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

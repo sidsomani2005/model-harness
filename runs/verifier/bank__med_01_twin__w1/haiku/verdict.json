@@ -1,0 +1,206 @@
+{
+  "target_run_id": "bank__med_01_twin__w1",
+  "verifier_variant": "haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "c1",
+      "claim_text": "The first elevated potassium was 5.7 mmol/L on 2026-03-02 at 05:45.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H) | creatinine 1.8 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L005",
+          "quote": "2026-03-01 14:20 | potassium 4.6 mmol/L | creatinine 1.3 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        }
+      ],
+      "why": "Line L006 records potassium 5.7 mmol/L (H) at 2026-03-02 05:45, and the prior draw L005 at 2026-03-01 14:20 was 4.6 mmol/L, so this is the first elevated value shown in the lab record.",
+      "uncertainty": "Only lines from the lab report in this excerpt were checked; the record does not show a time earlier than 2026-03-01 14:20 for comparison beyond the cited draws.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c2",
+      "claim_text": "Spironolactone was first given on 2026-03-03 at 10:20.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (resumed home medication) | S. Alvarez, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR line M013 records spironolactone given at 10:20 on 2026-03-03, which matches the claim's date and time. The word 'resumed' hints at a prior home use, but the claim concerns this administration as the first given in the cited record.",
+      "uncertainty": "The cited lines do not show any earlier spironolactone dose, and the home medication list (P008) indicates it was a pre-admission drug, so 'first given' in this admission is supported only by the MAR extract shown, which is cardiorenal-only.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c3",
+      "claim_text": "Spironolactone was started after the onset of elevated potassium.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Spironolactone 12.5 mg PO daily was started by outpatient cardiology on 2026-02-19 and taken daily since; last home dose the morning of 2026-03-01, per patient and pharmacy fill history.",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H) | creatinine 1.8 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (resumed home medication) | S. Alvarez, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The chart shows spironolactone was started on 2026-02-19 and taken daily until 2026-03-01, before potassium first rose to 5.7 on 2026-03-02. The 03-03 entry is a resumed dose, not the start.",
+      "uncertainty": "The record does not establish the cause of the hyperkalemia; the physician note lists spironolactone as one differential item among several.",
+      "traps": [
+        "TEMPORAL_CAUSALITY"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c4",
+      "claim_text": "Spironolactone cannot explain the initial onset of elevated potassium.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Spironolactone 12.5 mg PO daily was started by outpatient cardiology on 2026-02-19 and taken daily since; last home dose the morning of 2026-03-01, per patient and pharmacy fill history.",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance, ACE inhibitor effect and recent spironolactone use).",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record shows spironolactone was started on 2026-02-19 and taken daily until 2026-03-01, before potassium became elevated on 2026-03-02, so the answer's claim that it was first given after onset is wrong. The timeline makes spironolactone a plausible contributor to the initial onset, and the differential names its recent use.",
+      "uncertainty": "The record does not confirm the cause of the hyperkalemia; the differential includes several causes, and the potassium value of 5.7 on 2026-03-02 is cited from a line not shown here. Cause (2026-02-19) precedes effect (2026-03-01T14:20): temporally possible, but timing alone does not prove causation.",
+      "traps": [
+        "TEMPORAL_CAUSALITY"
+      ],
+      "needs_review": true,
+      "needs_review_reasons": [
+        "checkers disagree: CONTRADICTED vs SUPPORTED"
+      ],
+      "checks": [
+        "narrow_check",
+        "chronology",
+        "confirmation"
+      ]
+    }
+  ],
+  "total_model_calls": 11,
+  "input_tokens": 33490,
+  "output_tokens": 4803,
+  "estimated_cost_usd": 0.0057505,
+  "latency_ms": 10378,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01_twin__w1/haiku/raw.json",
+  "case_id": "med_01_twin",
+  "traps_found": [
+    "TEMPORAL_CAUSALITY",
+    "SILENT_CONTRADICTION"
+  ],
+  "explanation": "Error detected.\n- Claim \"Spironolactone was started after the onset of elevated potassium.\" is CONTRADICTED [TEMPORAL_CAUSALITY]: The chart shows spironolactone was started on 2026-02-19 and taken daily until 2026-03-01, before potassium first rose to 5.7 on 2026-03-02. The 03-03 entry is a resumed dose, not the start.\n  Evidence: physician_notes.txt [P009] \"Spironolactone 12.5 mg PO daily was started by outpatient cardiology on 2026-02-19 and taken daily since; last home dose the morning of 2026-03-01, per patient and pharmacy fill history.\"; lab_results.txt [L006] \"2026-03-02 05:45 | potassium 5.7 mmol/L (H) | creatinine 1.8 mg/dL (H) | specimen: no hemolysis\"; medication_administration_record.txt [M013] \"2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (resumed home medication) | S. Alvarez, RN\"\n  Still unknown: The record does not establish the cause of the hyperkalemia; the physician note lists spironolactone as one differential item among several.\n- The answer does not account for: Spironolactone was a home medication started 2026-02-19 and taken daily until 2026-03-01, before the first elevated potassium on 2026-03-02; the answer's claim that spironolactone was first given after onset ignores that it was already being taken at home.\n  Evidence: physician_notes.txt [P008] \"Home medications: furosemide 40 mg PO daily, lisinopril 10 mg PO daily, metoprolol succinate 50 mg PO daily, atorvastatin 40 mg PO nightly, spironolactone 12.5 mg PO daily.\"; physician_notes.txt [P009] \"Spironolactone 12.5 mg PO daily was started by outpatient cardiology on 2026-02-19 and taken daily since; last home dose the morning of 2026-03-01, per patient and pharmacy fill history.\"\n- Note (uncertainty): The physician differential on 2026-03-02 explicitly included recent spironolactone use as a possible cause of the hyperkalemia; the answer's flat conclusion that spironolactone cannot explain onset ignores this documented uncertainty.\n- Note (contradiction): A later physician note attributes the hyperkalemia likely to spironolactone, contradicting the answer's definitive conclusion.",
+  "needs_review_reasons": [
+    "c4: checkers disagree: CONTRADICTED vs SUPPORTED"
+  ],
+  "omissions": [
+    {
+      "description": "Spironolactone was a home medication started 2026-02-19 and taken daily until 2026-03-01, before the first elevated potassium on 2026-03-02; the answer's claim that spironolactone was first given after onset ignores that it was already being taken at home.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P008",
+          "quote": "Home medications: furosemide 40 mg PO daily, lisinopril 10 mg PO daily, metoprolol succinate 50 mg PO daily, atorvastatin 40 mg PO nightly, spironolactone 12.5 mg PO daily.",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Spironolactone 12.5 mg PO daily was started by outpatient cardiology on 2026-02-19 and taken daily since; last home dose the morning of 2026-03-01, per patient and pharmacy fill history.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": true,
+      "confirm_status": "confirmed",
+      "related_claim_id": "c2"
+    },
+    {
+      "description": "The physician differential on 2026-03-02 explicitly included recent spironolactone use as a possible cause of the hyperkalemia; the answer's flat conclusion that spironolactone cannot explain onset ignores this documented uncertainty.",
+      "kind": "uncertainty",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance, ACE inhibitor effect and recent spironolactone use).",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c4"
+    },
+    {
+      "description": "A later physician note attributes the hyperkalemia likely to spironolactone, contradicting the answer's definitive conclusion.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "Assessment: hyperkalemia, likely secondary to spironolactone.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "rejected",
+      "related_claim_id": "c4"
+    }
+  ],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [
+    "claude-haiku-5-5"
+  ],
+  "fake_backend": false,
+  "code_version": "1d86f3a"
+}

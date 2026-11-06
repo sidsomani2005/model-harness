@@ -1,0 +1,83 @@
+{
+  "target_run_id": "bank__med_03_twin__c1",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Streptococcus pneumoniae is confirmed by the record as the pathogen identified from blood culture set 1.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The laboratory line explicitly reports growth and identification of S. pneumoniae in set 1 with confirmatory tests.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Blood culture set 1 grew an organism at 22 hours identified as S. pneumoniae by MALDI-TOF, with susceptibilities pending.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "susceptibility testing pending",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record states growth at 22 hours, MALDI-TOF identification, and pending susceptibility testing.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Blood culture set 2 showed no growth at 36 hours.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "set 2: no growth at 36 hours",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record directly states no growth in set 2 at 36 hours.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3590,
+  "output_tokens": 635,
+  "estimated_cost_usd": 0.0006765,
+  "latency_ms": 2928,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03_twin__c1/direct-haiku/raw.json",
+  "case_id": "med_03_twin",
+  "traps_found": [],
+  "explanation": "The answer accurately reports the confirmed pathogen and the blood culture results from L012. It does not state that sputum or urine testing confirmed anything, and it correctly notes susceptibilities are pending. The record does confirm S. pneumoniae as the blood culture isolate, so the answer is faithful, though it does not mention that sputum and urine antigen results are absent.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

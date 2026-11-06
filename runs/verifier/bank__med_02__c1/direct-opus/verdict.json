@@ -1,0 +1,107 @@
+{
+  "target_run_id": "bank__med_02__c1",
+  "verifier_variant": "direct-opus",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "Active allergy list records severe penicillin allergy with anaphylaxis after amoxicillin in May 2019, treated with IM epinephrine",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Treated in an emergency department with intramuscular epinephrine",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list states each of these details verbatim.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "2024 clinic note records the same reaction and that no allergy testing has been done",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "no allergy testing or supervised challenge has been performed",
+          "quote_verified": true
+        }
+      ],
+      "why": "The clinic note matches the answer's description.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "ED triage note lists NKDA, which conflicts with the allergy list and is unresolved",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A008",
+          "quote": "Inactive or removed entries: none.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The answer correctly reports the discrepancy and that the allergy entry remains active.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3049,
+  "output_tokens": 699,
+  "estimated_cost_usd": 0.026176,
+  "latency_ms": 6301,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__c1/direct-opus/raw.json",
+  "case_id": "med_02",
+  "traps_found": [],
+  "explanation": "The answer accurately summarizes the documented penicillin anaphylaxis. It explicitly flags the conflicting NKDA entry in the triage note, without overclaiming.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

@@ -117,6 +117,8 @@ def collect_items(cases_root: Path, runs_root: Path = DEFAULT_ROOT, include_fixt
     for run in load_target_runs(runs_root):
         if run.case_id not in known:
             continue
+        if run.response_model and run.response_model != run.model:
+            continue  # answered by a different model than requested: invalid for the official dataset
         base, is_twin = known[run.case_id]
         entry = labels.get(run.run_id) or {}
         label = "refusal" if run.stop_reason == "refusal" else entry.get("label")
@@ -194,8 +196,9 @@ def score_group(items: list[Item], verdicts: dict[tuple[str, str], VerifierRun],
         if vr is None:
             missing += 1
             continue
-        if any("stub" in r for r in vr.needs_review_reasons):
+        if any("stub" in r for r in vr.needs_review_reasons) or vr.verifier_variant.startswith("stub"):
             stub += 1
+            continue  # counted, but never included in recall / false-alarm / cost
         overall = vr.overall.value
         counts = by_label.setdefault(it.label, {})
         counts[overall] = counts.get(overall, 0) + 1

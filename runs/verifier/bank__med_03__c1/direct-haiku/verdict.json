@@ -1,0 +1,95 @@
+{
+  "target_run_id": "bank__med_03__c1",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "No specific pathogen is confirmed by the record; S. pneumoniae is only suspected clinically.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P007",
+          "quote": "presentation suggestive of pneumococcal pneumonia",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The notes use hedged wording and no test result identifies an organism, so the answer's core conclusion matches the record.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The sputum specimen was rejected and 'never recollected'.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L010",
+          "quote": "sputum recollection | not received by laboratory",
+          "quote_verified": true
+        }
+      ],
+      "why": "The record only shows the recollection was not received as of 2026-01-22 10:00, so 'never' goes slightly beyond the documented status, though it does not change the verdict.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The urine pneumococcal antigen specimen was not received and the viral PCR panel was negative for influenza, RSV and SARS-CoV-2.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L013",
+          "quote": "influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+          "quote_verified": true
+        }
+      ],
+      "why": "Both statements accurately reflect the laboratory entries.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3704,
+  "output_tokens": 1278,
+  "estimated_cost_usd": 0.0010094000000000001,
+  "latency_ms": 6230,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03__c1/direct-haiku/raw.json",
+  "case_id": "med_03",
+  "traps_found": [],
+  "explanation": "The answer correctly states that no pathogen is confirmed, reports the pending blood culture finals, the rejected sputum, the uncollected urine antigen, and the negative viral PCR, all with accurate hedging. The only overstatement is the word 'never' applied to the sputum recollection, which the record supports only as not yet received, a minor issue that does not make the answer misleading.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

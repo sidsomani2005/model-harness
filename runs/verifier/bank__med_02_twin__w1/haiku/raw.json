@@ -1,0 +1,923 @@
+{
+  "saved_utc": "20261106T195344930760Z",
+  "verifier_run": {
+    "target_run_id": "bank__med_02_twin__w1",
+    "verifier_variant": "haiku",
+    "overall": "ERROR_DETECTED",
+    "claim_verdicts": [
+      {
+        "claim_id": "c1",
+        "claim_text": "A severe penicillin allergy is documented.",
+        "status": "SUPPORTED",
+        "severity": "material",
+        "citations": [
+          {
+            "file": "allergy_list.txt",
+            "line_id": "A004",
+            "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "quote_verified": true
+          },
+          {
+            "file": "allergy_list.txt",
+            "line_id": "A005",
+            "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
+            "quote_verified": true
+          }
+        ],
+        "why": "The allergy list records penicillins as a severe allergy (A004), with anaphylaxis documented in 2019 (A005), so the claim that a severe penicillin allergy is documented is directly supported.",
+        "uncertainty": "The full answer says the triage note lists NKDA, but the cited triage line N006 actually lists penicillins with anaphylaxis, so that part of the answer is not supported by the shown lines; this does not change the status of this claim.",
+        "traps": [],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "claim_text": "The 2026-02-14 triage note lists \"NKDA\".",
+        "status": "CONTRADICTED",
+        "severity": "material",
+        "citations": [
+          {
+            "file": "ed_triage_note.txt",
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+            "quote_verified": true
+          }
+        ],
+        "why": "Line N006 of the 2026-02-14 triage note lists penicillin and amoxicillin allergy with anaphylaxis, not NKDA, so the claim that it lists NKDA is contradicted.",
+        "uncertainty": "",
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check",
+          "confirmation"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "claim_text": "The documentation conflicts regarding the patient's drug allergies.",
+        "status": "CONTRADICTED",
+        "severity": "material",
+        "citations": [
+          {
+            "file": "allergy_list.txt",
+            "line_id": "A004",
+            "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "quote_verified": true
+          },
+          {
+            "file": "ed_triage_note.txt",
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+            "quote_verified": true
+          },
+          {
+            "file": "clinic_note_2024.txt",
+            "line_id": "C008",
+            "quote": "Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.",
+            "quote_verified": true
+          },
+          {
+            "file": "clinic_note_2024.txt",
+            "line_id": "C005",
+            "quote": "Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
+            "quote_verified": true
+          }
+        ],
+        "why": "The allergy list (A004) and the 2026-02-14 triage note (N006) both record a penicillin allergy with anaphylaxis, and the 2024 clinic note (C008) confirms the list unchanged. No shown line records NKDA or any conflicting allergy, so the claim of a documentation conflict is not supported.",
+        "uncertainty": "The full answer's cited 'NKDA' in the triage note does not appear in the chart as shown; the chart was not checked for any other allergy source.",
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check(full chart)",
+          "confirmation"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "claim_text": "The record does not resolve the conflict in the documentation.",
+        "status": "CONTRADICTED",
+        "severity": "material",
+        "citations": [
+          {
+            "file": "ed_triage_note.txt",
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+            "quote_verified": true
+          },
+          {
+            "file": "allergy_list.txt",
+            "line_id": "A004",
+            "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "quote_verified": true
+          }
+        ],
+        "why": "The claim says the record does not resolve the documentation conflict, but the record does resolve it: the 2026-02-14 triage note records penicillin anaphylaxis, matching the allergy list and the 2024 clinic note, and contains no NKDA entry. The answer's quoted 'NKDA' does not appear in the shown lines, so the conflict it describes is not present in the record.",
+        "uncertainty": "The answer cites no lines for this claim, and the quoted 'NKDA' text is not in the chart shown, so the answer may be citing a document not shown.",
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "needs_review": false,
+        "needs_review_reasons": [],
+        "checks": [
+          "narrow_check(full chart)",
+          "confirmation"
+        ]
+      }
+    ],
+    "total_model_calls": 10,
+    "input_tokens": 28422,
+    "output_tokens": 5033,
+    "estimated_cost_usd": 0.0053587,
+    "latency_ms": 12346,
+    "raw_model_outputs_path": null,
+    "case_id": "med_02_twin",
+    "traps_found": [
+      "SUMMARY_HALLUCINATION"
+    ],
+    "explanation": "Error detected.\n- Claim \"The 2026-02-14 triage note lists \"NKDA\".\" is CONTRADICTED [SUMMARY_HALLUCINATION]: Line N006 of the 2026-02-14 triage note lists penicillin and amoxicillin allergy with anaphylaxis, not NKDA, so the claim that it lists NKDA is contradicted.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\"\n- Claim \"The documentation conflicts regarding the patient's drug allergies.\" is CONTRADICTED [SUMMARY_HALLUCINATION]: The allergy list (A004) and the 2026-02-14 triage note (N006) both record a penicillin allergy with anaphylaxis, and the 2024 clinic note (C008) confirms the list unchanged. No shown line records NKDA or any conflicting allergy, so the claim of a documentation conflict is not supported.\n  Evidence: allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"; ed_triage_note.txt [N006] \"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\"; clinic_note_2024.txt [C008] \"Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\"\n  Still unknown: The full answer's cited 'NKDA' in the triage note does not appear in the chart as shown; the chart was not checked for any other allergy source.\n- Claim \"The record does not resolve the conflict in the documentation.\" is CONTRADICTED [SUMMARY_HALLUCINATION]: The claim says the record does not resolve the documentation conflict, but the record does resolve it: the 2026-02-14 triage note records penicillin anaphylaxis, matching the allergy list and the 2024 clinic note, and contains no NKDA entry. The answer's quoted 'NKDA' does not appear in the shown lines, so the conflict it describes is not present in the record.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\"; allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"\n  Still unknown: The answer cites no lines for this claim, and the quoted 'NKDA' text is not in the chart shown, so the answer may be citing a document not shown.\n- Note (contradiction): The answer claims the 2026-02-14 triage note lists NKDA and that documentation conflicts. The triage note actually records penicillin (amoxicillin) anaphylaxis, verified against the allergy list, and no NKDA entry appears anywhere in the chart. The allergy list states no other allergies are recorded, so the chart does not show a conflict about drug allergies.",
+    "needs_review_reasons": [],
+    "omissions": [
+      {
+        "description": "The answer claims the 2026-02-14 triage note lists NKDA and that documentation conflicts. The triage note actually records penicillin (amoxicillin) anaphylaxis, verified against the allergy list, and no NKDA entry appears anywhere in the chart. The allergy list states no other allergies are recorded, so the chart does not show a conflict about drug allergies.",
+        "kind": "contradiction",
+        "citations": [
+          {
+            "file": "ed_triage_note.txt",
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.",
+            "quote_verified": true
+          },
+          {
+            "file": "allergy_list.txt",
+            "line_id": "A004",
+            "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "quote_verified": true
+          },
+          {
+            "file": "allergy_list.txt",
+            "line_id": "A007",
+            "quote": "No other allergies or intolerances are recorded.",
+            "quote_verified": true
+          }
+        ],
+        "material": true,
+        "confirmed": false,
+        "confirm_status": "rejected",
+        "related_claim_id": "c2"
+      }
+    ],
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 0,
+    "models_used": [
+      "claude-haiku-5-5"
+    ],
+    "fake_backend": false,
+    "code_version": null
+  },
+  "stages": {
+    "variant": "haiku",
+    "case_id": "med_02_twin",
+    "source_sha256": "507a7bfd3acbdf49c15a7ffdf59b31406d44f6ef6036d89ba523238b93039986",
+    "index": {
+      "lines": 24,
+      "malformed": [],
+      "short_chart": true
+    },
+    "target_citations": {
+      "resolved": [
+        "allergy_list.txt:A004",
+        "allergy_list.txt:A005",
+        "clinic_note_2024.txt:C005",
+        "ed_triage_note.txt:N006"
+      ],
+      "nonexistent": []
+    },
+    "claims": {
+      "claims": [
+        {
+          "claim_id": "c1",
+          "text": "A severe penicillin allergy is documented.",
+          "kind": "fact_from_source",
+          "certainty": "definitive",
+          "importance": "high",
+          "is_final_conclusion": false,
+          "entities": [
+            "penicillin",
+            "allergy"
+          ],
+          "cited_lines": [
+            "A004",
+            "A005",
+            "C005"
+          ]
+        },
+        {
+          "claim_id": "c2",
+          "text": "The 2026-02-14 triage note lists \"NKDA\".",
+          "kind": "fact_from_source",
+          "certainty": "definitive",
+          "importance": "high",
+          "is_final_conclusion": false,
+          "entities": [
+            "NKDA",
+            "2026-02-14 triage note"
+          ],
+          "cited_lines": [
+            "N006"
+          ]
+        },
+        {
+          "claim_id": "c3",
+          "text": "The documentation conflicts regarding the patient's drug allergies.",
+          "kind": "conflict_report",
+          "certainty": "definitive",
+          "importance": "high",
+          "is_final_conclusion": true,
+          "entities": [
+            "drug allergies"
+          ],
+          "cited_lines": []
+        },
+        {
+          "claim_id": "c4",
+          "text": "The record does not resolve the conflict in the documentation.",
+          "kind": "abstention",
+          "certainty": "definitive",
+          "importance": "high",
+          "is_final_conclusion": true,
+          "entities": [
+            "record"
+          ],
+          "cited_lines": []
+        }
+      ],
+      "answer_abstains": true,
+      "answer_reports_conflict": true
+    },
+    "evidence_packs": {
+      "c1": {
+        "cited": [
+          "A004",
+          "A005",
+          "C005"
+        ],
+        "unresolved": [],
+        "context": [
+          "A001",
+          "A002",
+          "A003",
+          "A004",
+          "A005",
+          "A006",
+          "A007"
+        ],
+        "retrieved": [
+          "N006",
+          "A008",
+          "C008"
+        ]
+      },
+      "c2": {
+        "cited": [
+          "N006"
+        ],
+        "unresolved": [],
+        "context": [
+          "N001",
+          "N002",
+          "N004",
+          "N005",
+          "N006",
+          "N007",
+          "N008"
+        ],
+        "retrieved": [
+          "A002",
+          "N003",
+          "C003",
+          "A003",
+          "C001",
+          "C002",
+          "C004",
+          "C008",
+          "C007"
+        ]
+      },
+      "c3": {
+        "cited": [],
+        "unresolved": [],
+        "context": [],
+        "retrieved": [
+          "A007",
+          "N006",
+          "C005"
+        ]
+      },
+      "c4": {
+        "cited": [],
+        "unresolved": [],
+        "context": [],
+        "retrieved": [
+          "A001",
+          "C001",
+          "N001"
+        ]
+      }
+    },
+    "sweep": {
+      "full_chart": true,
+      "result": {
+        "items": [
+          {
+            "description": "The answer claims the 2026-02-14 triage note lists NKDA and that documentation conflicts. The triage note actually records penicillin (amoxicillin) anaphylaxis, verified against the allergy list, and no NKDA entry appears anywhere in the chart. The allergy list states no other allergies are recorded, so the chart does not show a conflict about drug allergies.",
+            "kind": "contradiction",
+            "line_ids": [
+              "N006",
+              "A004",
+              "A007"
+            ],
+            "quotes": [
+              "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+              "Allergen: penicillins (reaction occurred with amoxicillin)",
+              "No other allergies or intolerances are recorded."
+            ],
+            "material": true,
+            "related_claim_id": "c2"
+          }
+        ]
+      }
+    }
+  },
+  "model_calls": [
+    {
+      "label": "claims",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 1859,
+      "output_tokens": 419,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1989,
+      "cost_usd": 0.00039539999999999996,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 3000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "QUESTION:\nSummarize what this chart establishes about the patient's drug allergies.\n\nANSWER TO DECOMPOSE:\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You split an answer into atomic, checkable claims. You do not judge whether claims are true.\n\nRules:\n- One proposition per claim. \"The roof was inspected on 4 May and passed\" -> two claims.\n- Keep the answer's own certainty. \"may have contributed\" is hedged; \"caused\" is definitive. Never strengthen or weaken a claim.\n- Keep negations exactly (\"no leaks were found\" stays negative).\n- Prefer claims that matter to the bottom line: conclusions, causes, timing, status (confirmed vs suspected), stated absences, plans, and any claim that sources conflict.\n- Skip pure restatements of the question, generic disclaimers, and advice to consult someone.\n- Copy cited line IDs exactly as the answer wrote them; [] if none for that claim.\n- Return at most 8 claims, most important first.\n\nExample (building inspection, not the domain you will see):\nQuestion: Did the 4 May inspection find water damage, and what caused it?\nAnswer: The 4 May inspection [R004] found staining on the ceiling of unit 3B. This was caused by the roof leak reported on 9 May [W012]. No other units were affected. The inspector's report is pending sign-off.\nClaims:\nc1 fact_from_source definitive high: \"The 4 May inspection found staining on the ceiling of unit 3B.\" cited [R004]\nc2 causal_attribution definitive high final: \"The staining was caused by the roof leak reported on 9 May.\" cited [W012]\nc3 absence definitive medium: \"No other units were affected.\" cited []\nc4 status definitive low: \"The inspector's report is pending sign-off.\" cited []\n",
+        "effort": "low",
+        "schema": "ClaimList"
+      },
+      "text": "{\"claims\":[{\"claim_id\":\"c1\",\"text\":\"A severe penicillin allergy is documented.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":false,\"entities\":[\"penicillin\",\"allergy\"],\"cited_lines\":[\"A004\",\"A005\",\"C005\"]},{\"claim_id\":\"c2\",\"text\":\"The 2026-02-14 triage note lists \\\"NKDA\\\".\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":false,\"entities\":[\"NKDA\",\"2026-02-14 triage note\"],\"cited_lines\":[\"N006\"]},{\"claim_id\":\"c3\",\"text\":\"The documentation conflicts regarding the patient's drug allergies.\",\"kind\":\"conflict_report\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":true,\"entities\":[\"drug allergies\"],\"cited_lines\":[]},{\"claim_id\":\"c4\",\"text\":\"The record does not resolve the conflict in the documentation.\",\"kind\":\"abstention\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":true,\"entities\":[\"record\"],\"cited_lines\":[]}],\"answer_abstains\":true,\"answer_reports_conflict\":true}",
+      "parsed": {
+        "claims": [
+          {
+            "claim_id": "c1",
+            "text": "A severe penicillin allergy is documented.",
+            "kind": "fact_from_source",
+            "certainty": "definitive",
+            "importance": "high",
+            "is_final_conclusion": false,
+            "entities": [
+              "penicillin",
+              "allergy"
+            ],
+            "cited_lines": [
+              "A004",
+              "A005",
+              "C005"
+            ]
+          },
+          {
+            "claim_id": "c2",
+            "text": "The 2026-02-14 triage note lists \"NKDA\".",
+            "kind": "fact_from_source",
+            "certainty": "definitive",
+            "importance": "high",
+            "is_final_conclusion": false,
+            "entities": [
+              "NKDA",
+              "2026-02-14 triage note"
+            ],
+            "cited_lines": [
+              "N006"
+            ]
+          },
+          {
+            "claim_id": "c3",
+            "text": "The documentation conflicts regarding the patient's drug allergies.",
+            "kind": "conflict_report",
+            "certainty": "definitive",
+            "importance": "high",
+            "is_final_conclusion": true,
+            "entities": [
+              "drug allergies"
+            ],
+            "cited_lines": []
+          },
+          {
+            "claim_id": "c4",
+            "text": "The record does not resolve the conflict in the documentation.",
+            "kind": "abstention",
+            "certainty": "definitive",
+            "importance": "high",
+            "is_final_conclusion": true,
+            "entities": [
+              "record"
+            ],
+            "cited_lines": []
+          }
+        ],
+        "answer_abstains": true,
+        "answer_reports_conflict": true
+      }
+    },
+    {
+      "label": "check:c2",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3408,
+      "output_tokens": 217,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1620,
+      "cost_usd": 0.0004493,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c2 (fact_from_source, definitive):\nThe 2026-02-14 triage note lists \"NKDA\".\nLines the answer cited for it: N006\n\nCITED BY THE ANSWER:\ned_triage_note.txt [N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.  (note dated 2026-02-14T22:47)\n\nNEIGHBOURING CONTEXT:\ned_triage_note.txt [N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\ned_triage_note.txt [N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\ned_triage_note.txt [N004] Chief complaint: fever and spreading redness of the right lower leg for two days.  (note dated 2026-02-14T22:47)\ned_triage_note.txt [N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.  (note dated 2026-02-14T22:47)\ned_triage_note.txt [N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.  (note dated 2026-02-14T22:47)\ned_triage_note.txt [N007] Pain: 6/10, right lower leg.  (note dated 2026-02-14T22:47)\ned_triage_note.txt [N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.  (note dated 2026-02-14T22:47)\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\nallergy_list.txt [A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\ned_triage_note.txt [N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815  (note dated 2026-02-14T22:47)\nclinic_note_2024.txt [C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815  (note dated 2024-08-12T10:30)\nallergy_list.txt [A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\nclinic_note_2024.txt [C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nclinic_note_2024.txt [C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\nclinic_note_2024.txt [C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.  (note dated 2024-08-12T10:30)\nclinic_note_2024.txt [C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.  (note dated 2024-08-12T10:30)\nclinic_note_2024.txt [C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.  (note dated 2024-08-12T10:30)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"N006\",\"quote\":\"Allergies: penicillins (amoxicillin), anaphylaxis\",\"role\":\"contradicts\"}],\"reason\":\"Line N006 of the 2026-02-14 triage note lists penicillin and amoxicillin allergy with anaphylaxis, not NKDA, so the claim that it lists NKDA is contradicted.\",\"uncertainty\":\"\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "CONTRADICTED",
+        "evidence": [
+          {
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis",
+            "role": "contradicts"
+          }
+        ],
+        "reason": "Line N006 of the 2026-02-14 triage note lists penicillin and amoxicillin allergy with anaphylaxis, not NKDA, so the claim that it lists NKDA is contradicted.",
+        "uncertainty": "",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "check:c1",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3139,
+      "output_tokens": 381,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2779,
+      "cost_usd": 0.0005044,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c1 (fact_from_source, definitive):\nA severe penicillin allergy is documented.\nLines the answer cited for it: A004, A005, C005\n\nCITED BY THE ANSWER:\nallergy_list.txt [A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\nallergy_list.txt [A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\nclinic_note_2024.txt [C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.  (note dated 2024-08-12T10:30)\n\nNEIGHBOURING CONTEXT:\nallergy_list.txt [A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nallergy_list.txt [A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\nallergy_list.txt [A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\nallergy_list.txt [A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\nallergy_list.txt [A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\nallergy_list.txt [A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\nallergy_list.txt [A007] No other allergies or intolerances are recorded.\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\ned_triage_note.txt [N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.  (note dated 2026-02-14T22:47)\nallergy_list.txt [A008] Inactive or removed entries: none.\nclinic_note_2024.txt [C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.  (note dated 2024-08-12T10:30)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"A004\",\"quote\":\"Severity: severe\",\"role\":\"supports\"},{\"line_id\":\"A005\",\"quote\":\"Reaction: anaphylaxis (generalized hives, throat tightness, hypotension)\",\"role\":\"supports\"},{\"line_id\":\"C005\",\"quote\":\"in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\",\"role\":\"context\"}],\"reason\":\"The allergy list records penicillins as a severe allergy (A004), with anaphylaxis documented in 2019 (A005), so the claim that a severe penicillin allergy is documented is directly supported.\",\"uncertainty\":\"The full answer says the triage note lists NKDA, but the cited triage line N006 actually lists penicillins with anaphylaxis, so that part of the answer is not supported by the shown lines; this does not change the status of this claim.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":false,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "A004",
+            "quote": "Severity: severe",
+            "role": "supports"
+          },
+          {
+            "line_id": "A005",
+            "quote": "Reaction: anaphylaxis (generalized hives, throat tightness, hypotension)",
+            "role": "supports"
+          },
+          {
+            "line_id": "C005",
+            "quote": "in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
+            "role": "context"
+          }
+        ],
+        "reason": "The allergy list records penicillins as a severe allergy (A004), with anaphylaxis documented in 2019 (A005), so the claim that a severe penicillin allergy is documented is directly supported.",
+        "uncertainty": "The full answer says the triage note lists NKDA, but the cited triage line N006 actually lists penicillins with anaphylaxis, so that part of the answer is not supported by the shown lines; this does not change the status of this claim.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": false,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "confirm:c2",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3339,
+      "output_tokens": 229,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1196,
+      "cost_usd": 0.00044840000000000006,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c2 (fact_from_source, definitive):\nThe 2026-02-14 triage note lists \"NKDA\".\nLines the answer cited for it: N006\n\nCOMPLETE CHART:\n=== allergy_list.txt ===\n[A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== ed_triage_note.txt ===\n[N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"N006\",\"quote\":\"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.\",\"role\":\"contradicts\"}],\"reason\":\"The cited line N006 is the 2026-02-14 triage note, and it lists penicillins (amoxicillin) with anaphylaxis, not NKDA. The word NKDA does not appear in that note.\",\"uncertainty\":\"\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "CONTRADICTED",
+        "evidence": [
+          {
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+            "role": "contradicts"
+          }
+        ],
+        "reason": "The cited line N006 is the 2026-02-14 triage note, and it lists penicillins (amoxicillin) with anaphylaxis, not NKDA. The word NKDA does not appear in that note.",
+        "uncertainty": "",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "global_sweep",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 2297,
+      "output_tokens": 812,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 4022,
+      "cost_usd": 0.0006357,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 3000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "QUESTION:\nSummarize what this chart establishes about the patient's drug allergies.\n\nANSWER CLAIMS:\nc1 [definitive] A severe penicillin allergy is documented.\nc2 [definitive] The 2026-02-14 triage note lists \"NKDA\".\nc3 [definitive, bottom line] The documentation conflicts regarding the patient's drug allergies.\nc4 [definitive, bottom line] The record does not resolve the conflict in the documentation.\nThe answer says the question cannot be determined. The answer explicitly reports conflicting documentation.\n\nCHART LINES (complete chart):\n=== allergy_list.txt ===\n[A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== ed_triage_note.txt ===\n[N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation."
+          }
+        ],
+        "system": "You audit an answer about a SYNTHETIC clinical record for what it leaves out.\n\nYou are given the question, the answer's extracted claims, and chart lines. List ONLY evidence in the chart that the answer fails to account for AND that would change or qualify its bottom line, for example:\n- another entry that contradicts a claim (two sources disagree and the answer picks one silently);\n- the record marks something as suspected, preliminary, pending or unconfirmed while the answer treats it as established;\n- a later or earlier entry that changes the timeline the answer relies on;\n- a documented negative finding or missing result the answer ignores.\n\nDo not list things the answer already mentions, hedges, or flags as uncertain. Do not list trivia. Do not give medical advice or judge treatment. If nothing material is omitted, return an empty list. Every line ID and quote must be copied exactly from the chart lines shown.",
+        "effort": "low",
+        "schema": "SweepResult"
+      },
+      "text": "{\"items\":[{\"description\":\"The answer claims the 2026-02-14 triage note lists NKDA and that documentation conflicts. The triage note actually records penicillin (amoxicillin) anaphylaxis, verified against the allergy list, and no NKDA entry appears anywhere in the chart. The allergy list states no other allergies are recorded, so the chart does not show a conflict about drug allergies.\",\"kind\":\"contradiction\",\"line_ids\":[\"N006\",\"A004\",\"A007\"],\"quotes\":[\"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.\",\"Allergen: penicillins (reaction occurred with amoxicillin)\",\"No other allergies or intolerances are recorded.\"],\"material\":true,\"related_claim_id\":\"c2\"}]}",
+      "parsed": {
+        "items": [
+          {
+            "description": "The answer claims the 2026-02-14 triage note lists NKDA and that documentation conflicts. The triage note actually records penicillin (amoxicillin) anaphylaxis, verified against the allergy list, and no NKDA entry appears anywhere in the chart. The allergy list states no other allergies are recorded, so the chart does not show a conflict about drug allergies.",
+            "kind": "contradiction",
+            "line_ids": [
+              "N006",
+              "A004",
+              "A007"
+            ],
+            "quotes": [
+              "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+              "Allergen: penicillins (reaction occurred with amoxicillin)",
+              "No other allergies or intolerances are recorded."
+            ],
+            "material": true,
+            "related_claim_id": "c2"
+          }
+        ]
+      }
+    },
+    {
+      "label": "check:c3",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3347,
+      "output_tokens": 936,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 4197,
+      "cost_usd": 0.0008027,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c3 (conflict_report, definitive, bottom line of the answer):\nThe documentation conflicts regarding the patient's drug allergies.\nLines the answer cited for it: none\n\nCOMPLETE CHART:\n=== allergy_list.txt ===\n[A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== ed_triage_note.txt ===\n[N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"A004\",\"quote\":\"Allergen: penicillins (reaction occurred with amoxicillin)\",\"role\":\"supports\"},{\"line_id\":\"N006\",\"quote\":\"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.\",\"role\":\"supports\"},{\"line_id\":\"C008\",\"quote\":\"allergy list reviewed with pharmacy and confirmed unchanged.\",\"role\":\"supports\"},{\"line_id\":\"A007\",\"quote\":\"No other allergies or intolerances are recorded.\",\"role\":\"context\"}],\"reason\":\"The allergy list (A004) and the 2026-02-14 triage note (N006) both record a penicillin allergy with anaphylaxis, and the 2024 clinic note (C008) confirms the list unchanged. No shown line records NKDA or any conflicting allergy, so the claim of a documentation conflict is not supported.\",\"uncertainty\":\"The full answer's cited 'NKDA' in the triage note does not appear in the chart as shown; the chart was not checked for any other allergy source.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "CONTRADICTED",
+        "evidence": [
+          {
+            "line_id": "A004",
+            "quote": "Allergen: penicillins (reaction occurred with amoxicillin)",
+            "role": "supports"
+          },
+          {
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+            "role": "supports"
+          },
+          {
+            "line_id": "C008",
+            "quote": "allergy list reviewed with pharmacy and confirmed unchanged.",
+            "role": "supports"
+          },
+          {
+            "line_id": "A007",
+            "quote": "No other allergies or intolerances are recorded.",
+            "role": "context"
+          }
+        ],
+        "reason": "The allergy list (A004) and the 2026-02-14 triage note (N006) both record a penicillin allergy with anaphylaxis, and the 2024 clinic note (C008) confirms the list unchanged. No shown line records NKDA or any conflicting allergy, so the claim of a documentation conflict is not supported.",
+        "uncertainty": "The full answer's cited 'NKDA' in the triage note does not appear in the chart as shown; the chart was not checked for any other allergy source.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "check:c4",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3341,
+      "output_tokens": 387,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 6071,
+      "cost_usd": 0.0005276,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c4 (abstention, definitive, bottom line of the answer):\nThe record does not resolve the conflict in the documentation.\nLines the answer cited for it: none\n\nCOMPLETE CHART:\n=== allergy_list.txt ===\n[A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== ed_triage_note.txt ===\n[N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"N006\",\"quote\":\"penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list\",\"role\":\"contradicts\"},{\"line_id\":\"A004\",\"quote\":\"Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\",\"role\":\"context\"}],\"reason\":\"The claim says the record does not resolve the documentation conflict, but the record does resolve it: the 2026-02-14 triage note records penicillin anaphylaxis, matching the allergy list and the 2024 clinic note, and contains no NKDA entry. The answer's quoted 'NKDA' does not appear in the shown lines, so the conflict it describes is not present in the record.\",\"uncertainty\":\"The answer cites no lines for this claim, and the quoted 'NKDA' text is not in the chart shown, so the answer may be citing a document not shown.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "CONTRADICTED",
+        "evidence": [
+          {
+            "line_id": "N006",
+            "quote": "penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list",
+            "role": "contradicts"
+          },
+          {
+            "line_id": "A004",
+            "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "role": "context"
+          }
+        ],
+        "reason": "The claim says the record does not resolve the documentation conflict, but the record does resolve it: the 2026-02-14 triage note records penicillin anaphylaxis, matching the allergy list and the 2024 clinic note, and contains no NKDA entry. The answer's quoted 'NKDA' does not appear in the shown lines, so the conflict it describes is not present in the record.",
+        "uncertainty": "The answer cites no lines for this claim, and the quoted 'NKDA' text is not in the chart shown, so the answer may be citing a document not shown.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "confirm:c4",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3341,
+      "output_tokens": 378,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2350,
+      "cost_usd": 0.0005231,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c4 (abstention, definitive, bottom line of the answer):\nThe record does not resolve the conflict in the documentation.\nLines the answer cited for it: none\n\nCOMPLETE CHART:\n=== allergy_list.txt ===\n[A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== ed_triage_note.txt ===\n[N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"N006\",\"quote\":\"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.\",\"role\":\"contradicts\"},{\"line_id\":\"A004\",\"quote\":\"Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\",\"role\":\"context\"}],\"reason\":\"The claim says the record does not resolve the documentation conflict, but the chart does not show a conflict: the 2026-02-14 triage note records penicillin anaphylaxis, consistent with the allergy list and the 2024 clinic note. The full answer's cited 'NKDA' entry does not appear in the chart, so the claimed conflict itself is not present in the shown lines.\",\"uncertainty\":\"The claim is an abstention about a conflict that the shown lines do not contain; the answer cites no lines for it.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "CONTRADICTED",
+        "evidence": [
+          {
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+            "role": "contradicts"
+          },
+          {
+            "line_id": "A004",
+            "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "role": "context"
+          }
+        ],
+        "reason": "The claim says the record does not resolve the documentation conflict, but the chart does not show a conflict: the 2026-02-14 triage note records penicillin anaphylaxis, consistent with the allergy list and the 2024 clinic note. The full answer's cited 'NKDA' entry does not appear in the chart, so the claimed conflict itself is not present in the shown lines.",
+        "uncertainty": "The claim is an abstention about a conflict that the shown lines do not contain; the answer cites no lines for it.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "confirm:c3",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3347,
+      "output_tokens": 1064,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 4585,
+      "cost_usd": 0.0008667000000000001,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c3 (conflict_report, definitive, bottom line of the answer):\nThe documentation conflicts regarding the patient's drug allergies.\nLines the answer cited for it: none\n\nCOMPLETE CHART:\n=== allergy_list.txt ===\n[A001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[A002] Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST\n[A003] Patient: SYNTH-AL-02 (synthetic) | 54-year-old male | MRN: SYN-208815\n[A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\n[A005] Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine\n[A006] Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD\n[A007] No other allergies or intolerances are recorded.\n[A008] Inactive or removed entries: none.\n\n=== clinic_note_2024.txt ===\n[C001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[C002] Document: Primary Care Clinic Note | 2024-08-12 10:30 EDT | Author: primary care physician (A. Rivera, MD)\n[C003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[C004] Reason for visit: annual examination; follow-up of hypertension and type 2 diabetes.\n[C005] Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\n[C006] Patient reports avoiding all penicillins since then; no allergy testing or supervised challenge has been performed.\n[C007] Medications: metformin 1000 mg PO twice daily, amlodipine 5 mg PO daily.\n[C008] Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.\n\n=== ed_triage_note.txt ===\n[N001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[N002] Document: Emergency Department Triage Note | 2026-02-14 22:47 EST | Author: triage nurse (P. Grant, RN)\n[N003] Patient: SYNTH-AL-02 (synthetic) | MRN: SYN-208815\n[N004] Chief complaint: fever and spreading redness of the right lower leg for two days.\n[N005] Vital signs: temperature 38.6 C, heart rate 104, blood pressure 132/78, respiratory rate 18, SpO2 97% on room air.\n[N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\n[N007] Pain: 6/10, right lower leg.\n[N008] Triage acuity: ESI 3. Placed in room 12 for provider evaluation.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"A004\",\"quote\":\"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\",\"role\":\"contradicts\"},{\"line_id\":\"C005\",\"quote\":\"Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.\",\"role\":\"contradicts\"},{\"line_id\":\"N006\",\"quote\":\"Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.\",\"role\":\"contradicts\"},{\"line_id\":\"C008\",\"quote\":\"allergy list reviewed with pharmacy and confirmed unchanged.\",\"role\":\"context\"}],\"reason\":\"The allergy list, the 2024 clinic note and the 2026 ED triage note all record the same penicillin anaphylaxis, and the triage note says it was verified against the allergy list. No shown line gives a conflicting drug allergy, so the claim of a documentation conflict is not supported by the record.\",\"uncertainty\":\"The full answer says the triage note lists NKDA, but no line in the chart says NKDA; that statement appears to be invented and is the source of the apparent conflict.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"SUMMARY_HALLUCINATION\"],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "CONTRADICTED",
+        "evidence": [
+          {
+            "line_id": "A004",
+            "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+            "role": "contradicts"
+          },
+          {
+            "line_id": "C005",
+            "quote": "Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
+            "role": "contradicts"
+          },
+          {
+            "line_id": "N006",
+            "quote": "Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list.",
+            "role": "contradicts"
+          },
+          {
+            "line_id": "C008",
+            "quote": "allergy list reviewed with pharmacy and confirmed unchanged.",
+            "role": "context"
+          }
+        ],
+        "reason": "The allergy list, the 2024 clinic note and the 2026 ED triage note all record the same penicillin anaphylaxis, and the triage note says it was verified against the allergy list. No shown line gives a conflicting drug allergy, so the claim of a documentation conflict is not supported by the record.",
+        "uncertainty": "The full answer says the triage note lists NKDA, but no line in the chart says NKDA; that statement appears to be invented and is the source of the apparent conflict.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [
+          "SUMMARY_HALLUCINATION"
+        ],
+        "material": true,
+        "confidence": "high"
+      }
+    },
+    {
+      "label": "confirm_omission",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 1004,
+      "output_tokens": 210,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 1564,
+      "cost_usd": 0.0002054,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 800,
+        "messages": [
+          {
+            "role": "user",
+            "content": "QUESTION:\nSummarize what this chart establishes about the patient's drug allergies.\n\nFINDING: The answer claims the 2026-02-14 triage note lists NKDA and that documentation conflicts. The triage note actually records penicillin (amoxicillin) anaphylaxis, verified against the allergy list, and no NKDA entry appears anywhere in the chart. The allergy list states no other allergies are recorded, so the chart does not show a conflict about drug allergies.\n\nLINES:\ned_triage_note.txt [N006] Allergies: penicillins (amoxicillin), anaphylaxis; verified with patient against the allergy list. Allergy wristband applied.\nallergy_list.txt [A004] Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\nallergy_list.txt [A007] No other allergies or intolerances are recorded.\n\nANSWER:\n<<<\nA severe penicillin allergy is documented [A004, A005, C005], but the 2026-02-14 triage note\nlists \"NKDA\" [N006]. The documentation conflicts and the record does not resolve it.\n\n>>>"
+          }
+        ],
+        "system": "You double-check a reviewer's finding about a SYNTHETIC clinical record. Be strict: say lines_show_it=true only if the quoted lines, read literally, show what the finding says. Say answer_acknowledges=true if the answer mentions it in any form, including hedges or \"documentation conflicts\". Say changes_bottom_line=true only if accounting for it would change or qualify the answer to the specific question asked; evidence about a different time period, aspect, or question does not count. No medical advice.",
+        "effort": "low",
+        "schema": "OmissionConfirm"
+      },
+      "text": "{\"lines_show_it\": true, \"answer_acknowledges\": true, \"changes_bottom_line\": true, \"reason\": \"The quoted lines show the triage note N006 records penicillin anaphylaxis and the allergy list records no other allergies, so the claim that N006 lists NKDA is contradicted. The answer does state that N006 says NKDA and that documentation conflicts, so it does acknowledge the conflict. That false conflict directly qualifies the answer to the question about what the chart establishes on drug allergies, since it tells the reader the allergy status is unresolved when the chart actually agrees on penicillin anaphylaxis.\"}",
+      "parsed": {
+        "lines_show_it": true,
+        "answer_acknowledges": true,
+        "changes_bottom_line": true,
+        "reason": "The quoted lines show the triage note N006 records penicillin anaphylaxis and the allergy list records no other allergies, so the claim that N006 lists NKDA is contradicted. The answer does state that N006 says NKDA and that documentation conflicts, so it does acknowledge the conflict. That false conflict directly qualifies the answer to the question about what the chart establishes on drug allergies, since it tells the reader the allergy status is unresolved when the chart actually agrees on penicillin anaphylaxis."
+      }
+    }
+  ]
+}

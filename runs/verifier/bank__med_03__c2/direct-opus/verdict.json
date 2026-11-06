@@ -1,0 +1,115 @@
+{
+  "target_run_id": "bank__med_03__c2",
+  "verifier_variant": "direct-opus",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The record does not confirm any pathogen; pneumococcus is only a clinical impression",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P011",
+          "quote": "right lower lobe pneumonia, likely Streptococcus pneumoniae",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P015",
+          "quote": "Assessment: pneumococcal pneumonia, improving.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The physician assessments are clinical impressions, and no microbiology result identifies an organism.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Blood cultures: no growth at 36 hours, final pending",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L012",
+          "quote": "preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
+          "quote_verified": true
+        }
+      ],
+      "why": "This matches the lab report exactly.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "Sputum rejected, not recollected",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L009",
+          "quote": "specimen rejected: more than 25 squamous epithelial cells per low-power field",
+          "quote_verified": true
+        },
+        {
+          "file": "lab_results.txt",
+          "line_id": "L010",
+          "quote": "sputum recollection | not received by laboratory",
+          "quote_verified": true
+        }
+      ],
+      "why": "The lab report shows the specimen was rejected and the recollection was never received.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b4",
+      "claim_text": "Urine pneumococcal antigen specimen not received",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        }
+      ],
+      "why": "This matches the lab report.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3554,
+  "output_tokens": 693,
+  "estimated_cost_usd": 0.028076,
+  "latency_ms": 6442,
+  "raw_model_outputs_path": "runs/verifier/bank__med_03__c2/direct-opus/raw.json",
+  "case_id": "med_03",
+  "traps_found": [],
+  "explanation": "The answer correctly states that no pathogen is confirmed and accurately cites the pending, rejected and missing microbiology results. Omitting the negative viral PCR does not make the answer misleading.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

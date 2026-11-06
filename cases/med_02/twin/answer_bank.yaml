@@ -1,6 +1,6 @@
 # PRIVATE labeled answers for the twin. Constructed by the team, NOT target outputs.
 case_id: med_02_twin
-review_status: needs_second_reviewer
+review_status: approved
 answers:
   - answer_id: c1
     label: correct

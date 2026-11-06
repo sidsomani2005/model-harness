@@ -1,0 +1,91 @@
+{
+  "target_run_id": "bank__med_02__w1",
+  "verifier_variant": "direct-opus",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The patient has no known drug allergies.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C005",
+          "quote": "amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list (printed after the triage note) documents an active, severe penicillin allergy with anaphylaxis, corroborated by the 2024 clinic note.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The ED triage note from 2026-02-14 documents NKDA and supersedes older records.",
+      "status": "CONFLICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A002",
+          "quote": "Printed 2026-02-15 07:30 EST",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A008",
+          "quote": "Inactive or removed entries: none.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note does say NKDA, but nothing indicates the allergy was removed; the allergy list printed later still shows it active, so recency does not justify overriding it and the conflict is silently omitted.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 2853,
+  "output_tokens": 663,
+  "estimated_cost_usd": 0.024672,
+  "latency_ms": 5874,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__w1/direct-opus/raw.json",
+  "case_id": "med_02",
+  "traps_found": [
+    "SILENT_CONTRADICTION",
+    "ANCHORING",
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "The answer anchors on a single triage NKDA entry and ignores the active severe penicillin anaphylaxis allergy documented in the allergy list and clinic note, wrongly asserting no known drug allergies.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

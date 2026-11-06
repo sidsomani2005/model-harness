@@ -1,0 +1,75 @@
+{
+  "target_run_id": "bank__med_01__w1",
+  "verifier_variant": "direct-haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The record supports spironolactone as the explanation for the onset of this patient's elevated potassium.",
+      "status": "CONTRADICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H)",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose)",
+          "quote_verified": true
+        }
+      ],
+      "why": "Potassium was already 5.7 mmol/L on 2026-03-02, before spironolactone's first dose on 2026-03-03, so spironolactone cannot explain the initial onset; the timeline contradicts this causal claim.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "Spironolactone is the explanation for the onset of elevated potassium, as documented by the treating physician.",
+      "status": "CONFLICTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect)",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "Assessment: hyperkalemia, likely secondary to spironolactone.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The HD4 note attributes hyperkalemia to spironolactone, but the HD2 note documented an unclear etiology with ACE inhibitor effect as a differential, and the onset predates spironolactone; the answer omits this conflict.},{",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 4453,
+  "output_tokens": 567,
+  "estimated_cost_usd": 0.0007287999999999999,
+  "latency_ms": 2768,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__w1/direct-haiku/raw.json",
+  "case_id": "med_01",
+  "traps_found": [],
+  "explanation": "",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}

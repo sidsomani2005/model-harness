@@ -1,0 +1,209 @@
+{
+  "target_run_id": "bank__med_01__w2",
+  "verifier_variant": "haiku",
+  "overall": "ERROR_DETECTED",
+  "claim_verdicts": [
+    {
+      "claim_id": "c1",
+      "claim_text": "Spironolactone cannot explain the initial onset of elevated potassium.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose) | S. Alvarez, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The first spironolactone dose was given on 2026-03-03 at 10:20, after the initial hyperkalemia was documented on 2026-03-02, so spironolactone cannot have caused the initial onset. The timeline supports this, though the record does not establish the true cause.",
+      "uncertainty": "The record does not identify the cause of the initial hyperkalemia; P016 lists differential causes that remain open, and the answer's attribution to lisinopril is not established by the lines shown.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "chronology"
+      ]
+    },
+    {
+      "claim_id": "c2",
+      "claim_text": "The first elevated potassium (5.7 mmol/L) was collected on 2026-03-02 at 05:45.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L006",
+          "quote": "2026-03-02 05:45 | potassium 5.7 mmol/L (H) | creatinine 1.8 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        }
+      ],
+      "why": "Line L006 records potassium 5.7 mmol/L (H) at 2026-03-02 05:45, and the prior draw L005 at 2026-03-01 14:20 was 4.6 mmol/L, so this is the first elevated value shown.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c3",
+      "claim_text": "Spironolactone was first given on 2026-03-03 at 10:20.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose) | S. Alvarez, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR line M013 explicitly records the 2026-03-03 10:20 spironolactone dose as the first dose, so the claim matches the cited document exactly.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c4",
+      "claim_text": "The initial hyperkalemia was caused by lisinopril in the setting of acute kidney injury.",
+      "status": "NOT_ESTABLISHED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M006",
+          "quote": "2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The physician note lists ACE inhibitor effect only as one item in a differential and states the etiology is not yet clear, so the record does not establish lisinopril as the cause. The MAR shows lisinopril was given on 2026-03-01 at 21:00, before the 2026-03-02 potassium draw, so the timing is possible but does not confirm causation.",
+      "uncertainty": "The true cause of the hyperkalemia is unresolved in the record; reduced renal clearance and ACE inhibitor effect both remain open. Cause (2026-03-01T21:00) precedes effect (2026-03-02T09:30) (date inherited from note header): temporally possible, but timing alone does not prove causation.",
+      "traps": [
+        "UNJUSTIFIED_CERTAINTY"
+      ],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check",
+        "chronology",
+        "confirmation"
+      ]
+    },
+    {
+      "claim_id": "c5",
+      "claim_text": "Lisinopril was held.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M010",
+          "quote": "2026-03-02 21:00 | lisinopril | 10 mg PO | held (order: hold for hyperkalemia) | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "why": "The MAR line M010 records the 2026-03-02 21:00 lisinopril dose as held, so the claim that lisinopril was held is directly stated. The physician note P017 also plans to hold lisinopril.",
+      "uncertainty": "The record shows a single held dose on 2026-03-02 21:00; the claim does not specify whether later doses were also held, and the answer's causal framing is not part of this claim.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    }
+  ],
+  "total_model_calls": 11,
+  "input_tokens": 32621,
+  "output_tokens": 3847,
+  "estimated_cost_usd": 0.0051856,
+  "latency_ms": 10557,
+  "raw_model_outputs_path": "runs/verifier/bank__med_01__w2/haiku/raw.json",
+  "case_id": "med_01",
+  "traps_found": [
+    "UNJUSTIFIED_CERTAINTY"
+  ],
+  "explanation": "Error detected.\n- Claim \"The initial hyperkalemia was caused by lisinopril in the setting of acute kidney injury.\" is NOT_ESTABLISHED [UNJUSTIFIED_CERTAINTY]: The physician note lists ACE inhibitor effect only as one item in a differential and states the etiology is not yet clear, so the record does not establish lisinopril as the cause. The MAR shows lisinopril was given on 2026-03-01 at 21:00, before the 2026-03-02 potassium draw, so the timing is possible but does not confirm causation.\n  Evidence: physician_notes.txt [P016] \"Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).\"; medication_administration_record.txt [M006] \"2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN\"\n  Still unknown: The true cause of the hyperkalemia is unresolved in the record; reduced renal clearance and ACE inhibitor effect both remain open. Cause (2026-03-01T21:00) precedes effect (2026-03-02T09:30) (date inherited from note header): temporally possible, but timing alone does not prove causation.\n- Note (uncertainty): Cardiology consult recommended spironolactone; chart shows spironolactone was not taken before admission, so the first potassium rise (5.7 on 03-02) preceded any spironolactone exposure. The answer states this timing but the key fact that the first rise predates spironolactone is supported; the answer's causal attribution to lisinopril is stated definitively although the progress note lists etiology as not yet clear with differential including reduced renal clearance.\n- Note (contradiction): Later covering note attributes hyperkalemia to spironolactone; the record contains conflicting attributions that the answer does not mention.\n- Note (other): Lisinopril was given at 21:00 on 03-01 and the 03-02 evening dose was held; a further potassium of 5.4 on 03-02 16:10 is documented, which the answer does not address in its timeline.",
+  "needs_review_reasons": [],
+  "omissions": [
+    {
+      "description": "Cardiology consult recommended spironolactone; chart shows spironolactone was not taken before admission, so the first potassium rise (5.7 on 03-02) preceded any spironolactone exposure. The answer states this timing but the key fact that the first rise predates spironolactone is supported; the answer's causal attribution to lisinopril is stated definitively although the progress note lists etiology as not yet clear with differential including reduced renal clearance.",
+      "kind": "uncertainty",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P009",
+          "quote": "Not taking a mineralocorticoid receptor antagonist (spironolactone or eplerenone) before admission.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c4"
+    },
+    {
+      "description": "Later covering note attributes hyperkalemia to spironolactone; the record contains conflicting attributions that the answer does not mention.",
+      "kind": "contradiction",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P024",
+          "quote": "Assessment: hyperkalemia, likely secondary to spironolactone.",
+          "quote_verified": true
+        }
+      ],
+      "material": true,
+      "confirmed": false,
+      "confirm_status": "rejected",
+      "related_claim_id": "c1"
+    },
+    {
+      "description": "Lisinopril was given at 21:00 on 03-01 and the 03-02 evening dose was held; a further potassium of 5.4 on 03-02 16:10 is documented, which the answer does not address in its timeline.",
+      "kind": "other",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L007",
+          "quote": "2026-03-02 16:10 | potassium 5.4 mmol/L (H) | creatinine 1.7 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M006",
+          "quote": "2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c2"
+    }
+  ],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [
+    "claude-haiku-5-5"
+  ],
+  "fake_backend": false,
+  "code_version": "1d86f3a"
+}

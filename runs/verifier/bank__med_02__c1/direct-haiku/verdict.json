@@ -1,0 +1,101 @@
+{
+  "target_run_id": "bank__med_02__c1",
+  "verifier_variant": "direct-haiku",
+  "overall": "NO_ISSUE_FOUND",
+  "claim_verdicts": [
+    {
+      "claim_id": "b1",
+      "claim_text": "The chart documents a severe penicillin allergy with anaphylaxis after amoxicillin in May 2019, treated with intramuscular epinephrine.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Severity: severe",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A005",
+          "quote": "Reaction: anaphylaxis (generalized hives, throat tightness, hypotension)",
+          "quote_verified": true
+        }
+      ],
+      "why": "The allergy list records the severe anaphylactic reaction to amoxicillin, its 2019-05 onset, and epinephrine treatment.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b2",
+      "claim_text": "The 2024 clinic note independently records the same reaction and notes that no allergy testing has been done.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Status: active",
+          "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C006",
+          "quote": "no allergy testing or supervised challenge has been performed.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The clinic note describes the same reaction requiring epinephrine and states no allergy testing or challenge has occurred.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    },
+    {
+      "claim_id": "b3",
+      "claim_text": "The ED triage note lists NKDA, conflicting with the allergy list and clinic note, and nothing in the record resolves the conflict.",
+      "status": "SUPPORTED",
+      "severity": "material",
+      "citations": [
+        {
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
+          "quote_verified": true
+        },
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A008",
+          "quote": "Inactive or removed entries: none.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The triage note records NKDA while the allergy entry remains active and no entries have been removed, so the conflict is unresolved and the answer correctly reports it as conflicting rather than as an established allergy-free status.",
+      "uncertainty": "",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": []
+    }
+  ],
+  "total_model_calls": 1,
+  "input_tokens": 3049,
+  "output_tokens": 1560,
+  "estimated_cost_usd": 0.0010849000000000002,
+  "latency_ms": 6723,
+  "raw_model_outputs_path": "runs/verifier/bank__med_02__c1/direct-haiku/raw.json",
+  "case_id": "med_02",
+  "traps_found": [],
+  "explanation": "The answer accurately summarizes the penicillin allergy documentation from the allergy list and clinic note, accurately reports the conflicting NKDA entry in the ED triage note, and correctly declines to conclude the patient is free of drug allergies. No contradicted, unsupported, causal, or invented claims were found.",
+  "needs_review_reasons": [],
+  "omissions": [],
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "models_used": [],
+  "fake_backend": false,
+  "code_version": "47945cf"
+}
