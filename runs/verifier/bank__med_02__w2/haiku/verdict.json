@@ -28,7 +28,7 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list records penicillins as a severe allergy with the reaction occurring with amoxicillin, and the 2024 clinic note describes the same May 2019 reaction treated with epinephrine. The entry is active and was reviewed in 2024.",
+      "why": "The allergy list records penicillins as a severe allergy with the reaction occurring with amoxicillin (A004), and describes the reaction as anaphylaxis treated with intramuscular epinephrine (A005). The 2024 clinic note independently describes the same May 2019 event (C005).",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -62,7 +62,7 @@
           "quote_verified": true
         }
       ],
-      "why": "Allergy list line A005 records anaphylaxis with onset 2019-05 and treatment with intramuscular epinephrine, and A004 links the reaction to amoxicillin. The 2024 note C005 independently describes the same May 2019 amoxicillin reaction.",
+      "why": "The allergy list records anaphylaxis with onset 2019-05 and a reaction occurring with amoxicillin, and the 2024 clinic note independently describes the same May 2019 amoxicillin reaction treated with epinephrine in the emergency department.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -73,7 +73,7 @@
     },
     {
       "claim_id": "c3",
-      "claim_text": "The anaphylaxis after amoxicillin required intramuscular epinephrine.",
+      "claim_text": "The anaphylaxis after amoxicillin in May 2019 required intramuscular epinephrine.",
       "status": "SUPPORTED",
       "severity": "material",
       "citations": [
@@ -90,7 +90,7 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list entry A005 records anaphylaxis treated with intramuscular epinephrine, and the 2024 clinic note C005 independently describes epinephrine being required after amoxicillin in May 2019. Both sources agree with the claim.",
+      "why": "The allergy list entry A005 records anaphylaxis with onset 2019-05 treated with intramuscular epinephrine, and the 2024 clinic note C005 independently describes the same event requiring epinephrine. The claim matches both sources.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -112,8 +112,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The 2024 clinic note states directly that no allergy testing or supervised challenge has been performed, which matches the claim. The claim is stated as an absence within that document and is not contradicted by any shown line.",
-      "uncertainty": "The record shows only the 2024-08-12 clinic note's statement; it does not confirm that no testing has occurred at any time since then, and the ED note of 2026-02-14 says nothing about testing.",
+      "why": "The 2024-08-12 clinic note states directly that no allergy testing or supervised challenge has been performed, which matches the claim. The record shows no testing elsewhere.",
+      "uncertainty": "The record only covers documents through 2026-02; testing done after the clinic note, or outside these documents, would not be visible here.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -134,8 +134,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list states no other allergies or intolerances are recorded, which directly supports the claim that no other drug allergies are documented.",
-      "uncertainty": "The ED triage note lists NKDA, which is consistent with this claim; the record does not show any other allergy entries. The claim is about documentation only, not the patient's true allergy status.",
+      "why": "The allergy list states that no other allergies or intolerances are recorded, which matches the claim that no other drug allergies are documented. The ED triage note says NKDA, which is consistent with this absence.",
+      "uncertainty": "The ED triage note's NKDA entry is a different document, but it does not contradict the allergy list; the claim is only about what is documented.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -145,20 +145,20 @@
     }
   ],
   "total_model_calls": 8,
-  "input_tokens": 20697,
-  "output_tokens": 2979,
-  "estimated_cost_usd": 0.0035592,
-  "latency_ms": 6969,
+  "input_tokens": 20704,
+  "output_tokens": 2665,
+  "estimated_cost_usd": 0.0034029,
+  "latency_ms": 6555,
   "raw_model_outputs_path": "runs/verifier/bank__med_02__w2/haiku/raw.json",
   "case_id": "med_02",
   "traps_found": [
     "SILENT_CONTRADICTION"
   ],
-  "explanation": "Error detected.\n- The answer does not account for: The ED triage note from 2026-02-14 records NKDA, which conflicts with the allergy list (printed 2026-02-15) showing a severe penicillin allergy with anaphylaxis. The answer does not mention this conflict and presents the penicillin allergy as settled.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: NKDA.\"; allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"",
+  "explanation": "Error detected.\n- The answer does not account for: ED triage note from 2026-02-14 records NKDA (no known drug allergies), which contradicts the allergy list's active severe penicillin anaphylaxis entry. The answer states the penicillin allergy as definitive and does not mention this conflicting entry.\n  Evidence: ed_triage_note.txt [N006] \"Allergies: NKDA.\"; allergy_list.txt [A004] \"Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe\"",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "The ED triage note from 2026-02-14 records NKDA, which conflicts with the allergy list (printed 2026-02-15) showing a severe penicillin allergy with anaphylaxis. The answer does not mention this conflict and presents the penicillin allergy as settled.",
+      "description": "ED triage note from 2026-02-14 records NKDA (no known drug allergies), which contradicts the allergy list's active severe penicillin anaphylaxis entry. The answer states the penicillin allergy as definitive and does not mention this conflicting entry.",
       "kind": "contradiction",
       "citations": [
         {
@@ -186,5 +186,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

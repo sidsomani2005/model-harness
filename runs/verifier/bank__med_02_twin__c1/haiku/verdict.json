@@ -28,7 +28,7 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list records a severe penicillin allergy with anaphylaxis after amoxicillin (A004, A005), and the 2024 clinic note independently describes the same May 2019 reaction treated with epinephrine (C005). Sources agree, so the claim of consistent documentation is supported.",
+      "why": "The allergy list records a severe penicillin allergy with anaphylaxis (A004, A005), and the 2024 clinic note independently describes the same amoxicillin reaction treated with epinephrine (C005). The sources agree, so the claim of consistent documentation holds.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -62,7 +62,7 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list records anaphylaxis with onset 2019-05 after amoxicillin (A004, A005), and the 2024 clinic note independently describes the May 2019 amoxicillin reaction requiring emergency epinephrine (C005).",
+      "why": "The allergy list records penicillin allergy with amoxicillin, reaction anaphylaxis, onset 2019-05, and the 2024 clinic note independently describes the May 2019 amoxicillin reaction requiring epinephrine. All lines agree on the same patient and timing.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -73,7 +73,7 @@
     },
     {
       "claim_id": "c3",
-      "claim_text": "The anaphylaxis from amoxicillin in May 2019 was treated with epinephrine.",
+      "claim_text": "The anaphylaxis was treated with epinephrine.",
       "status": "SUPPORTED",
       "severity": "minor",
       "citations": [
@@ -90,7 +90,7 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list entry A005 records anaphylaxis with onset 2019-05 treated with intramuscular epinephrine, and the 2024 clinic note C005 independently states the same treatment with epinephrine in the emergency department.",
+      "why": "Line A005 states the anaphylaxis was treated in an emergency department with intramuscular epinephrine, and C005 independently records epinephrine use in May 2019 for the amoxicillin reaction.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -103,7 +103,7 @@
       "claim_id": "c4",
       "claim_text": "The 2026-02-14 triage note records the same penicillin allergy.",
       "status": "SUPPORTED",
-      "severity": "minor",
+      "severity": "material",
       "citations": [
         {
           "file": "ed_triage_note.txt",
@@ -112,7 +112,7 @@
           "quote_verified": true
         }
       ],
-      "why": "The 2026-02-14 triage note line N006 records penicillins (amoxicillin) with anaphylaxis, matching the claim that the same allergy is recorded.",
+      "why": "The 2026-02-14 triage note line N006 records penicillins (amoxicillin) allergy with anaphylaxis, matching the claim that the same allergy is recorded.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -134,7 +134,7 @@
           "quote_verified": true
         }
       ],
-      "why": "Line N006 of the 2026-02-14 triage note states that the penicillin allergy was verified with the patient against the allergy list, so the claim matches that document.",
+      "why": "The 2026-02-14 triage note line N006 states the penicillin allergy was verified with the patient against the allergy list, which matches the claim.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -156,8 +156,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The 2024-08-12 clinic note explicitly states that no allergy testing or supervised challenge has been performed, which directly supports the claim as stated in that note.",
-      "uncertainty": "The record only covers documents through 2026-02; it does not show whether testing was done after the 2024 note, though no later line reports testing.",
+      "why": "The 2024-08-12 clinic note explicitly states that no allergy testing or supervised challenge has been performed, which directly supports the claim as cited. No other shown line reports allergy testing.",
+      "uncertainty": "The record is from 2024 and the claim is stated in the present tense; no documents after 2024-08-12 show whether testing has since occurred, though the 2026 triage note does not mention any testing.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -167,46 +167,46 @@
     }
   ],
   "total_model_calls": 8,
-  "input_tokens": 24045,
-  "output_tokens": 2630,
-  "estimated_cost_usd": 0.0037195,
-  "latency_ms": 6009,
+  "input_tokens": 23821,
+  "output_tokens": 2581,
+  "estimated_cost_usd": 0.0036726,
+  "latency_ms": 5939,
   "raw_model_outputs_path": "runs/verifier/bank__med_02_twin__c1/haiku/raw.json",
   "case_id": "med_02_twin",
   "traps_found": [],
-  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (other): Claim c6 says no allergy testing has been performed; chart documents no allergy testing or supervised challenge, so this is supported, but the answer omits that the patient reports avoiding all penicillins, which is consistent. No omission material here.\n- Note (other): The 2024 clinic note records the allergy was reviewed and confirmed unchanged, and the allergy list documents a last review in 2024; the answer's claim that the allergy was verified at the 2026 triage is supported by N006, so no conflict. Chart reaction description differs slightly (hives, throat swelling vs tightness, hypotension), which is consistent with anaphylaxis.",
+  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (other): Allergy list entry says reaction occurred with amoxicillin and is severe anaphylaxis; answer's claims largely match, but the triage note records allergy as verified 'against the allergy list' rather than independently with the patient in a way that is separate from the list; claim c5 says verified with patient, which the note does state.\n- Note (other): Clinic note states no allergy testing or supervised challenge has been performed, but also that the patient avoids all penicillins; the answer's c6 is consistent, so no omission beyond restating. Chart documents penicillin allergy label as 'penicillins' class-wide while reaction was specific to amoxicillin; answer states penicillin allergy generally without noting the amoxicillin-specific reaction history.",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "Claim c6 says no allergy testing has been performed; chart documents no allergy testing or supervised challenge, so this is supported, but the answer omits that the patient reports avoiding all penicillins, which is consistent. No omission material here.",
+      "description": "Allergy list entry says reaction occurred with amoxicillin and is severe anaphylaxis; answer's claims largely match, but the triage note records allergy as verified 'against the allergy list' rather than independently with the patient in a way that is separate from the list; claim c5 says verified with patient, which the note does state.",
       "kind": "other",
       "citations": [],
       "material": false,
       "confirmed": false,
       "confirm_status": "not_checked",
-      "related_claim_id": "c6"
+      "related_claim_id": "c5"
     },
     {
-      "description": "The 2024 clinic note records the allergy was reviewed and confirmed unchanged, and the allergy list documents a last review in 2024; the answer's claim that the allergy was verified at the 2026 triage is supported by N006, so no conflict. Chart reaction description differs slightly (hives, throat swelling vs tightness, hypotension), which is consistent with anaphylaxis.",
+      "description": "Clinic note states no allergy testing or supervised challenge has been performed, but also that the patient avoids all penicillins; the answer's c6 is consistent, so no omission beyond restating. Chart documents penicillin allergy label as 'penicillins' class-wide while reaction was specific to amoxicillin; answer states penicillin allergy generally without noting the amoxicillin-specific reaction history.",
       "kind": "other",
       "citations": [
+        {
+          "file": "allergy_list.txt",
+          "line_id": "A004",
+          "quote": "Entry 1 | Allergen: penicillins (reaction occurred with amoxicillin) | Type: allergy | Severity: severe",
+          "quote_verified": true
+        },
         {
           "file": "clinic_note_2024.txt",
           "line_id": "C005",
           "quote": "Allergies reviewed with patient: in May 2019 amoxicillin caused hives, throat swelling and low blood pressure that required epinephrine in the emergency department.",
-          "quote_verified": true
-        },
-        {
-          "file": "allergy_list.txt",
-          "line_id": "A005",
-          "quote": "Entry 1 | Reaction: anaphylaxis (generalized hives, throat tightness, hypotension) | Onset: 2019-05 | Treated in an emergency department with intramuscular epinephrine",
           "quote_verified": true
         }
       ],
       "material": false,
       "confirmed": false,
       "confirm_status": "not_checked",
-      "related_claim_id": "c2"
+      "related_claim_id": "c1"
     }
   ],
   "cache_read_input_tokens": 0,
@@ -215,5 +215,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

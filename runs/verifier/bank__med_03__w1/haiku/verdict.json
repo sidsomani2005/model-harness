@@ -23,6 +23,12 @@
         },
         {
           "file": "physician_notes.txt",
+          "line_id": "P008",
+          "quote": "Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
           "line_id": "P007",
           "quote": "Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.",
           "quote_verified": true
@@ -40,10 +46,11 @@
           "quote_verified": true
         }
       ],
-      "why": "The chart only describes Streptococcus pneumoniae as a likely pathogen (P011), and the urine antigen test that could support it was ordered but the specimen was not received (L011). Nothing shown confirms the pathogen, so calling it confirmed is unsupported.",
-      "uncertainty": "No culture or antigen result in the shown lines confirms the organism; the blood and sputum culture results are not shown.",
+      "why": "The chart only describes Streptococcus pneumoniae as a likely pathogen, and the urine antigen test that would address it was ordered but its specimen had not been received by the laboratory. Nothing shown confirms the pathogen, so calling it confirmed is not supported.",
+      "uncertainty": "The cited Hospital Day 3 note and sputum findings were not among the lines shown, and the urine antigen result is absent from the chart excerpt, so confirmation cannot be established from these lines.",
       "traps": [
-        "UNJUSTIFIED_CERTAINTY"
+        "UNJUSTIFIED_CERTAINTY",
+        "ANCHORING"
       ],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -65,8 +72,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The Hospital Day 3 progress note (2026-01-22 09:40) lists the assessment as pneumococcal pneumonia, so the claim that this assessment documents it is directly stated by the cited line.",
-      "uncertainty": "The claim concerns only what the Day 3 note says; the earlier notes used hedged wording such as 'likely' and 'suggestive of', and the blood culture is preliminary, but the claim does not assert confirmation of the organism.",
+      "why": "The Hospital Day 3 progress note (2026-01-22 09:40) states the assessment as pneumococcal pneumonia, which is exactly what the claim says the document documents.",
+      "uncertainty": "The claim concerns only what the Day 3 note says; the chart elsewhere holds a preliminary 'likely' or 'suggestive' wording and blood cultures are not final, but these do not affect whether the note says it.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -76,7 +83,7 @@
     },
     {
       "claim_id": "c3",
-      "claim_text": "The patient's presentation is consistent with classic rust-colored sputum.",
+      "claim_text": "The patient has rust-colored sputum.",
       "status": "SUPPORTED",
       "severity": "minor",
       "citations": [
@@ -87,8 +94,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The emergency department history at 19:15 on 2026-01-20 documents a cough productive of rust-colored sputum, so the claim that the presentation is consistent with this symptom matches the record.",
-      "uncertainty": "The record does not show whether the sputum finding was later confirmed by a valid specimen; the sputum Gram stain was rejected for contamination (L009).",
+      "why": "The 2026-01-20 19:15 ED history line P005 explicitly records a cough productive of rust-colored sputum, directly supporting the claim as a reported finding.",
+      "uncertainty": "The sputum appearance is a patient-reported history item; the sputum culture was rejected for contamination and recollection was not received, so no microbiologic confirmation exists, but the claim concerns the reported sputum color only.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -98,7 +105,7 @@
     },
     {
       "claim_id": "c4",
-      "claim_text": "The patient's presentation is consistent with lobar consolidation on chest X-ray.",
+      "claim_text": "The patient has lobar consolidation on chest X-ray.",
       "status": "SUPPORTED",
       "severity": "minor",
       "citations": [
@@ -109,8 +116,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The claim that the presentation is consistent with lobar consolidation on chest X-ray is directly supported by R005, which reports dense right lower lobe consolidation with air bronchograms on the 2026-01-20 film.",
-      "uncertainty": "The record does not confirm the pathogen; the claim concerns only radiographic consistency, not the organism.",
+      "why": "The radiology finding R005 describes dense right lower lobe consolidation with air bronchograms, which the claim of lobar consolidation on chest X-ray matches. The impression R006 also describes right lower lobe consolidation.",
+      "uncertainty": "The record describes a single-lobe (right lower lobe) consolidation; the word 'lobar' is a reasonable description of that finding but the report does not use the term itself.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -120,7 +127,29 @@
     },
     {
       "claim_id": "c5",
-      "claim_text": "The patient is improving on ceftriaxone and azithromycin.",
+      "claim_text": "The pneumonia diagnosis is consistent with the classic rust-colored sputum.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P005",
+          "quote": "History: three days of fever, cough productive of rust-colored sputum, and right-sided pleuritic chest pain.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The emergency note records a productive cough with rust-colored sputum [P005] alongside an impression of community-acquired right lower lobe pneumonia [P007]. The claim that the diagnosis is consistent with this symptom is what the lines show, and it does not assert a confirmed pathogen.",
+      "uncertainty": "The sputum culture was rejected for contamination [L009], so the causative organism is not confirmed by the record.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c6",
+      "claim_text": "The patient is improving.",
       "status": "SUPPORTED",
       "severity": "minor",
       "citations": [
@@ -129,10 +158,38 @@
           "line_id": "P014",
           "quote": "Clinically improving; tolerating diet; SpO2 96% on room air.",
           "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P010",
+          "quote": "Improving; afebrile since 04:00. SpO2 95% on 2 L/min nasal cannula.",
+          "quote_verified": true
         }
       ],
-      "why": "The 2026-01-22 note states the patient is clinically improving on the current regimen, and P015 also records improvement. P012 only documents the plan to continue the antibiotics, so it is context rather than evidence of improvement.",
-      "uncertainty": "The lines do not explicitly link the improvement to the antibiotics; the causal attribution is an inference, and culture and urine antigen results are not shown.",
+      "why": "The 2026-01-22 progress note (P014) states the patient is clinically improving, and an earlier note (P010) also records improvement. The claim is stated at the same level of certainty as the notes.",
+      "uncertainty": "Improvement is clinical and based on a single day's note; the cited plan line P012 itself does not state improvement and is only context.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c7",
+      "claim_text": "The patient is receiving ceftriaxone and azithromycin.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P012",
+          "quote": "Plan: continue ceftriaxone and azithromycin; follow up cultures and urine antigen.",
+          "quote_verified": true
+        }
+      ],
+      "why": "The 2026-01-21 plan line [P012] says to continue ceftriaxone and azithromycin, and the later 2026-01-22 note [P014] documents clinical improvement on that therapy. P008 also shows both drugs were started on admission.",
+      "uncertainty": "The record shows a plan to continue the drugs as of 01-21 and improvement on 01-22; it does not include a medication administration record confirming doses given on 01-22.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -141,23 +198,30 @@
       ]
     }
   ],
-  "total_model_calls": 8,
-  "input_tokens": 23885,
-  "output_tokens": 3573,
-  "estimated_cost_usd": 0.004175,
-  "latency_ms": 7074,
+  "total_model_calls": 10,
+  "input_tokens": 30151,
+  "output_tokens": 4287,
+  "estimated_cost_usd": 0.0051586,
+  "latency_ms": 7315,
   "raw_model_outputs_path": "runs/verifier/bank__med_03__w1/haiku/raw.json",
   "case_id": "med_03",
   "traps_found": [
-    "UNJUSTIFIED_CERTAINTY"
+    "UNJUSTIFIED_CERTAINTY",
+    "ANCHORING"
   ],
-  "explanation": "Error detected.\n- Claim \"The confirmed pathogen is Streptococcus pneumoniae.\" is NOT_ESTABLISHED [UNJUSTIFIED_CERTAINTY]: The chart only describes Streptococcus pneumoniae as a likely pathogen (P011), and the urine antigen test that could support it was ordered but the specimen was not received (L011). Nothing shown confirms the pathogen, so calling it confirmed is unsupported.\n  Evidence: physician_notes.txt [P011] \"Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.\"; lab_results.txt [L011] \"2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\"; physician_notes.txt [P007] \"Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.\"\n  Still unknown: No culture or antigen result in the shown lines confirms the organism; the blood and sputum culture results are not shown.\n- Note (status_caveat): No pathogen has been confirmed: the sputum Gram stain was rejected and recollection was never received, the urine pneumococcal antigen was never received, and blood cultures show no growth with final report pending. The Hospital Day 3 'pneumococcal pneumonia' is an unconfirmed working assessment, which the answer's 'confirmed' bottom line does not account for.\n- Note (uncertainty): Hospital Day 2 assessment states only 'likely Streptococcus pneumoniae', and the ED note says 'suggestive of', so the pathogen is presumptive rather than confirmed.\n- Note (negative_finding): Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding not mentioned by the answer.",
+  "explanation": "Error detected.\n- Claim \"The confirmed pathogen is Streptococcus pneumoniae.\" is NOT_ESTABLISHED [UNJUSTIFIED_CERTAINTY, ANCHORING]: The chart only describes Streptococcus pneumoniae as a likely pathogen, and the urine antigen test that would address it was ordered but its specimen had not been received by the laboratory. Nothing shown confirms the pathogen, so calling it confirmed is not supported.\n  Evidence: physician_notes.txt [P011] \"Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.\"; lab_results.txt [L011] \"2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\"; physician_notes.txt [P008] \"Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.\"\n  Still unknown: The cited Hospital Day 3 note and sputum findings were not among the lines shown, and the urine antigen result is absent from the chart excerpt, so confirmation cannot be established from these lines.\n- Note (status_caveat): No pathogen is confirmed: the urine pneumococcal antigen was never received by the lab, sputum culture was rejected and recollection not received, and blood cultures show no growth with final report pending. The answer's claim that S. pneumoniae is confirmed is unsupported; the Day 3 'pneumococcal pneumonia' label is a clinical assessment, not a laboratory confirmation.\n- Note (uncertainty): Day 2 assessment states the organism only as 'likely' S. pneumoniae, and the ED note says 'suggestive of', which the answer presents as definitive confirmation.\n- Note (negative_finding): Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a negative finding not mentioned in the answer.",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "No pathogen has been confirmed: the sputum Gram stain was rejected and recollection was never received, the urine pneumococcal antigen was never received, and blood cultures show no growth with final report pending. The Hospital Day 3 'pneumococcal pneumonia' is an unconfirmed working assessment, which the answer's 'confirmed' bottom line does not account for.",
+      "description": "No pathogen is confirmed: the urine pneumococcal antigen was never received by the lab, sputum culture was rejected and recollection not received, and blood cultures show no growth with final report pending. The answer's claim that S. pneumoniae is confirmed is unsupported; the Day 3 'pneumococcal pneumonia' label is a clinical assessment, not a laboratory confirmation.",
       "kind": "status_caveat",
       "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L011",
+          "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
+          "quote_verified": true
+        },
         {
           "file": "lab_results.txt",
           "line_id": "L009",
@@ -168,12 +232,6 @@
           "file": "lab_results.txt",
           "line_id": "L010",
           "quote": "2026-01-22 10:00 | sputum recollection | not received by laboratory",
-          "quote_verified": true
-        },
-        {
-          "file": "lab_results.txt",
-          "line_id": "L011",
-          "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
           "quote_verified": true
         },
         {
@@ -195,29 +253,29 @@
       "related_claim_id": "c1"
     },
     {
-      "description": "Hospital Day 2 assessment states only 'likely Streptococcus pneumoniae', and the ED note says 'suggestive of', so the pathogen is presumptive rather than confirmed.",
+      "description": "Day 2 assessment states the organism only as 'likely' S. pneumoniae, and the ED note says 'suggestive of', which the answer presents as definitive confirmation.",
       "kind": "uncertainty",
       "citations": [
         {
           "file": "physician_notes.txt",
-          "line_id": "P007",
-          "quote": "Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.",
+          "line_id": "P011",
+          "quote": "Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.",
           "quote_verified": true
         },
         {
           "file": "physician_notes.txt",
-          "line_id": "P011",
-          "quote": "Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.",
+          "line_id": "P007",
+          "quote": "Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.",
           "quote_verified": true
         }
       ],
       "material": true,
       "confirmed": false,
       "confirm_status": "not_checked",
-      "related_claim_id": "c1"
+      "related_claim_id": "c2"
     },
     {
-      "description": "Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding not mentioned by the answer.",
+      "description": "Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a negative finding not mentioned in the answer.",
       "kind": "negative_finding",
       "citations": [
         {
@@ -233,7 +291,7 @@
       "related_claim_id": "c1"
     },
     {
-      "description": "Chart describes a 'cough productive of rust-colored sputum' but the sputum specimen was rejected as contaminated, so the sputum-based evidence is not available; the answer's rust-colored sputum claim rests only on history.",
+      "description": "Radiology describes dense consolidation with air bronchograms but the report does not specify lobar pattern as a classic finding beyond RLL; the rust-colored sputum is reported only as history from the ED, not a current finding on Day 3.",
       "kind": "status_caveat",
       "citations": [
         {
@@ -243,9 +301,9 @@
           "quote_verified": true
         },
         {
-          "file": "lab_results.txt",
-          "line_id": "L009",
-          "quote": "2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested",
+          "file": "radiology_report.txt",
+          "line_id": "R005",
+          "quote": "Findings: dense consolidation in the right lower lobe with air bronchograms. No pleural effusion. No pneumothorax.",
           "quote_verified": true
         }
       ],
@@ -253,28 +311,6 @@
       "confirmed": false,
       "confirm_status": "not_checked",
       "related_claim_id": "c3"
-    },
-    {
-      "description": "Hospital Day 3 note says the patient is clinically improving, but the Day 3 plan says transition to oral antibiotics tomorrow if stable; the answer's improvement claim omits this conditional status. Also the record reports a 'Clinically improving' status only, not the specific antibiotic course detail.",
-      "kind": "status_caveat",
-      "citations": [
-        {
-          "file": "physician_notes.txt",
-          "line_id": "P014",
-          "quote": "Clinically improving; tolerating diet; SpO2 96% on room air.",
-          "quote_verified": true
-        },
-        {
-          "file": "physician_notes.txt",
-          "line_id": "P016",
-          "quote": "Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).",
-          "quote_verified": true
-        }
-      ],
-      "material": false,
-      "confirmed": false,
-      "confirm_status": "not_checked",
-      "related_claim_id": "c5"
     }
   ],
   "cache_read_input_tokens": 0,
@@ -283,5 +319,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

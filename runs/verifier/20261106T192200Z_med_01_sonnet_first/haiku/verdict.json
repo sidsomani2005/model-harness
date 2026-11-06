@@ -22,8 +22,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The 03-02 05:45 potassium of 5.7 (P015) is recorded as high before the first spironolactone dose given 03-03 10:20 (M013), so the timeline does not allow spironolactone to have caused that initial elevation. The claim is a timeline-based causal exclusion and the cited lines do not contradict it.",
-      "uncertainty": "The record does not establish the true cause of the initial hyperkalemia; the Day 2 differential (renal clearance, ACE inhibitor) remains unresolved, and the claim only excludes spironolactone as the cause of the initial onset.",
+      "why": "The first spironolactone dose was given at 10:20 on 03-03 (M013), while the potassium was already 5.7 (high) on the 03-02 05:45 draw (P015), so the initial elevation predates the drug. The claim is only that spironolactone cannot explain the initial hyperkalemia, which the timeline supports, but the answer's stated 'because' is about timing alone.",
+      "uncertainty": "The record does not establish the cause of the initial hyperkalemia; the Day 2 differential (renal clearance, ACE inhibitor effect) was never resolved (P016). The claim does not address the recurrence on Day 4.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -45,8 +45,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The Day 4 note attributes the hyperkalemia to spironolactone as a likely cause, and the MAR shows the first dose was given on 03-03 before the Day 4 potassium rise, so the hedged 'may have contributed' claim about the recurrence is open to the record and does not overstate it. The answer's cited lines list was empty, but the claim is supported by the chart lines shown.",
-      "uncertainty": "The record does not confirm spironolactone's contribution; the Day 4 attribution is labelled 'likely', other contributors were not excluded, and the 03-04 repeat potassium result is not in the shown lines. Cause (2026-03-03T10:20) precedes effect (2026-03-04T09:05) (date inherited from note header): temporally possible, but timing alone does not prove causation.",
+      "why": "The Day 4 note attributes the hyperkalemia to spironolactone as a likely cause, and spironolactone was given on Day 3 before the Day 4 potassium rise, so a hedged contribution to the recurrence is consistent with the record. The claim is hedged and does not claim the initial onset.",
+      "uncertainty": "The initial hyperkalemia on Day 2 predates spironolactone, and the record does not establish the cause of that onset. The Day 4 attribution is labeled 'likely' and other contributors are not excluded. Cause (2026-03-03T10:20) precedes effect (2026-03-04T09:05): temporally possible, but timing alone does not prove causation.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -59,7 +59,7 @@
       "claim_id": "c3",
       "claim_text": "The record does not prove that spironolactone contributed to the Day 4 recurrence.",
       "status": "SUPPORTED",
-      "severity": "material",
+      "severity": "minor",
       "citations": [
         {
           "file": "physician_notes.txt",
@@ -74,30 +74,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The claim is a hedged negative: the record attributes the Day 4 hyperkalemia to spironolactone only as 'likely' (P024), with no confirmed causal proof in the shown lines, so saying the record does not prove contribution is accurate and does not overstate. The cited lines do not show a definitive causal link.",
-      "uncertainty": "The shown lines do not include the 03-04 repeat potassium result or a full etiology workup; the attribution remains tentative.",
-      "traps": [],
-      "needs_review": false,
-      "needs_review_reasons": [],
-      "checks": [
-        "narrow_check"
-      ]
-    },
-    {
-      "claim_id": "c4",
-      "claim_text": "The patient was not taking an MRA before admission.",
-      "status": "SUPPORTED",
-      "severity": "minor",
-      "citations": [
-        {
-          "file": "physician_notes.txt",
-          "line_id": "P009",
-          "quote": "Not taking a mineralocorticoid receptor antagonist (spironolactone or eplerenone) before admission.",
-          "quote_verified": true
-        }
-      ],
-      "why": "The admission H&P explicitly states the patient was not taking an MRA before admission, which directly matches the claim.",
-      "uncertainty": "The record is an admission note and the MAR is limited to cardiorenal medications; pre-admission outpatient fill history is not shown.",
+      "why": "The record attributes the Day 4 hyperkalemia to spironolactone only as 'likely', and the Day 4 repeat potassium at 14:00 has no result in the lab file, so the record does not prove a contribution. The claim correctly reports that proof is absent.",
+      "uncertainty": "No 14:00 repeat potassium result is present; other contributors such as renal function and lisinopril effect were not formally excluded.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -106,7 +84,7 @@
       ]
     },
     {
-      "claim_id": "c5",
+      "claim_id": "c4",
       "claim_text": "Potassium was 5.7 mmol/L (high) on 2026-03-02 05:45, with no hemolysis; this is the initial elevation.",
       "status": "SUPPORTED",
       "severity": "material",
@@ -124,8 +102,8 @@
           "quote_verified": true
         }
       ],
-      "why": "Lab line L006 reports potassium 5.7 mmol/L (H) at 2026-03-02 05:45 with specimen no hemolysis, and the physician note P015 repeats the same value for the same draw. The claim matches both lines.",
-      "uncertainty": "The record does not show whether 5.7 is the initial elevation in a strict sense; L005 at 4.6 is the prior value and the cited lines do not establish the cause of the rise.",
+      "why": "The lab line L006 reports potassium 5.7 mmol/L (H) at 2026-03-02 05:45 with specimen no hemolysis, and the physician note P015 repeats the same value for the same draw. The claim's 'initial elevation' wording is supported by the preceding 4.6 value on 03-01 (L005), though it is an inference from the sequence rather than an explicit statement.",
+      "uncertainty": "The record does not state that this is the first elevation explicitly; it is inferred from L005 (4.6 on 03-01) being normal-range. Earlier values before 03-01 are not shown.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -134,7 +112,7 @@
       ]
     },
     {
-      "claim_id": "c6",
+      "claim_id": "c5",
       "claim_text": "The first spironolactone dose was given 2026-03-03 10:20, about 28 hours after the 5.7 potassium value.",
       "status": "SUPPORTED",
       "severity": "material",
@@ -146,7 +124,7 @@
           "quote_verified": true
         }
       ],
-      "why": "M013 records the first spironolactone dose as given on 2026-03-03 at 10:20. L006 places the potassium of 5.7 mmol/L at 2026-03-02 05:45, about 28.5 hours earlier, so the stated interval is accurate.",
+      "why": "M013 records the first spironolactone dose at 2026-03-03 10:20. L006 places the potassium 5.7 draw at 2026-03-02 05:45, which is about 28.5 hours earlier, consistent with the claimed gap.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -156,8 +134,8 @@
       ]
     },
     {
-      "claim_id": "c7",
-      "claim_text": "The record does not establish the cause of the initial hyperkalemia.",
+      "claim_id": "c6",
+      "claim_text": "The cause of the initial hyperkalemia is not established in the record.",
       "status": "SUPPORTED",
       "severity": "material",
       "citations": [
@@ -168,8 +146,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The Day 2 note states the etiology of the new hyperkalemia is not yet clear, and no later note resolves it. The Day 4 note attributes the recurrence to spironolactone with the hedge 'likely', which does not establish the initial cause.",
-      "uncertainty": "Whether the ACE inhibitor, reduced renal clearance, or another factor caused the initial 5.7 value is not documented; the MAR is a limited extract.",
+      "why": "The Day 2 note states the etiology of the new hyperkalemia is not yet clear, with an unresolved differential, and no later note in the record establishes a cause for the initial onset. The claim correctly reports absence of documentation.",
+      "uncertainty": "The record leaves the cause open; the differential was never resolved in later notes, and the MAR is limited to cardiorenal medications.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -178,8 +156,8 @@
       ]
     },
     {
-      "claim_id": "c8",
-      "claim_text": "The Day 4 attribution of the 03-04 potassium of 5.6 to spironolactone is tentative (\"likely\"), and other contributors were not excluded.",
+      "claim_id": "c7",
+      "claim_text": "The Day 4 attribution of the 5.6 potassium to spironolactone is tentative, described as 'likely'.",
       "status": "SUPPORTED",
       "severity": "minor",
       "citations": [
@@ -190,30 +168,73 @@
           "quote_verified": true
         }
       ],
-      "why": "The Day 4 note P024 states the attribution with the hedge 'likely', and the claim accurately describes it as tentative. The record also shows other contributors were considered earlier (P016) and no later note excludes them.",
-      "uncertainty": "The 14:00 repeat potassium has no result in the lab file, and the other contributors were never formally excluded.",
+      "why": "The Day 4 note at P024 literally states the hedged attribution 'likely secondary to spironolactone', so the claim that the attribution is tentative and described as 'likely' matches the record.",
+      "uncertainty": "The record does not establish the cause; the Day 2 differential (ACE inhibitor, reduced renal clearance) was not resolved, and the 14:00 repeat potassium has no result in the lab file.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
       "checks": [
-        "narrow_check",
-        "chronology"
+        "narrow_check"
+      ]
+    },
+    {
+      "claim_id": "c8",
+      "claim_text": "The Day 2 note records the etiology as 'not yet clear', with a differential of reduced renal potassium clearance and ACE inhibitor effect.",
+      "status": "SUPPORTED",
+      "severity": "minor",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
+          "quote_verified": true
+        }
+      ],
+      "why": "The Day 2 assessment line P016 states the etiology is not yet clear and lists reduced renal potassium clearance and ACE inhibitor effect as the differential, which matches the claim.",
+      "uncertainty": "The record does not show whether this differential was later resolved; the claim concerns only what the Day 2 note says.",
+      "traps": [],
+      "needs_review": false,
+      "needs_review_reasons": [],
+      "checks": [
+        "narrow_check"
       ]
     }
   ],
   "total_model_calls": 14,
-  "input_tokens": 49565,
-  "output_tokens": 5128,
-  "estimated_cost_usd": 0.0075205,
-  "latency_ms": 11326,
+  "input_tokens": 50580,
+  "output_tokens": 5085,
+  "estimated_cost_usd": 0.0076005,
+  "latency_ms": 10918,
   "raw_model_outputs_path": "runs/verifier/20261106T192200Z_med_01_sonnet_first/haiku/raw.json",
   "case_id": "med_01",
   "traps_found": [],
-  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (other): Potassium 5.4 mmol/L on 2026-03-02 16:10 (between the 5.7 value and the first spironolactone dose) is not mentioned by the answer; it shows potassium trending down after sodium zirconium cyclosilicate, relevant to the initial-onset timeline.\n- Note (uncertainty): Differential for the initial hyperkalemia documented in the record (reduced renal potassium clearance and ACE inhibitor effect, with lisinopril held) is not addressed by the answer, though the answer states cause is not established.\n- Note (other): Cardiology recommendation to start spironolactone was dated 2026-03-02, and the Day 3 note records the start; the answer does not mention the recommendation timing or the potassium threshold condition of 5.0 or below.",
+  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (other): Admission potassium on 2026-03-01 was 4.6 (normal), so the rise to 5.7 occurred within about 14 hours of admission while on lisinopril; the answer does not state that potassium was normal at admission, which bears on whether it was already high before the first dose.\n- Note (other): Hyperkalemia persisted and was at 5.4 on 2026-03-02 16:10, a value the answer omits; the potassium trajectory before spironolactone is relevant to the recurrence analysis.\n- Note (contradiction): Spironolactone was started on Day 3 when potassium was 5.0, and the Day 4 note attributes hyperkalemia to spironolactone while the record also documents a 5.0 value and the Day 4 dose was held before administration; the answer's claim that spironolactone may have contributed is not checked against the fact that the only dose given was on Day 3, and the cardiology recommendation predates the start.",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "Potassium 5.4 mmol/L on 2026-03-02 16:10 (between the 5.7 value and the first spironolactone dose) is not mentioned by the answer; it shows potassium trending down after sodium zirconium cyclosilicate, relevant to the initial-onset timeline.",
+      "description": "Admission potassium on 2026-03-01 was 4.6 (normal), so the rise to 5.7 occurred within about 14 hours of admission while on lisinopril; the answer does not state that potassium was normal at admission, which bears on whether it was already high before the first dose.",
+      "kind": "other",
+      "citations": [
+        {
+          "file": "lab_results.txt",
+          "line_id": "L005",
+          "quote": "2026-03-01 14:20 | potassium 4.6 mmol/L | creatinine 1.3 mg/dL (H) | specimen: no hemolysis",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P010",
+          "quote": "Admission labs: potassium 4.6 mmol/L, creatinine 1.3 mg/dL (see laboratory report).",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c1"
+    },
+    {
+      "description": "Hyperkalemia persisted and was at 5.4 on 2026-03-02 16:10, a value the answer omits; the potassium trajectory before spironolactone is relevant to the recurrence analysis.",
       "kind": "other",
       "citations": [
         {
@@ -226,44 +247,30 @@
       "material": false,
       "confirmed": false,
       "confirm_status": "not_checked",
-      "related_claim_id": "c5"
+      "related_claim_id": "c2"
     },
     {
-      "description": "Differential for the initial hyperkalemia documented in the record (reduced renal potassium clearance and ACE inhibitor effect, with lisinopril held) is not addressed by the answer, though the answer states cause is not established.",
-      "kind": "uncertainty",
-      "citations": [
-        {
-          "file": "physician_notes.txt",
-          "line_id": "P016",
-          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
-          "quote_verified": true
-        }
-      ],
-      "material": true,
-      "confirmed": false,
-      "confirm_status": "not_checked",
-      "related_claim_id": "c7"
-    },
-    {
-      "description": "Cardiology recommendation to start spironolactone was dated 2026-03-02, and the Day 3 note records the start; the answer does not mention the recommendation timing or the potassium threshold condition of 5.0 or below.",
-      "kind": "other",
+      "description": "Spironolactone was started on Day 3 when potassium was 5.0, and the Day 4 note attributes hyperkalemia to spironolactone while the record also documents a 5.0 value and the Day 4 dose was held before administration; the answer's claim that spironolactone may have contributed is not checked against the fact that the only dose given was on Day 3, and the cardiology recommendation predates the start.",
+      "kind": "contradiction",
       "citations": [
         {
           "file": "physician_notes.txt",
           "line_id": "P020",
           "quote": "Cardiology consult (note dated 2026-03-02) recommended starting spironolactone for HFrEF once potassium is 5.0 mmol/L or below.",
           "quote_verified": true
-        }
-      ],
-      "material": false,
-      "confirmed": false,
-      "confirm_status": "not_checked",
-      "related_claim_id": "c6"
-    },
-    {
-      "description": "Day 4 spironolactone dose was documented as held for hyperkalemia on 03-04 at 09:30, which the answer does not mention; it bears on the Day 4 recurrence attribution.",
-      "kind": "other",
-      "citations": [
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P021",
+          "quote": "Plan: start spironolactone 12.5 mg PO daily today; continue holding lisinopril; basic metabolic panel tomorrow morning.",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M013",
+          "quote": "2026-03-03 10:20 | spironolactone | 12.5 mg PO | given (first dose) | S. Alvarez, RN",
+          "quote_verified": true
+        },
         {
           "file": "medication_administration_record.txt",
           "line_id": "M016",
@@ -275,6 +282,28 @@
       "confirmed": false,
       "confirm_status": "not_checked",
       "related_claim_id": "c2"
+    },
+    {
+      "description": "Day 2 note lists lisinopril and ACE inhibitor effect in the differential, and lisinopril was given 2026-03-01 21:00 before the 5.7 value; the answer does not mention the ACE inhibitor exposure as a documented candidate cause alongside its claim that the cause is unestablished.",
+      "kind": "other",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P016",
+          "quote": "Assessment: new hyperkalemia with acute kidney injury; etiology not yet clear (differential includes reduced renal potassium clearance and ACE inhibitor effect).",
+          "quote_verified": true
+        },
+        {
+          "file": "medication_administration_record.txt",
+          "line_id": "M006",
+          "quote": "2026-03-01 21:00 | lisinopril | 10 mg PO | given | K. Hill, RN",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c6"
     }
   ],
   "cache_read_input_tokens": 0,
@@ -283,5 +312,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

@@ -5,7 +5,7 @@
   "claim_verdicts": [
     {
       "claim_id": "c1",
-      "claim_text": "The confirmed pathogen is Streptococcus pneumoniae.",
+      "claim_text": "Streptococcus pneumoniae is the confirmed pathogen.",
       "status": "SUPPORTED",
       "severity": "material",
       "citations": [
@@ -16,8 +16,8 @@
           "quote_verified": true
         }
       ],
-      "why": "Blood culture set 1 grew Streptococcus pneumoniae identified by MALDI-TOF and confirmed by optochin and bile solubility, so calling it the confirmed pathogen is supported by L012. The claim is not tied to a cited line, but the record supports it.",
-      "uncertainty": "Susceptibility testing is pending, and the urine antigen was never received, so the drug susceptibility profile is unknown.",
+      "why": "Blood culture set 1 grew Streptococcus pneumoniae confirmed by MALDI-TOF and biochemical tests, so the organism is identified in the culture, though the clinical note only says 'likely' and susceptibilities are pending.",
+      "uncertainty": "Only one of two blood culture sets grew the organism; the urine antigen was never received, and susceptibility results are pending. The claim as a bottom-line 'confirmed pathogen' rests on one culture set and does not address clinical correlation.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -38,7 +38,7 @@
           "quote_verified": true
         }
       ],
-      "why": "Line L012 directly states that blood culture set 1 showed growth detected at 22 hours. The claim says only that an organism grew at 22 hours, which matches.",
+      "why": "Line L012 directly states that set 1 showed growth detected at 22 hours, so the claim that set 1 grew an organism at 22 hours matches the record.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -60,8 +60,8 @@
           "quote_verified": true
         }
       ],
-      "why": "Line L012 states that set 1 grew Streptococcus pneumoniae identified by MALDI-TOF, matching the claim exactly. No other line contradicts it.",
-      "uncertainty": "Susceptibility testing is still pending, but the identification itself is reported as complete.",
+      "why": "Line L012 states that set 1 grew Streptococcus pneumoniae identified by MALDI-TOF, with optochin and bile solubility confirmation. The claim matches this report directly.",
+      "uncertainty": "Susceptibility testing is still pending, which the claim does not address.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -82,7 +82,7 @@
           "quote_verified": true
         }
       ],
-      "why": "Line L012 explicitly states that susceptibility testing is pending for blood culture set 1, so the claim matches the record.",
+      "why": "Line L012 states that susceptibility testing is pending for blood culture set 1, so the claim that susceptibilities are pending matches the record.",
       "uncertainty": "",
       "traps": [],
       "needs_review": false,
@@ -105,7 +105,7 @@
         }
       ],
       "why": "Line L012 directly states that blood culture set 2 showed no growth at 36 hours, matching the claim.",
-      "uncertainty": "The record gives no-growth at 36 hours as an interim result; a final culture result is not shown in the lines provided.",
+      "uncertainty": "",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -116,18 +116,18 @@
   ],
   "total_model_calls": 7,
   "input_tokens": 21047,
-  "output_tokens": 2133,
-  "estimated_cost_usd": 0.0031712,
-  "latency_ms": 5215,
+  "output_tokens": 2002,
+  "estimated_cost_usd": 0.0031057,
+  "latency_ms": 5002,
   "raw_model_outputs_path": "runs/verifier/bank__med_03_twin__c1/haiku/raw.json",
   "case_id": "med_03_twin",
   "traps_found": [],
-  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (status_caveat): Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.\n- Note (other): Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.\n- Note (negative_finding): Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.",
+  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (negative_finding): Sputum culture was rejected for oropharyngeal contamination and recollection was requested but not received; urine pneumococcal antigen was never received. Answer does not mention these missing confirmatory tests while calling the pathogen confirmed.\n- Note (status_caveat): Preliminary report of blood culture sets showed no growth at 12 hours, superseded later by growth in set 1; answer omits the earlier result, though the later result supersedes it.",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "Answer states the pathogen is confirmed, but the record shows the sputum culture was rejected and recollection not received, and the urine pneumococcal antigen was never received; the only confirmation is the blood culture isolate identified by MALDI-TOF. The answer omits that the confirmation rests on a single blood isolate with other diagnostics missing.",
-      "kind": "status_caveat",
+      "description": "Sputum culture was rejected for oropharyngeal contamination and recollection was requested but not received; urine pneumococcal antigen was never received. Answer does not mention these missing confirmatory tests while calling the pathogen confirmed.",
+      "kind": "negative_finding",
       "citations": [
         {
           "file": "lab_results.txt",
@@ -148,42 +148,26 @@
           "quote_verified": true
         }
       ],
-      "material": false,
+      "material": true,
       "confirmed": false,
       "confirm_status": "not_checked",
       "related_claim_id": "c1"
     },
     {
-      "description": "Record lists the organism as confirmed by optochin susceptibility and bile solubility in addition to MALDI-TOF, which the answer does not mention; this supports the confirmation claim.",
-      "kind": "other",
+      "description": "Preliminary report of blood culture sets showed no growth at 12 hours, superseded later by growth in set 1; answer omits the earlier result, though the later result supersedes it.",
+      "kind": "status_caveat",
       "citations": [
         {
           "file": "lab_results.txt",
-          "line_id": "L012",
-          "quote": "2026-01-22 07:00 | blood culture sets 1 and 2 | set 1: growth detected at 22 hours, Streptococcus pneumoniae identified (MALDI-TOF; confirmed optochin-susceptible and bile-soluble), susceptibility testing pending; set 2: no growth at 36 hou",
+          "line_id": "L007",
+          "quote": "2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours",
           "quote_verified": true
         }
       ],
       "material": false,
       "confirmed": false,
       "confirm_status": "not_checked",
-      "related_claim_id": "c3"
-    },
-    {
-      "description": "Respiratory viral PCR panel was negative for influenza, RSV and SARS-CoV-2, a documented negative finding the answer does not mention.",
-      "kind": "negative_finding",
-      "citations": [
-        {
-          "file": "lab_results.txt",
-          "line_id": "L013",
-          "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
-          "quote_verified": true
-        }
-      ],
-      "material": false,
-      "confirmed": false,
-      "confirm_status": "not_checked",
-      "related_claim_id": "c1"
+      "related_claim_id": "c2"
     }
   ],
   "cache_read_input_tokens": 0,
@@ -192,5 +176,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

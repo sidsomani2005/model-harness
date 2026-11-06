@@ -23,19 +23,13 @@
         },
         {
           "file": "lab_results.txt",
-          "line_id": "L010",
-          "quote": "2026-01-22 10:00 | sputum recollection | not received by laboratory",
-          "quote_verified": true
-        },
-        {
-          "file": "lab_results.txt",
           "line_id": "L011",
           "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
           "quote_verified": true
         }
       ],
-      "why": "No laboratory result confirms a pathogen: blood cultures show no growth at 36 hours with final pending, the sputum specimen was rejected and not recollected, and the urine antigen was never received. Pneumococcus appears only as a clinical impression in the physician notes.",
-      "uncertainty": "Final blood culture results are pending, and the viral panel was negative but does not address bacterial causes.",
+      "why": "No microbiology line confirms a pathogen: blood cultures show only no growth to date with final pending, the sputum sample was rejected and not recollected, and the urine antigen was never received. Pneumococcus appears only as a clinical impression in the physician notes, which the claim correctly does not treat as confirmed.",
+      "uncertainty": "Final blood culture results are pending, and the sputum and urine tests were never resulted, so a pathogen cannot be excluded.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -56,8 +50,8 @@
           "quote_verified": true
         }
       ],
-      "why": "P011 frames the pneumococcal diagnosis as a 'likely' assessment, and P015 gives it as an assessment without any culture or antigen confirmation shown in the cited lines. The record contains no confirmed pathogen result, so calling it only a clinical impression is faithful to the record.",
-      "uncertainty": "Urine antigen and blood culture results are pending or not received per other lines, so the pathogen remains unconfirmed; P015 uses the word 'pneumococcal' without stating a basis.",
+      "why": "P011 frames the organism as 'likely Streptococcus pneumoniae', an assessment rather than a confirmed result, and P015 repeats the diagnosis as an assessment. The record shows no confirmed pathogen, so calling pneumococcus a clinical impression is supported.",
+      "uncertainty": "P015 states 'pneumococcal pneumonia' without hedging, and P007 calls the presentation suggestive; the chart contains no positive culture or antigen result to confirm it.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -67,7 +61,7 @@
     },
     {
       "claim_id": "c3",
-      "claim_text": "Blood cultures showed no growth at 36 hours, and the final result is pending.",
+      "claim_text": "Blood cultures showed no growth at 36 hours, with the final result pending.",
       "status": "SUPPORTED",
       "severity": "minor",
       "citations": [
@@ -78,8 +72,8 @@
           "quote_verified": true
         }
       ],
-      "why": "Line L012 states the blood cultures had no growth at 36 hours on the preliminary report and that the final report is pending. The claim reports exactly this preliminary status and labels it as pending.",
-      "uncertainty": "The final culture result is not yet available in the record.",
+      "why": "Line L012 states the blood cultures had no growth at 36 hours on a preliminary report, with the final report pending. The claim reports this accurately and does not present the preliminary result as final.",
+      "uncertainty": "The final five-day culture result is not yet in the record.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -106,8 +100,8 @@
           "quote_verified": true
         }
       ],
-      "why": "L009 records the sputum specimen as rejected for oropharyngeal contamination, and L010 shows the recollection was not received by the laboratory, so it was not recollected as of 2026-01-22 10:00.",
-      "uncertainty": "The record only runs to 2026-01-22 10:00; a later recollection is not excluded by these lines.",
+      "why": "L009 documents the sputum specimen was rejected for oropharyngeal contamination with recollection requested. L010 shows the recollection was not received by the laboratory, so the claim that it was not recollected is supported.",
+      "uncertainty": "The record shows only that no recollection was received as of 2026-01-22 10:00; it does not document a later attempt or the reason beyond that time.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -129,7 +123,7 @@
         }
       ],
       "why": "Line L011 states the urine pneumococcal antigen specimen was not received by the laboratory as of 2026-01-22 10:00, which matches the claim.",
-      "uncertainty": "The record only shows non-receipt as of that time; a later receipt would not appear in the shown lines.",
+      "uncertainty": "The record only reports status as of 2026-01-22 10:00; a specimen received later would not be shown here.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -139,18 +133,18 @@
     }
   ],
   "total_model_calls": 8,
-  "input_tokens": 23397,
-  "output_tokens": 2177,
-  "estimated_cost_usd": 0.0034282,
-  "latency_ms": 6153,
+  "input_tokens": 23571,
+  "output_tokens": 2409,
+  "estimated_cost_usd": 0.0035616,
+  "latency_ms": 5507,
   "raw_model_outputs_path": "runs/verifier/bank__med_03__c2/haiku/raw.json",
   "case_id": "med_03",
   "traps_found": [],
-  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (negative_finding): Respiratory viral PCR panel was negative for influenza A, influenza B, RSV and SARS-CoV-2, a documented negative finding the answer does not mention",
+  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (negative_finding): Pathogen was not confirmed by any test; the answer says the record does not confirm a pathogen, but the chart documents that the viral PCR panel was negative for influenza, RSV and SARS-CoV-2, which the answer omits when ruling out alternative viral causes.\n- Note (status_caveat): Progress notes describe the pneumococcal diagnosis as assessed ('likely Streptococcus pneumoniae', 'pneumococcal pneumonia'), a stronger framing than the answer's 'only a clinical impression' without noting the physician labeling in later notes.",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "Respiratory viral PCR panel was negative for influenza A, influenza B, RSV and SARS-CoV-2, a documented negative finding the answer does not mention",
+      "description": "Pathogen was not confirmed by any test; the answer says the record does not confirm a pathogen, but the chart documents that the viral PCR panel was negative for influenza, RSV and SARS-CoV-2, which the answer omits when ruling out alternative viral causes.",
       "kind": "negative_finding",
       "citations": [
         {
@@ -164,6 +158,28 @@
       "confirmed": false,
       "confirm_status": "not_checked",
       "related_claim_id": "c1"
+    },
+    {
+      "description": "Progress notes describe the pneumococcal diagnosis as assessed ('likely Streptococcus pneumoniae', 'pneumococcal pneumonia'), a stronger framing than the answer's 'only a clinical impression' without noting the physician labeling in later notes.",
+      "kind": "status_caveat",
+      "citations": [
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P011",
+          "quote": "Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.",
+          "quote_verified": true
+        },
+        {
+          "file": "physician_notes.txt",
+          "line_id": "P015",
+          "quote": "Assessment: pneumococcal pneumonia, improving.",
+          "quote_verified": true
+        }
+      ],
+      "material": false,
+      "confirmed": false,
+      "confirm_status": "not_checked",
+      "related_claim_id": "c2"
     }
   ],
   "cache_read_input_tokens": 0,
@@ -172,5 +188,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

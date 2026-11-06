@@ -1,5 +1,5 @@
 {
-  "saved_utc": "20261106T192933503272Z",
+  "saved_utc": "20261106T195414377825Z",
   "verifier_run": {
     "target_run_id": "bank__med_03__w2",
     "verifier_variant": "haiku",
@@ -25,8 +25,8 @@
           },
           {
             "file": "lab_results.txt",
-            "line_id": "L013",
-            "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+            "line_id": "L010",
+            "quote": "2026-01-22 10:00 | sputum recollection | not received by laboratory",
             "quote_verified": true
           },
           {
@@ -34,10 +34,16 @@
             "line_id": "L011",
             "quote": "2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00",
             "quote_verified": true
+          },
+          {
+            "file": "lab_results.txt",
+            "line_id": "L013",
+            "quote": "2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+            "quote_verified": true
           }
         ],
-        "why": "No culture, antigen, or PCR in the record is shown as positive; blood cultures show only no growth so far, the sputum specimen was rejected, and the urine antigen was never received. The claim that no pathogen is confirmed is therefore consistent with the lines, though the physician note's pneumococcal label is a clinical impression rather than a lab confirmation.",
-        "uncertainty": "Final blood culture report is pending, and the sputum recollection and urine antigen were not received, so a pathogen could still emerge.",
+        "why": "No culture, antigen, or PCR line reports a confirmed pathogen: blood cultures show only preliminary no growth with the final report pending, the sputum specimen was rejected and not recollected, the urine antigen was never received, and the viral panel is negative. The claim that no pathogen has been confirmed is therefore consistent with the record.",
+        "uncertainty": "Final blood culture results are pending and the sputum and urine antigen tests were never resulted, so a bacterial cause remains untested rather than excluded.",
         "traps": [],
         "needs_review": false,
         "needs_review_reasons": [],
@@ -58,8 +64,8 @@
             "quote_verified": true
           }
         ],
-        "why": "The cited line is a preliminary report at 36 hours with the final report pending, so the claim that a final negative report exists is not supported. The record shows no final blood culture result at all.",
-        "uncertainty": "The final 5-day blood culture report is not in the shown record; it may later be negative, but that is not documented here.",
+        "why": "L012 shows only a preliminary no-growth result at 36 hours, with the final report still pending on a 5-day incubation. The claim that a final negative report exists is not supported; the record does not show a final report at all.",
+        "uncertainty": "The final five-day blood culture result is not in the shown record and may be pending.",
         "traps": [
           "UNJUSTIFIED_CERTAINTY"
         ],
@@ -83,7 +89,7 @@
             "quote_verified": true
           }
         ],
-        "why": "Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated by the cited line.",
+        "why": "Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated in the record.",
         "uncertainty": "",
         "traps": [],
         "needs_review": false,
@@ -96,7 +102,7 @@
         "claim_id": "c4",
         "claim_text": "The viral panel was negative.",
         "status": "SUPPORTED",
-        "severity": "minor",
+        "severity": "material",
         "citations": [
           {
             "file": "lab_results.txt",
@@ -105,8 +111,8 @@
             "quote_verified": true
           }
         ],
-        "why": "Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 all not detected, which matches the claim that the viral panel was negative. The claim is narrow and the line states it directly.",
-        "uncertainty": "The panel covers only the listed viruses; the claim is worded as a general negative result, and the answer's citation of L012 as a 'final' blood culture report is not part of this claim.",
+        "why": "Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 not detected, which matches the claim that the viral panel was negative. The claim is limited to that panel's named targets.",
+        "uncertainty": "The panel covers only the listed viral targets; the full answer's reference to the blood culture as a final negative report is not supported by L012, which says the final report is pending, but that is outside this claim.",
         "traps": [],
         "needs_review": false,
         "needs_review_reasons": [],
@@ -117,7 +123,7 @@
       {
         "claim_id": "c5",
         "claim_text": "Pneumococcal pneumonia is a clinical impression only.",
-        "status": "CONTRADICTED",
+        "status": "SUPPORTED",
         "severity": "minor",
         "citations": [
           {
@@ -127,11 +133,9 @@
             "quote_verified": true
           }
         ],
-        "why": "The cited note P015 states pneumococcal pneumonia as the assessment without marking it as provisional, so the claim that it is only a clinical impression is not what P015 says. The earlier impression at P007 and the later P011 phrasing ('likely Streptococcus pneumoniae') are hedged, but P015 itself is stated as a diagnosis.",
-        "uncertainty": "Whether the physician intended the diagnosis as clinical rather than microbiologically confirmed is not stated in the lines shown; the answer's own cited lines do not confirm a pathogen.",
-        "traps": [
-          "UNJUSTIFIED_CERTAINTY"
-        ],
+        "why": "P015 records pneumococcal pneumonia as an clinical assessment with no laboratory confirmation cited on that line. The earlier notes P007 and P011 use hedged wording ('suggestive of', 'likely'), which is consistent with a clinical impression.",
+        "uncertainty": "The laboratory lines (culture, sputum, viral panel) cited in the full answer were not shown here, so I could not verify directly that no organism was confirmed. The word 'only' is judged against the shown lines alone.",
+        "traps": [],
         "needs_review": false,
         "needs_review_reasons": [],
         "checks": [
@@ -141,19 +145,19 @@
     ],
     "total_model_calls": 8,
     "input_tokens": 24378,
-    "output_tokens": 2900,
-    "estimated_cost_usd": 0.0038878,
-    "latency_ms": 5723,
+    "output_tokens": 3201,
+    "estimated_cost_usd": 0.0040383,
+    "latency_ms": 6843,
     "raw_model_outputs_path": null,
     "case_id": "med_03",
     "traps_found": [
       "UNJUSTIFIED_CERTAINTY"
     ],
-    "explanation": "Error detected.\n- Claim \"The final blood culture report was negative.\" is CONTRADICTED [UNJUSTIFIED_CERTAINTY]: The cited line is a preliminary report at 36 hours with the final report pending, so the claim that a final negative report exists is not supported. The record shows no final blood culture result at all.\n  Evidence: lab_results.txt [L012] \"2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)\"\n  Still unknown: The final 5-day blood culture report is not in the shown record; it may later be negative, but that is not documented here.\n- Note (status_caveat): Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result\n- Note (status_caveat): Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection\n- Note (negative_finding): Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention",
+    "explanation": "Error detected.\n- Claim \"The final blood culture report was negative.\" is CONTRADICTED [UNJUSTIFIED_CERTAINTY]: L012 shows only a preliminary no-growth result at 36 hours, with the final report still pending on a 5-day incubation. The claim that a final negative report exists is not supported; the record does not show a final report at all.\n  Evidence: lab_results.txt [L012] \"2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)\"\n  Still unknown: The final five-day blood culture result is not in the shown record and may be pending.\n- Note (status_caveat): Final blood culture report is pending, not final negative; only preliminary no-growth reports exist (36 hours), so claim c2 overstates the record.\n- Note (status_caveat): Sputum specimen was rejected for Gram stain, but a recollection was requested and the record shows it was not received; the answer omits the pending recollection status.\n- Note (negative_finding): Urine pneumococcal antigen was ordered but never received, so pneumococcal testing is incomplete; the answer does not mention this pending test.",
     "needs_review_reasons": [],
     "omissions": [
       {
-        "description": "Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result",
+        "description": "Final blood culture report is pending, not final negative; only preliminary no-growth reports exist (36 hours), so claim c2 overstates the record.",
         "kind": "status_caveat",
         "citations": [
           {
@@ -169,7 +173,7 @@
         "related_claim_id": "c2"
       },
       {
-        "description": "Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection",
+        "description": "Sputum specimen was rejected for Gram stain, but a recollection was requested and the record shows it was not received; the answer omits the pending recollection status.",
         "kind": "status_caveat",
         "citations": [
           {
@@ -191,7 +195,7 @@
         "related_claim_id": "c3"
       },
       {
-        "description": "Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention",
+        "description": "Urine pneumococcal antigen was ordered but never received, so pneumococcal testing is incomplete; the answer does not mention this pending test.",
         "kind": "negative_finding",
         "citations": [
           {
@@ -207,8 +211,8 @@
         "related_claim_id": "c5"
       },
       {
-        "description": "Viral panel was reported negative for the listed viruses only; answer says panel negative without noting its limited scope",
-        "kind": "status_caveat",
+        "description": "Viral panel was negative only for influenza A/B, RSV and SARS-CoV-2; it does not cover other pathogens, so calling the panel simply negative omits its limited scope.",
+        "kind": "uncertainty",
         "citations": [
           {
             "file": "lab_results.txt",
@@ -221,34 +225,6 @@
         "confirmed": false,
         "confirm_status": "not_checked",
         "related_claim_id": "c4"
-      },
-      {
-        "description": "Physician notes repeatedly describe the pneumonia as likely or suggestive of pneumococcal infection, and the 2026-01-22 note states pneumococcal pneumonia as an assessment; the answer's framing as clinical impression is consistent but the chart's sustained clinical labeling is not acknowledged",
-        "kind": "uncertainty",
-        "citations": [
-          {
-            "file": "physician_notes.txt",
-            "line_id": "P007",
-            "quote": "Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.",
-            "quote_verified": true
-          },
-          {
-            "file": "physician_notes.txt",
-            "line_id": "P011",
-            "quote": "Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.",
-            "quote_verified": true
-          },
-          {
-            "file": "physician_notes.txt",
-            "line_id": "P015",
-            "quote": "Assessment: pneumococcal pneumonia, improving.",
-            "quote_verified": true
-          }
-        ],
-        "material": false,
-        "confirmed": false,
-        "confirm_status": "not_checked",
-        "related_claim_id": "c5"
       }
     ],
     "cache_read_input_tokens": 0,
@@ -322,7 +298,7 @@
           "text": "The viral panel was negative.",
           "kind": "fact_from_source",
           "certainty": "definitive",
-          "importance": "medium",
+          "importance": "high",
           "is_final_conclusion": false,
           "entities": [
             "viral panel"
@@ -440,7 +416,7 @@
       "result": {
         "items": [
           {
-            "description": "Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result",
+            "description": "Final blood culture report is pending, not final negative; only preliminary no-growth reports exist (36 hours), so claim c2 overstates the record.",
             "kind": "status_caveat",
             "line_ids": [
               "L012"
@@ -452,7 +428,7 @@
             "related_claim_id": "c2"
           },
           {
-            "description": "Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection",
+            "description": "Sputum specimen was rejected for Gram stain, but a recollection was requested and the record shows it was not received; the answer omits the pending recollection status.",
             "kind": "status_caveat",
             "line_ids": [
               "L009",
@@ -466,7 +442,7 @@
             "related_claim_id": "c3"
           },
           {
-            "description": "Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention",
+            "description": "Urine pneumococcal antigen was ordered but never received, so pneumococcal testing is incomplete; the answer does not mention this pending test.",
             "kind": "negative_finding",
             "line_ids": [
               "L011"
@@ -478,8 +454,8 @@
             "related_claim_id": "c5"
           },
           {
-            "description": "Viral panel was reported negative for the listed viruses only; answer says panel negative without noting its limited scope",
-            "kind": "status_caveat",
+            "description": "Viral panel was negative only for influenza A/B, RSV and SARS-CoV-2; it does not cover other pathogens, so calling the panel simply negative omits its limited scope.",
+            "kind": "uncertainty",
             "line_ids": [
               "L013"
             ],
@@ -488,22 +464,6 @@
             ],
             "material": false,
             "related_claim_id": "c4"
-          },
-          {
-            "description": "Physician notes repeatedly describe the pneumonia as likely or suggestive of pneumococcal infection, and the 2026-01-22 note states pneumococcal pneumonia as an assessment; the answer's framing as clinical impression is consistent but the chart's sustained clinical labeling is not acknowledged",
-            "kind": "uncertainty",
-            "line_ids": [
-              "P007",
-              "P011",
-              "P015"
-            ],
-            "quotes": [
-              "presentation suggestive of pneumococcal pneumonia",
-              "likely Streptococcus pneumoniae",
-              "pneumococcal pneumonia, improving"
-            ],
-            "material": false,
-            "related_claim_id": "c5"
           }
         ]
       }
@@ -517,11 +477,11 @@
       "stop_reason": "end_turn",
       "stop_details": null,
       "input_tokens": 1867,
-      "output_tokens": 472,
+      "output_tokens": 471,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "latency_ms": 1980,
-      "cost_usd": 0.00042270000000000003,
+      "latency_ms": 1853,
+      "cost_usd": 0.00042220000000000007,
       "parse_error": null,
       "fake": false,
       "request": {
@@ -537,7 +497,7 @@
         "effort": "low",
         "schema": "ClaimList"
       },
-      "text": "{\"claims\":[{\"claim_id\":\"c1\",\"text\":\"No pathogen has been confirmed.\",\"kind\":\"absence\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":true,\"entities\":[],\"cited_lines\":[]},{\"claim_id\":\"c2\",\"text\":\"The final blood culture report was negative.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":false,\"entities\":[\"blood culture\"],\"cited_lines\":[\"L012\"]},{\"claim_id\":\"c3\",\"text\":\"The sputum specimen was rejected.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"sputum specimen\"],\"cited_lines\":[\"L009\"]},{\"claim_id\":\"c4\",\"text\":\"The viral panel was negative.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"viral panel\"],\"cited_lines\":[\"L013\"]},{\"claim_id\":\"c5\",\"text\":\"Pneumococcal pneumonia is a clinical impression only.\",\"kind\":\"status\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"pneumococcal pneumonia\"],\"cited_lines\":[\"P015\"]}],\"answer_abstains\":false,\"answer_reports_conflict\":false}",
+      "text": "{\"claims\":[{\"claim_id\":\"c1\",\"text\":\"No pathogen has been confirmed.\",\"kind\":\"absence\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":true,\"entities\":[],\"cited_lines\":[]},{\"claim_id\":\"c2\",\"text\":\"The final blood culture report was negative.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":false,\"entities\":[\"blood culture\"],\"cited_lines\":[\"L012\"]},{\"claim_id\":\"c3\",\"text\":\"The sputum specimen was rejected.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"sputum specimen\"],\"cited_lines\":[\"L009\"]},{\"claim_id\":\"c4\",\"text\":\"The viral panel was negative.\",\"kind\":\"fact_from_source\",\"certainty\":\"definitive\",\"importance\":\"high\",\"is_final_conclusion\":false,\"entities\":[\"viral panel\"],\"cited_lines\":[\"L013\"]},{\"claim_id\":\"c5\",\"text\":\"Pneumococcal pneumonia is a clinical impression only.\",\"kind\":\"status\",\"certainty\":\"definitive\",\"importance\":\"medium\",\"is_final_conclusion\":false,\"entities\":[\"pneumococcal pneumonia\"],\"cited_lines\":[\"P015\"]}],\"answer_abstains\":false,\"answer_reports_conflict\":false}",
       "parsed": {
         "claims": [
           {
@@ -583,7 +543,7 @@
             "text": "The viral panel was negative.",
             "kind": "fact_from_source",
             "certainty": "definitive",
-            "importance": "medium",
+            "importance": "high",
             "is_final_conclusion": false,
             "entities": [
               "viral panel"
@@ -618,11 +578,11 @@
       "stop_reason": "end_turn",
       "stop_details": null,
       "input_tokens": 2973,
-      "output_tokens": 199,
+      "output_tokens": 197,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "latency_ms": 1710,
-      "cost_usd": 0.0003968,
+      "latency_ms": 1235,
+      "cost_usd": 0.0003958,
       "parse_error": null,
       "fake": false,
       "request": {
@@ -638,7 +598,7 @@
         "effort": "low",
         "schema": "ClaimCheck"
       },
-      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L009\",\"quote\":\"specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\",\"role\":\"supports\"}],\"reason\":\"Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated by the cited line.\",\"uncertainty\":\"\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L009\",\"quote\":\"specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\",\"role\":\"supports\"}],\"reason\":\"Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated in the record.\",\"uncertainty\":\"\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
       "parsed": {
         "status": "SUPPORTED",
         "evidence": [
@@ -648,7 +608,7 @@
             "role": "supports"
           }
         ],
-        "reason": "Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated by the cited line.",
+        "reason": "Line L009 states the sputum Gram stain specimen was rejected for oropharyngeal contamination, so the claim is directly stated in the record.",
         "uncertainty": "",
         "suspected_treated_as_confirmed": false,
         "different_patient_or_encounter": false,
@@ -664,11 +624,11 @@
       "stop_reason": "end_turn",
       "stop_details": null,
       "input_tokens": 3112,
-      "output_tokens": 246,
+      "output_tokens": 247,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "latency_ms": 1862,
-      "cost_usd": 0.00043420000000000004,
+      "latency_ms": 1707,
+      "cost_usd": 0.00043470000000000005,
       "parse_error": null,
       "fake": false,
       "request": {
@@ -684,7 +644,7 @@
         "effort": "low",
         "schema": "ClaimCheck"
       },
-      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"preliminary report: no growth at 36 hours; final report pending (5-day incubation)\",\"role\":\"contradicts\"}],\"reason\":\"The cited line is a preliminary report at 36 hours with the final report pending, so the claim that a final negative report exists is not supported. The record shows no final blood culture result at all.\",\"uncertainty\":\"The final 5-day blood culture report is not in the shown record; it may later be negative, but that is not documented here.\",\"suspected_treated_as_confirmed\":true,\"different_patient_or_encounter\":false,\"traps\":[\"UNJUSTIFIED_CERTAINTY\"],\"material\":true,\"confidence\":\"high\"}",
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"preliminary report: no growth at 36 hours; final report pending (5-day incubation)\",\"role\":\"contradicts\"}],\"reason\":\"L012 shows only a preliminary no-growth result at 36 hours, with the final report still pending on a 5-day incubation. The claim that a final negative report exists is not supported; the record does not show a final report at all.\",\"uncertainty\":\"The final five-day blood culture result is not in the shown record and may be pending.\",\"suspected_treated_as_confirmed\":true,\"different_patient_or_encounter\":false,\"traps\":[\"UNJUSTIFIED_CERTAINTY\"],\"material\":true,\"confidence\":\"high\"}",
       "parsed": {
         "status": "CONTRADICTED",
         "evidence": [
@@ -694,8 +654,8 @@
             "role": "contradicts"
           }
         ],
-        "reason": "The cited line is a preliminary report at 36 hours with the final report pending, so the claim that a final negative report exists is not supported. The record shows no final blood culture result at all.",
-        "uncertainty": "The final 5-day blood culture report is not in the shown record; it may later be negative, but that is not documented here.",
+        "reason": "L012 shows only a preliminary no-growth result at 36 hours, with the final report still pending on a 5-day incubation. The claim that a final negative report exists is not supported; the record does not show a final report at all.",
+        "uncertainty": "The final five-day blood culture result is not in the shown record and may be pending.",
         "suspected_treated_as_confirmed": true,
         "different_patient_or_encounter": false,
         "traps": [
@@ -712,11 +672,11 @@
       "stop_reason": "end_turn",
       "stop_details": null,
       "input_tokens": 2696,
-      "output_tokens": 270,
+      "output_tokens": 272,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "latency_ms": 2069,
-      "cost_usd": 0.0004046,
+      "latency_ms": 1787,
+      "cost_usd": 0.00040560000000000005,
       "parse_error": null,
       "fake": false,
       "request": {
@@ -732,7 +692,7 @@
         "effort": "low",
         "schema": "ClaimCheck"
       },
-      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L013\",\"quote\":\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\",\"role\":\"supports\"}],\"reason\":\"Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 all not detected, which matches the claim that the viral panel was negative. The claim is narrow and the line states it directly.\",\"uncertainty\":\"The panel covers only the listed viruses; the claim is worded as a general negative result, and the answer's citation of L012 as a 'final' blood culture report is not part of this claim.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L013\",\"quote\":\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\",\"role\":\"supports\"}],\"reason\":\"Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 not detected, which matches the claim that the viral panel was negative. The claim is limited to that panel's named targets.\",\"uncertainty\":\"The panel covers only the listed viral targets; the full answer's reference to the blood culture as a final negative report is not supported by L012, which says the final report is pending, but that is outside this claim.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"high\"}",
       "parsed": {
         "status": "SUPPORTED",
         "evidence": [
@@ -742,127 +702,13 @@
             "role": "supports"
           }
         ],
-        "reason": "Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 all not detected, which matches the claim that the viral panel was negative. The claim is narrow and the line states it directly.",
-        "uncertainty": "The panel covers only the listed viruses; the claim is worded as a general negative result, and the answer's citation of L012 as a 'final' blood culture report is not part of this claim.",
+        "reason": "Line L013 reports the respiratory viral PCR panel with influenza A, influenza B, RSV and SARS-CoV-2 not detected, which matches the claim that the viral panel was negative. The claim is limited to that panel's named targets.",
+        "uncertainty": "The panel covers only the listed viral targets; the full answer's reference to the blood culture as a final negative report is not supported by L012, which says the final report is pending, but that is outside this claim.",
         "suspected_treated_as_confirmed": false,
         "different_patient_or_encounter": false,
         "traps": [],
         "material": false,
         "confidence": "high"
-      }
-    },
-    {
-      "label": "check:c1",
-      "model": "claude-haiku-5-5",
-      "response_model": "claude-haiku-5-5",
-      "stop_reason": "end_turn",
-      "stop_details": null,
-      "input_tokens": 3964,
-      "output_tokens": 474,
-      "cache_read_input_tokens": 0,
-      "cache_creation_input_tokens": 0,
-      "latency_ms": 2975,
-      "cost_usd": 0.0006334000000000001,
-      "parse_error": null,
-      "fake": false,
-      "request": {
-        "model": "claude-haiku-5-5",
-        "max_tokens": 2000,
-        "messages": [
-          {
-            "role": "user",
-            "content": "CLAIM c1 (absence, definitive, bottom line of the answer):\nNo pathogen has been confirmed.\nLines the answer cited for it: none\n\nCOMPLETE CHART:\n=== physician_notes.txt ===\n[P001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST\n[P003] Patient: SYNTH-ID-03 (synthetic) | 63-year-old female | MRN: SYN-311470\n[P004] --- Emergency Department Provider Note | 2026-01-20 19:15 EST | Author: emergency physician (M. Osei, MD)\n[P005] History: three days of fever, cough productive of rust-colored sputum, and right-sided pleuritic chest pain.\n[P006] Examination: temperature 39.1 C, heart rate 112, respiratory rate 24, SpO2 91% on room air; crackles at the right lung base.\n[P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.\n[P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.\n[P009] --- Progress Note | Hospital Day 2 | 2026-01-21 10:00 EST | Author: hospitalist (E. Johansson, MD)\n[P010] Improving; afebrile since 04:00. SpO2 95% on 2 L/min nasal cannula.\n[P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.\n[P012] Plan: continue ceftriaxone and azithromycin; follow up cultures and urine antigen.\n[P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)\n[P014] Clinically improving; tolerating diet; SpO2 96% on room air.\n[P015] Assessment: pneumococcal pneumonia, improving.\n[P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).\n\n=== lab_results.txt ===\n[L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\n[L003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470 | Report printed 2026-01-22 10:00 EST\n[L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)\n[L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected\n[L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected\n[L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours\n[L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory\n[L009] 2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\n[L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\n[L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\n[L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)\n[L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\n=== radiology_report.txt ===\n[R001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[R002] Document: Radiology Report, chest X-ray PA and lateral | Exam time 2026-01-20 19:40 EST\n[R003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470\n[R004] Indication: fever, productive cough, hypoxemia.\n[R005] Findings: dense consolidation in the right lower lobe with air bronchograms. No pleural effusion. No pneumothorax.\n[R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.\n[R007] Electronically signed by radiologist (H. Kim, MD) 2026-01-20 20:02 EST.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nNo pathogen has been confirmed. The final blood culture report was negative [L012], the sputum specimen\nwas rejected [L009], and the viral panel was negative [L013]. Pneumococcal pneumonia is a\nclinical impression only [P015].\n\n>>>"
-          }
-        ],
-        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
-        "effort": "low",
-        "schema": "ClaimCheck"
-      },
-      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"preliminary report: no growth at 36 hours; final report pending (5-day incubation)\",\"role\":\"supports\"},{\"line_id\":\"L009\",\"quote\":\"specimen rejected: more than 25 squamous epithelial cells per low-power field\",\"role\":\"supports\"},{\"line_id\":\"L013\",\"quote\":\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\",\"role\":\"supports\"},{\"line_id\":\"L011\",\"quote\":\"specimen not received by laboratory as of 2026-01-22 10:00\",\"role\":\"supports\"},{\"line_id\":\"P015\",\"quote\":\"Assessment: pneumococcal pneumonia, improving.\",\"role\":\"context\"}],\"reason\":\"No culture, antigen, or PCR in the record is shown as positive; blood cultures show only no growth so far, the sputum specimen was rejected, and the urine antigen was never received. The claim that no pathogen is confirmed is therefore consistent with the lines, though the physician note's pneumococcal label is a clinical impression rather than a lab confirmation.\",\"uncertainty\":\"Final blood culture report is pending, and the sputum recollection and urine antigen were not received, so a pathogen could still emerge.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":true,\"confidence\":\"high\"}",
-      "parsed": {
-        "status": "SUPPORTED",
-        "evidence": [
-          {
-            "line_id": "L012",
-            "quote": "preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
-            "role": "supports"
-          },
-          {
-            "line_id": "L009",
-            "quote": "specimen rejected: more than 25 squamous epithelial cells per low-power field",
-            "role": "supports"
-          },
-          {
-            "line_id": "L013",
-            "quote": "influenza A, influenza B, RSV and SARS-CoV-2: not detected",
-            "role": "supports"
-          },
-          {
-            "line_id": "L011",
-            "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
-            "role": "supports"
-          },
-          {
-            "line_id": "P015",
-            "quote": "Assessment: pneumococcal pneumonia, improving.",
-            "role": "context"
-          }
-        ],
-        "reason": "No culture, antigen, or PCR in the record is shown as positive; blood cultures show only no growth so far, the sputum specimen was rejected, and the urine antigen was never received. The claim that no pathogen is confirmed is therefore consistent with the lines, though the physician note's pneumococcal label is a clinical impression rather than a lab confirmation.",
-        "uncertainty": "Final blood culture report is pending, and the sputum recollection and urine antigen were not received, so a pathogen could still emerge.",
-        "suspected_treated_as_confirmed": false,
-        "different_patient_or_encounter": false,
-        "traps": [],
-        "material": true,
-        "confidence": "high"
-      }
-    },
-    {
-      "label": "check:c5",
-      "model": "claude-haiku-5-5",
-      "response_model": "claude-haiku-5-5",
-      "stop_reason": "end_turn",
-      "stop_details": null,
-      "input_tokens": 2933,
-      "output_tokens": 325,
-      "cache_read_input_tokens": 0,
-      "cache_creation_input_tokens": 0,
-      "latency_ms": 1844,
-      "cost_usd": 0.0004558,
-      "parse_error": null,
-      "fake": false,
-      "request": {
-        "model": "claude-haiku-5-5",
-        "max_tokens": 2000,
-        "messages": [
-          {
-            "role": "user",
-            "content": "CLAIM c5 (status, definitive):\nPneumococcal pneumonia is a clinical impression only.\nLines the answer cited for it: P015\n\nCITED BY THE ANSWER:\nphysician_notes.txt [P015] Assessment: pneumococcal pneumonia, improving.  (note dated 2026-01-22T09:40)\n\nNEIGHBOURING CONTEXT:\nphysician_notes.txt [P001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nphysician_notes.txt [P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST\nphysician_notes.txt [P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)\nphysician_notes.txt [P014] Clinically improving; tolerating diet; SpO2 96% on room air.  (note dated 2026-01-22T09:40)\nphysician_notes.txt [P015] Assessment: pneumococcal pneumonia, improving.  (note dated 2026-01-22T09:40)\nphysician_notes.txt [P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).  (note dated 2026-01-22T09:40)\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\nphysician_notes.txt [P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.  (note dated 2026-01-20T19:15)\nradiology_report.txt [R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.  (note dated 2026-01-20T19:40)\nphysician_notes.txt [P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.  (note dated 2026-01-21T10:00)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nNo pathogen has been confirmed. The final blood culture report was negative [L012], the sputum specimen\nwas rejected [L009], and the viral panel was negative [L013]. Pneumococcal pneumonia is a\nclinical impression only [P015].\n\n>>>"
-          }
-        ],
-        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
-        "effort": "low",
-        "schema": "ClaimCheck"
-      },
-      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"P015\",\"quote\":\"Assessment: pneumococcal pneumonia, improving.\",\"role\":\"contradicts\"}],\"reason\":\"The cited note P015 states pneumococcal pneumonia as the assessment without marking it as provisional, so the claim that it is only a clinical impression is not what P015 says. The earlier impression at P007 and the later P011 phrasing ('likely Streptococcus pneumoniae') are hedged, but P015 itself is stated as a diagnosis.\",\"uncertainty\":\"Whether the physician intended the diagnosis as clinical rather than microbiologically confirmed is not stated in the lines shown; the answer's own cited lines do not confirm a pathogen.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[\"UNJUSTIFIED_CERTAINTY\"],\"material\":false,\"confidence\":\"medium\"}",
-      "parsed": {
-        "status": "CONTRADICTED",
-        "evidence": [
-          {
-            "line_id": "P015",
-            "quote": "Assessment: pneumococcal pneumonia, improving.",
-            "role": "contradicts"
-          }
-        ],
-        "reason": "The cited note P015 states pneumococcal pneumonia as the assessment without marking it as provisional, so the claim that it is only a clinical impression is not what P015 says. The earlier impression at P007 and the later P011 phrasing ('likely Streptococcus pneumoniae') are hedged, but P015 itself is stated as a diagnosis.",
-        "uncertainty": "Whether the physician intended the diagnosis as clinical rather than microbiologically confirmed is not stated in the lines shown; the answer's own cited lines do not confirm a pathogen.",
-        "suspected_treated_as_confirmed": false,
-        "different_patient_or_encounter": false,
-        "traps": [
-          "UNJUSTIFIED_CERTAINTY"
-        ],
-        "material": false,
-        "confidence": "medium"
       }
     },
     {
@@ -872,11 +718,11 @@
       "stop_reason": "end_turn",
       "stop_details": null,
       "input_tokens": 2874,
-      "output_tokens": 668,
+      "output_tokens": 498,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "latency_ms": 3598,
-      "cost_usd": 0.0006214000000000001,
+      "latency_ms": 2789,
+      "cost_usd": 0.0005364000000000001,
       "parse_error": null,
       "fake": false,
       "request": {
@@ -892,11 +738,11 @@
         "effort": "low",
         "schema": "SweepResult"
       },
-      "text": "{\"items\":[{\"description\":\"Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result\",\"kind\":\"status_caveat\",\"line_ids\":[\"L012\"],\"quotes\":[\"final report pending (5-day incubation)\"],\"material\":true,\"related_claim_id\":\"c2\"},{\"description\":\"Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection\",\"kind\":\"status_caveat\",\"line_ids\":[\"L009\",\"L010\"],\"quotes\":[\"recollection requested\",\"not received by laboratory\"],\"material\":false,\"related_claim_id\":\"c3\"},{\"description\":\"Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention\",\"kind\":\"negative_finding\",\"line_ids\":[\"L011\"],\"quotes\":[\"specimen not received by laboratory as of 2026-01-22 10:00\"],\"material\":true,\"related_claim_id\":\"c5\"},{\"description\":\"Viral panel was reported negative for the listed viruses only; answer says panel negative without noting its limited scope\",\"kind\":\"status_caveat\",\"line_ids\":[\"L013\"],\"quotes\":[\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\"],\"material\":false,\"related_claim_id\":\"c4\"},{\"description\":\"Physician notes repeatedly describe the pneumonia as likely or suggestive of pneumococcal infection, and the 2026-01-22 note states pneumococcal pneumonia as an assessment; the answer's framing as clinical impression is consistent but the chart's sustained clinical labeling is not acknowledged\",\"kind\":\"uncertainty\",\"line_ids\":[\"P007\",\"P011\",\"P015\"],\"quotes\":[\"presentation suggestive of pneumococcal pneumonia\",\"likely Streptococcus pneumoniae\",\"pneumococcal pneumonia, improving\"],\"material\":false,\"related_claim_id\":\"c5\"}]}",
+      "text": "{\"items\":[{\"description\":\"Final blood culture report is pending, not final negative; only preliminary no-growth reports exist (36 hours), so claim c2 overstates the record.\",\"kind\":\"status_caveat\",\"line_ids\":[\"L012\"],\"quotes\":[\"final report pending (5-day incubation)\"],\"material\":true,\"related_claim_id\":\"c2\"},{\"description\":\"Sputum specimen was rejected for Gram stain, but a recollection was requested and the record shows it was not received; the answer omits the pending recollection status.\",\"kind\":\"status_caveat\",\"line_ids\":[\"L009\",\"L010\"],\"quotes\":[\"recollection requested\",\"not received by laboratory\"],\"material\":false,\"related_claim_id\":\"c3\"},{\"description\":\"Urine pneumococcal antigen was ordered but never received, so pneumococcal testing is incomplete; the answer does not mention this pending test.\",\"kind\":\"negative_finding\",\"line_ids\":[\"L011\"],\"quotes\":[\"specimen not received by laboratory as of 2026-01-22 10:00\"],\"material\":true,\"related_claim_id\":\"c5\"},{\"description\":\"Viral panel was negative only for influenza A/B, RSV and SARS-CoV-2; it does not cover other pathogens, so calling the panel simply negative omits its limited scope.\",\"kind\":\"uncertainty\",\"line_ids\":[\"L013\"],\"quotes\":[\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\"],\"material\":false,\"related_claim_id\":\"c4\"}]}",
       "parsed": {
         "items": [
           {
-            "description": "Final blood culture report is not yet available; the record shows only a preliminary no-growth report at 36 hours with final pending, which the answer states as a final negative result",
+            "description": "Final blood culture report is pending, not final negative; only preliminary no-growth reports exist (36 hours), so claim c2 overstates the record.",
             "kind": "status_caveat",
             "line_ids": [
               "L012"
@@ -908,7 +754,7 @@
             "related_claim_id": "c2"
           },
           {
-            "description": "Sputum specimen was rejected for contamination, but a recollection was requested and the record says it was not received; the answer does not mention the pending recollection",
+            "description": "Sputum specimen was rejected for Gram stain, but a recollection was requested and the record shows it was not received; the answer omits the pending recollection status.",
             "kind": "status_caveat",
             "line_ids": [
               "L009",
@@ -922,7 +768,7 @@
             "related_claim_id": "c3"
           },
           {
-            "description": "Urine pneumococcal antigen was ordered but never received, so it is a missing result the answer does not mention",
+            "description": "Urine pneumococcal antigen was ordered but never received, so pneumococcal testing is incomplete; the answer does not mention this pending test.",
             "kind": "negative_finding",
             "line_ids": [
               "L011"
@@ -934,8 +780,8 @@
             "related_claim_id": "c5"
           },
           {
-            "description": "Viral panel was reported negative for the listed viruses only; answer says panel negative without noting its limited scope",
-            "kind": "status_caveat",
+            "description": "Viral panel was negative only for influenza A/B, RSV and SARS-CoV-2; it does not cover other pathogens, so calling the panel simply negative omits its limited scope.",
+            "kind": "uncertainty",
             "line_ids": [
               "L013"
             ],
@@ -944,24 +790,74 @@
             ],
             "material": false,
             "related_claim_id": "c4"
-          },
-          {
-            "description": "Physician notes repeatedly describe the pneumonia as likely or suggestive of pneumococcal infection, and the 2026-01-22 note states pneumococcal pneumonia as an assessment; the answer's framing as clinical impression is consistent but the chart's sustained clinical labeling is not acknowledged",
-            "kind": "uncertainty",
-            "line_ids": [
-              "P007",
-              "P011",
-              "P015"
-            ],
-            "quotes": [
-              "presentation suggestive of pneumococcal pneumonia",
-              "likely Streptococcus pneumoniae",
-              "pneumococcal pneumonia, improving"
-            ],
-            "material": false,
-            "related_claim_id": "c5"
           }
         ]
+      }
+    },
+    {
+      "label": "check:c1",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 3964,
+      "output_tokens": 480,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 2830,
+      "cost_usd": 0.0006364000000000001,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c1 (absence, definitive, bottom line of the answer):\nNo pathogen has been confirmed.\nLines the answer cited for it: none\n\nCOMPLETE CHART:\n=== physician_notes.txt ===\n[P001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST\n[P003] Patient: SYNTH-ID-03 (synthetic) | 63-year-old female | MRN: SYN-311470\n[P004] --- Emergency Department Provider Note | 2026-01-20 19:15 EST | Author: emergency physician (M. Osei, MD)\n[P005] History: three days of fever, cough productive of rust-colored sputum, and right-sided pleuritic chest pain.\n[P006] Examination: temperature 39.1 C, heart rate 112, respiratory rate 24, SpO2 91% on room air; crackles at the right lung base.\n[P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.\n[P008] Plan: two sets of blood cultures and a sputum culture; urine Streptococcus pneumoniae antigen; ceftriaxone 1 g IV and azithromycin 500 mg IV; admit to medicine.\n[P009] --- Progress Note | Hospital Day 2 | 2026-01-21 10:00 EST | Author: hospitalist (E. Johansson, MD)\n[P010] Improving; afebrile since 04:00. SpO2 95% on 2 L/min nasal cannula.\n[P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.\n[P012] Plan: continue ceftriaxone and azithromycin; follow up cultures and urine antigen.\n[P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)\n[P014] Clinically improving; tolerating diet; SpO2 96% on room air.\n[P015] Assessment: pneumococcal pneumonia, improving.\n[P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).\n\n=== lab_results.txt ===\n[L001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[L002] Document: Laboratory and Microbiology Results | Facility: Synthetic Regional Medical Center | Times are collection or report times, EST\n[L003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470 | Report printed 2026-01-22 10:00 EST\n[L004] 2026-01-20 18:55 | white blood cell count 16.8 x10^9/L (H) | procalcitonin 2.4 ng/mL (H)\n[L005] 2026-01-20 19:05 | blood culture set 1 (left antecubital) | collected\n[L006] 2026-01-20 19:10 | blood culture set 2 (right antecubital) | collected\n[L007] 2026-01-21 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 12 hours\n[L008] 2026-01-20 20:30 | sputum culture | specimen received in laboratory\n[L009] 2026-01-21 09:15 | sputum Gram stain | specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\n[L010] 2026-01-22 10:00 | sputum recollection | not received by laboratory\n[L011] 2026-01-20 21:00 | urine Streptococcus pneumoniae antigen | ordered; specimen not received by laboratory as of 2026-01-22 10:00\n[L012] 2026-01-22 07:00 | blood culture sets 1 and 2 | preliminary report: no growth at 36 hours; final report pending (5-day incubation)\n[L013] 2026-01-22 08:00 | respiratory viral PCR panel (nasopharyngeal swab) | influenza A, influenza B, RSV and SARS-CoV-2: not detected\n\n=== radiology_report.txt ===\n[R001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\n[R002] Document: Radiology Report, chest X-ray PA and lateral | Exam time 2026-01-20 19:40 EST\n[R003] Patient: SYNTH-ID-03 (synthetic) | MRN: SYN-311470\n[R004] Indication: fever, productive cough, hypoxemia.\n[R005] Findings: dense consolidation in the right lower lobe with air bronchograms. No pleural effusion. No pneumothorax.\n[R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.\n[R007] Electronically signed by radiologist (H. Kim, MD) 2026-01-20 20:02 EST.\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nNo pathogen has been confirmed. The final blood culture report was negative [L012], the sputum specimen\nwas rejected [L009], and the viral panel was negative [L013]. Pneumococcal pneumonia is a\nclinical impression only [P015].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"preliminary report: no growth at 36 hours; final report pending (5-day incubation)\",\"role\":\"supports\"},{\"line_id\":\"L009\",\"quote\":\"specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested\",\"role\":\"supports\"},{\"line_id\":\"L010\",\"quote\":\"not received by laboratory\",\"role\":\"supports\"},{\"line_id\":\"L011\",\"quote\":\"specimen not received by laboratory as of 2026-01-22 10:00\",\"role\":\"supports\"},{\"line_id\":\"L013\",\"quote\":\"influenza A, influenza B, RSV and SARS-CoV-2: not detected\",\"role\":\"supports\"}],\"reason\":\"No culture, antigen, or PCR line reports a confirmed pathogen: blood cultures show only preliminary no growth with the final report pending, the sputum specimen was rejected and not recollected, the urine antigen was never received, and the viral panel is negative. The claim that no pathogen has been confirmed is therefore consistent with the record.\",\"uncertainty\":\"Final blood culture results are pending and the sputum and urine antigen tests were never resulted, so a bacterial cause remains untested rather than excluded.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":true,\"confidence\":\"high\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "L012",
+            "quote": "preliminary report: no growth at 36 hours; final report pending (5-day incubation)",
+            "role": "supports"
+          },
+          {
+            "line_id": "L009",
+            "quote": "specimen rejected: more than 25 squamous epithelial cells per low-power field (oropharyngeal contamination); recollection requested",
+            "role": "supports"
+          },
+          {
+            "line_id": "L010",
+            "quote": "not received by laboratory",
+            "role": "supports"
+          },
+          {
+            "line_id": "L011",
+            "quote": "specimen not received by laboratory as of 2026-01-22 10:00",
+            "role": "supports"
+          },
+          {
+            "line_id": "L013",
+            "quote": "influenza A, influenza B, RSV and SARS-CoV-2: not detected",
+            "role": "supports"
+          }
+        ],
+        "reason": "No culture, antigen, or PCR line reports a confirmed pathogen: blood cultures show only preliminary no growth with the final report pending, the sputum specimen was rejected and not recollected, the urine antigen was never received, and the viral panel is negative. The claim that no pathogen has been confirmed is therefore consistent with the record.",
+        "uncertainty": "Final blood culture results are pending and the sputum and urine antigen tests were never resulted, so a bacterial cause remains untested rather than excluded.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": true,
+        "confidence": "high"
       }
     },
     {
@@ -971,11 +867,11 @@
       "stop_reason": "end_turn",
       "stop_details": null,
       "input_tokens": 3959,
-      "output_tokens": 246,
+      "output_tokens": 245,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "latency_ms": 1871,
-      "cost_usd": 0.0005189000000000001,
+      "latency_ms": 1981,
+      "cost_usd": 0.0005184000000000001,
       "parse_error": null,
       "fake": false,
       "request": {
@@ -991,7 +887,7 @@
         "effort": "low",
         "schema": "ClaimCheck"
       },
-      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"preliminary report: no growth at 36 hours; final report pending (5-day incubation)\",\"role\":\"contradicts\"}],\"reason\":\"The claim calls the final blood culture report negative, but L012 shows only a preliminary no-growth report at 36 hours with the final report still pending over a 5-day incubation.\",\"uncertainty\":\"The final blood culture result is not yet in the record; the preliminary result may stay negative, but that is unknown.\",\"suspected_treated_as_confirmed\":true,\"different_patient_or_encounter\":false,\"traps\":[\"UNJUSTIFIED_CERTAINTY\"],\"material\":true,\"confidence\":\"high\"}",
+      "text": "{\"status\":\"CONTRADICTED\",\"evidence\":[{\"line_id\":\"L012\",\"quote\":\"preliminary report: no growth at 36 hours; final report pending (5-day incubation)\",\"role\":\"contradicts\"}],\"reason\":\"The claim calls the final blood culture report negative, but L012 shows only a preliminary no-growth report at 36 hours with the final report still pending, so no final report exists in the record.\",\"uncertainty\":\"The final 5-day blood culture result is not in the record; it may later prove negative, but that is unknown.\",\"suspected_treated_as_confirmed\":true,\"different_patient_or_encounter\":false,\"traps\":[\"UNJUSTIFIED_CERTAINTY\"],\"material\":true,\"confidence\":\"high\"}",
       "parsed": {
         "status": "CONTRADICTED",
         "evidence": [
@@ -1001,8 +897,8 @@
             "role": "contradicts"
           }
         ],
-        "reason": "The claim calls the final blood culture report negative, but L012 shows only a preliminary no-growth report at 36 hours with the final report still pending over a 5-day incubation.",
-        "uncertainty": "The final blood culture result is not yet in the record; the preliminary result may stay negative, but that is unknown.",
+        "reason": "The claim calls the final blood culture report negative, but L012 shows only a preliminary no-growth report at 36 hours with the final report still pending, so no final report exists in the record.",
+        "uncertainty": "The final 5-day blood culture result is not in the record; it may later prove negative, but that is unknown.",
         "suspected_treated_as_confirmed": true,
         "different_patient_or_encounter": false,
         "traps": [
@@ -1010,6 +906,62 @@
         ],
         "material": true,
         "confidence": "high"
+      }
+    },
+    {
+      "label": "check:c5",
+      "model": "claude-haiku-5-5",
+      "response_model": "claude-haiku-5-5",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "input_tokens": 2933,
+      "output_tokens": 791,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "latency_ms": 3744,
+      "cost_usd": 0.0006887999999999999,
+      "parse_error": null,
+      "fake": false,
+      "request": {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 2000,
+        "messages": [
+          {
+            "role": "user",
+            "content": "CLAIM c5 (status, definitive):\nPneumococcal pneumonia is a clinical impression only.\nLines the answer cited for it: P015\n\nCITED BY THE ANSWER:\nphysician_notes.txt [P015] Assessment: pneumococcal pneumonia, improving.  (note dated 2026-01-22T09:40)\n\nNEIGHBOURING CONTEXT:\nphysician_notes.txt [P001] SYNTHETIC CASE \u2014 NOT A REAL PATIENT\nphysician_notes.txt [P002] Document: Physician Notes (chronological) | Facility: Synthetic Regional Medical Center | All times EST\nphysician_notes.txt [P013] --- Progress Note | Hospital Day 3 | 2026-01-22 09:40 EST | Author: hospitalist (E. Johansson, MD)\nphysician_notes.txt [P014] Clinically improving; tolerating diet; SpO2 96% on room air.  (note dated 2026-01-22T09:40)\nphysician_notes.txt [P015] Assessment: pneumococcal pneumonia, improving.  (note dated 2026-01-22T09:40)\nphysician_notes.txt [P016] Plan: transition to oral antibiotics tomorrow if stable; microbiology reviewed (see laboratory report).  (note dated 2026-01-22T09:40)\n\nOTHER RELEVANT LINES FROM THE WHOLE CHART (not cited by the answer):\nphysician_notes.txt [P007] Impression: community-acquired pneumonia of the right lower lobe; presentation suggestive of pneumococcal pneumonia.  (note dated 2026-01-20T19:15)\nradiology_report.txt [R006] Impression: right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.  (note dated 2026-01-20T19:40)\nphysician_notes.txt [P011] Assessment: right lower lobe pneumonia, likely Streptococcus pneumoniae.  (note dated 2026-01-21T10:00)\n\nFULL ANSWER (context only; judge the claim above):\n<<<\nNo pathogen has been confirmed. The final blood culture report was negative [L012], the sputum specimen\nwas rejected [L009], and the viral panel was negative [L013]. Pneumococcal pneumonia is a\nclinical impression only [P015].\n\n>>>"
+          }
+        ],
+        "system": "You check ONE claim from an AI answer against lines from a SYNTHETIC clinical record. Judge only faithfulness to the record; never give medical advice.\n\nLabels:\n- SUPPORTED: the lines state this, at the certainty the claim uses. A hedged claim (\"may\", \"possibly\", \"cannot be ruled out\") is SUPPORTED if the record leaves it open and the claim does not overstate. A claim that correctly reports that sources disagree, or correctly says something is not documented, is SUPPORTED.\n- CONTRADICTED: a line states the opposite, or the timeline makes the claim impossible (e.g. a cause that starts after the effect it is said to have caused).\n- NOT_ESTABLISHED: nothing shown establishes it, or the record only suspects, plans or orders what the claim states as fact (e.g. \"suspected X\" reported as \"confirmed X\", \"follow-up recommended\" reported as \"appointment scheduled\"). NOT_ESTABLISHED is not the same as CONTRADICTED.\n- CONFLICTED: different lines disagree on this point and the answer asserts one side as fact without acknowledging the other anywhere.\n\nA claim that a specific document says something (\"the 03-04 note states X\") is SUPPORTED if that document says it, even if other documents disagree. The full answer is shown for context: if it acknowledges a conflict or uncertainty elsewhere, do not penalise this claim for not repeating it. Judge only the claim, not omissions elsewhere in the answer.\n\nAnswer these narrow questions while deciding:\n1. Does any shown line support, contradict, or fail to establish the claim?\n2. Does the claim treat a suspected/preliminary/pending item as confirmed?\n3. Is there an unresolved conflict between lines on this point?\n4. Are the lines about the same patient and encounter as the claim?\n5. If the claim is causal, does the cause precede the effect it is said to explain? A drug started after a lab abnormality cannot explain that abnormality's initial onset, though it might affect later values. Do not conclude more than the timeline shows.\n\nTrap labels (use only those that apply): TEMPORAL_CAUSALITY, SILENT_CONTRADICTION, UNJUSTIFIED_CERTAINTY, ANCHORING (an early preliminary label kept despite later evidence), SUMMARY_HALLUCINATION (invented detail), ENTITY_BLEED (fact from another patient/encounter), STALE_COPY_FORWARD (older value repeated in a newer note).\n\nCite only line IDs that appear below, with verbatim quotes.",
+        "effort": "low",
+        "schema": "ClaimCheck"
+      },
+      "text": "{\"status\":\"SUPPORTED\",\"evidence\":[{\"line_id\":\"P015\",\"quote\":\"Assessment: pneumococcal pneumonia, improving.\",\"role\":\"supports\"},{\"line_id\":\"P007\",\"quote\":\"presentation suggestive of pneumococcal pneumonia\",\"role\":\"context\"},{\"line_id\":\"P011\",\"quote\":\"likely Streptococcus pneumoniae\",\"role\":\"context\"}],\"reason\":\"P015 records pneumococcal pneumonia as an clinical assessment with no laboratory confirmation cited on that line. The earlier notes P007 and P011 use hedged wording ('suggestive of', 'likely'), which is consistent with a clinical impression.\",\"uncertainty\":\"The laboratory lines (culture, sputum, viral panel) cited in the full answer were not shown here, so I could not verify directly that no organism was confirmed. The word 'only' is judged against the shown lines alone.\",\"suspected_treated_as_confirmed\":false,\"different_patient_or_encounter\":false,\"traps\":[],\"material\":false,\"confidence\":\"medium\"}",
+      "parsed": {
+        "status": "SUPPORTED",
+        "evidence": [
+          {
+            "line_id": "P015",
+            "quote": "Assessment: pneumococcal pneumonia, improving.",
+            "role": "supports"
+          },
+          {
+            "line_id": "P007",
+            "quote": "presentation suggestive of pneumococcal pneumonia",
+            "role": "context"
+          },
+          {
+            "line_id": "P011",
+            "quote": "likely Streptococcus pneumoniae",
+            "role": "context"
+          }
+        ],
+        "reason": "P015 records pneumococcal pneumonia as an clinical assessment with no laboratory confirmation cited on that line. The earlier notes P007 and P011 use hedged wording ('suggestive of', 'likely'), which is consistent with a clinical impression.",
+        "uncertainty": "The laboratory lines (culture, sputum, viral panel) cited in the full answer were not shown here, so I could not verify directly that no organism was confirmed. The word 'only' is judged against the shown lines alone.",
+        "suspected_treated_as_confirmed": false,
+        "different_patient_or_encounter": false,
+        "traps": [],
+        "material": false,
+        "confidence": "medium"
       }
     }
   ]

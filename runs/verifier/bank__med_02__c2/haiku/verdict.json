@@ -22,8 +22,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The allergy list entry records a severe penicillin allergy with the reaction occurring with amoxicillin, and the entry documents anaphylaxis from 2019-05 treated with intramuscular epinephrine. The claim accurately reports what the chart documents.",
-      "uncertainty": "The full answer notes a conflicting triage NKDA entry elsewhere in the chart; this claim only reports what the allergy list documents, so the conflict does not make it false, though the claim does not acknowledge it.",
+      "why": "The allergy list entry records a severe penicillin allergy with the reaction occurring with amoxicillin, and the reaction entry records anaphylaxis from 2019-05 treated with intramuscular epinephrine. The claim accurately reports what the chart documents.",
+      "uncertainty": "The answer cites a triage note (N006) reporting NKDA that is not among the shown lines, so the chart's current status is not fully settled, though this does not contradict what the cited allergy entry documents.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -44,8 +44,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The 2024-08-12 clinic note (C005) records the amoxicillin reaction in 2019 with hives, throat swelling and low blood pressure requiring epinephrine, which is the penicillin-class allergy history the claim refers to. The claim only says the note corroborates the allergy, and it does.",
-      "uncertainty": "The note records patient-reported history and states no allergy testing was done; the note does not establish current allergy status against the conflicting 2026 NKDA entry.",
+      "why": "The 2024-08-12 clinic note (C005) records the amoxicillin reaction in 2019 with hives, throat swelling and low blood pressure requiring epinephrine, which is the penicillin-class allergy history the claim says it corroborates. The note documents the history as reviewed with the patient, not as newly tested.",
+      "uncertainty": "The note reports patient history only; no allergy testing or challenge was performed (C006), so the allergy is documented by history rather than objectively confirmed. The 2026 triage note records NKDA (N006), which is a separate conflict not addressed by this claim.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -55,7 +55,7 @@
     },
     {
       "claim_id": "c3",
-      "claim_text": "The 2026-02-14 triage note says the patient has no known drug allergies (NKDA).",
+      "claim_text": "The 2026-02-14 triage note says the patient has no known drug allergies (NKDA), which conflicts with the documented penicillin allergy.",
       "status": "SUPPORTED",
       "severity": "material",
       "citations": [
@@ -66,8 +66,8 @@
           "quote_verified": true
         }
       ],
-      "why": "The claim reports what the 2026-02-14 triage note says, and line N006 states exactly that. The note is for the same patient (SYNTH-AL-02, MRN SYN-208815) and encounter.",
-      "uncertainty": "The triage NKDA conflicts with the active penicillin anaphylaxis entry on the allergy list and the 2024 clinic note; the claim does not assert which is correct.",
+      "why": "Line N006 in the 2026-02-14 ED triage note records NKDA, which is what the claim reports. The claim also says this conflicts with the documented penicillin allergy, which is shown in A004 and A005 but not cited here.",
+      "uncertainty": "The record does not show which entry is correct, and nothing documents re-evaluation after the triage entry.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -77,7 +77,7 @@
     },
     {
       "claim_id": "c4",
-      "claim_text": "The chart does not establish which allergy entry is current.",
+      "claim_text": "It is not established which allergy entry is current.",
       "status": "SUPPORTED",
       "severity": "material",
       "citations": [
@@ -92,10 +92,16 @@
           "line_id": "N006",
           "quote": "Allergies: NKDA.",
           "quote_verified": true
+        },
+        {
+          "file": "clinic_note_2024.txt",
+          "line_id": "C008",
+          "quote": "Plan: continue current medications; allergy list reviewed with pharmacy and confirmed unchanged.",
+          "quote_verified": true
         }
       ],
-      "why": "The allergy list shows the penicillin entry as active, while the 2026-02-14 triage note records NKDA, and no line documents a reconciliation between them. The chart therefore does not establish which entry is current.",
-      "uncertainty": "No line documents a later reconciliation or re-evaluation, so the current status of the entries cannot be determined from the record.",
+      "why": "The allergy list shows an active severe penicillin allergy, while the 2026-02-14 triage note records NKDA. No shown line documents which entry was reconciled as current, so saying it is not established is a fair report of the record.",
+      "uncertainty": "Whether the 2026-02-14 NKDA entry reflects a documentation error or a real change cannot be determined from these lines.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -116,8 +122,8 @@
           "quote_verified": true
         }
       ],
-      "why": "Line A006 records the allergy entry status as active, with last review on 2024-08-12, which directly matches the claim.",
-      "uncertainty": "The 2026-02-14 triage note reportedly says NKDA, which conflicts with this entry; the claim only reports the list entry's status, not which record is clinically correct.",
+      "why": "Line A006 records the allergy list entry as active, with last review on 2024-08-12. The claim reports exactly that entry status.",
+      "uncertainty": "The full answer notes a conflicting NKDA entry in a 2026 triage note; that conflict concerns which record is current, not whether A006 reads active.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -127,7 +133,7 @@
     },
     {
       "claim_id": "c6",
-      "claim_text": "Nothing in the chart documents re-evaluation of allergies since the 2026-02-14 NKDA entry.",
+      "claim_text": "Nothing in the chart documents re-evaluation of the allergy since the 2026-02-14 NKDA entry.",
       "status": "SUPPORTED",
       "severity": "material",
       "citations": [
@@ -136,16 +142,10 @@
           "line_id": "A006",
           "quote": "Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD",
           "quote_verified": true
-        },
-        {
-          "file": "allergy_list.txt",
-          "line_id": "A002",
-          "quote": "Document: Allergy and Intolerance List | Facility: Synthetic Regional Medical Center | Printed 2026-02-15 07:30 EST",
-          "quote_verified": true
         }
       ],
-      "why": "The allergy list, printed 2026-02-15, shows its last review as 2024-08-12, which predates the 2026-02-14 NKDA triage entry. No shown line documents a later allergy re-evaluation.",
-      "uncertainty": "Only the three shown documents were checked, so a review recorded elsewhere in the full chart cannot be excluded.",
+      "why": "The allergy list, printed 2026-02-15, shows its last review as 2024-08-12, which predates the 2026-02-14 NKDA triage entry, so no later re-evaluation is documented in the shown lines. The claim is an absence statement that matches this.",
+      "uncertainty": "Only the three shown documents were reviewed; other chart documents or unrecorded verbal reviews are not visible.",
       "traps": [],
       "needs_review": false,
       "needs_review_reasons": [],
@@ -155,18 +155,18 @@
     }
   ],
   "total_model_calls": 9,
-  "input_tokens": 25238,
-  "output_tokens": 3831,
-  "estimated_cost_usd": 0.0044393,
-  "latency_ms": 20935,
+  "input_tokens": 25315,
+  "output_tokens": 3809,
+  "estimated_cost_usd": 0.004436,
+  "latency_ms": 9197,
   "raw_model_outputs_path": "runs/verifier/bank__med_02__c2/haiku/raw.json",
   "case_id": "med_02",
   "traps_found": [],
-  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (status_caveat): The 2024 clinic note says the allergy list was reviewed and confirmed unchanged, and the allergy list shows last review 2024-08-12 by PharmD; the answer's claim c2 that the penicillin allergy is corroborated is supported, but the clinic note also states no allergy testing or supervised challenge was performed, which the answer does not mention.\n- Note (contradiction): The 2026-02-14 ED triage note records NKDA, directly contradicting the penicillin allergy entry; the answer reports this conflict, but the allergy list itself states no other allergies and no inactive or removed entries, which bears on whether the NKDA entry is an error or a missing record.",
+  "explanation": "No material issue found. This is not a guarantee of correctness.\n- Note (status_caveat): Claim c2 says the 2024 clinic note corroborates the penicillin allergy, but the note records the reaction only as patient-reported history with no allergy testing or challenge; the answer does not flag this limitation.\n- Note (contradiction): The allergy list shows the penicillin entry was last reviewed 2024-08-12 and the 2024 note says the list was confirmed unchanged, but the 2026 NKDA entry is not reconciled with the allergy list, which was printed 2026-02-15 and still shows only the penicillin entry with no NKDA recorded.",
   "needs_review_reasons": [],
   "omissions": [
     {
-      "description": "The 2024 clinic note says the allergy list was reviewed and confirmed unchanged, and the allergy list shows last review 2024-08-12 by PharmD; the answer's claim c2 that the penicillin allergy is corroborated is supported, but the clinic note also states no allergy testing or supervised challenge was performed, which the answer does not mention.",
+      "description": "Claim c2 says the 2024 clinic note corroborates the penicillin allergy, but the note records the reaction only as patient-reported history with no allergy testing or challenge; the answer does not flag this limitation.",
       "kind": "status_caveat",
       "citations": [
         {
@@ -182,13 +182,13 @@
       "related_claim_id": "c2"
     },
     {
-      "description": "The 2026-02-14 ED triage note records NKDA, directly contradicting the penicillin allergy entry; the answer reports this conflict, but the allergy list itself states no other allergies and no inactive or removed entries, which bears on whether the NKDA entry is an error or a missing record.",
+      "description": "The allergy list shows the penicillin entry was last reviewed 2024-08-12 and the 2024 note says the list was confirmed unchanged, but the 2026 NKDA entry is not reconciled with the allergy list, which was printed 2026-02-15 and still shows only the penicillin entry with no NKDA recorded.",
       "kind": "contradiction",
       "citations": [
         {
-          "file": "ed_triage_note.txt",
-          "line_id": "N006",
-          "quote": "Allergies: NKDA.",
+          "file": "allergy_list.txt",
+          "line_id": "A006",
+          "quote": "Entry 1 | Status: active | Recorded 2019-05-20 by M. Torres, RN | Last reviewed 2024-08-12 by L. Chen, PharmD",
           "quote_verified": true
         },
         {
@@ -198,16 +198,16 @@
           "quote_verified": true
         },
         {
-          "file": "allergy_list.txt",
-          "line_id": "A008",
-          "quote": "Inactive or removed entries: none.",
+          "file": "ed_triage_note.txt",
+          "line_id": "N006",
+          "quote": "Allergies: NKDA.",
           "quote_verified": true
         }
       ],
       "material": true,
       "confirmed": false,
       "confirm_status": "rejected",
-      "related_claim_id": "c3"
+      "related_claim_id": "c4"
     }
   ],
   "cache_read_input_tokens": 0,
@@ -216,5 +216,5 @@
     "claude-haiku-5-5"
   ],
   "fake_backend": false,
-  "code_version": "47945cf"
+  "code_version": "1d86f3a"
 }

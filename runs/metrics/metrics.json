@@ -415,7 +415,8 @@
             "n": 9,
             "rate": 0.0,
             "counts": {
-              "NO_ISSUE_FOUND": 9
+              "NO_ISSUE_FOUND": 8,
+              "INSUFFICIENT_TO_VERIFY": 1
             }
           },
           "abstention": {
@@ -424,31 +425,31 @@
               "n": 0,
               "rate": null
             },
-            "false_abstentions_on_correct": 0,
+            "false_abstentions_on_correct": 1,
             "insufficient_on_wrong": 0
           },
           "trap_attribution": {
             "checked": 10,
-            "matched": 8,
+            "matched": 9,
             "no_trap_reported": 0,
-            "rate": 0.8,
+            "rate": 0.9,
             "note": "automatic match on traps_found; confirm by teammate review"
           },
           "evidence_validity": {
-            "citations": 191,
-            "valid": 191,
+            "citations": 195,
+            "valid": 195,
             "rate": 1.0,
             "invalid_examples": [],
             "note": "line exists and quote matches the line; whether it supports the explanation needs human review"
           },
           "cost_usd": {
-            "mean": 0.0054531894736842106,
-            "median": 0.0055436,
+            "mean": 0.005448868421052631,
+            "median": 0.0055276,
             "n": 19
           },
           "latency_ms": {
-            "median": 11188,
-            "p90": 20935,
+            "median": 10557,
+            "p90": 14049,
             "n": 19
           },
           "missing_verdicts": 0,
@@ -466,7 +467,7 @@
             },
             "med_01_twin": {
               "correct": {
-                "NO_ISSUE_FOUND": 1
+                "INSUFFICIENT_TO_VERIFY": 1
               },
               "wrong": {
                 "ERROR_DETECTED": 2
@@ -646,7 +647,7 @@
       "verdicts": {
         "direct-haiku": "NO_ISSUE_FOUND",
         "direct-opus": "NO_ISSUE_FOUND",
-        "haiku": "NO_ISSUE_FOUND"
+        "haiku": "INSUFFICIENT_TO_VERIFY"
       }
     },
     {
