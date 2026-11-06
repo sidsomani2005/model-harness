@@ -91,7 +91,22 @@ def raw_path(target_run_id: str, variant: str, root: Path = DEFAULT_ROOT) -> Pat
     return verifier_dir(target_run_id, variant, root) / "raw.json"
 
 
+def code_version() -> str | None:
+    """Git commit of the working tree, with "-dirty" if there are uncommitted code changes."""
+    import subprocess
+    try:
+        sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+                             check=True, timeout=5).stdout.strip()
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", "medproof"], capture_output=True,
+                               text=True, timeout=5).stdout.strip()
+        return sha + ("-dirty" if dirty else "")
+    except Exception:
+        return None
+
+
 def save_verifier_run(run: VerifierRun, root: Path = DEFAULT_ROOT, overwrite: bool = False) -> Path:
+    if run.code_version is None:
+        run.code_version = code_version()
     return _write_json_new(
         verdict_path(run.target_run_id, run.verifier_variant, root), run.model_dump_json(indent=2), overwrite
     )

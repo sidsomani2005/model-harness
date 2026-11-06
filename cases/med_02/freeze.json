@@ -1,0 +1,20 @@
+{
+  "case_id": "med_02",
+  "frozen_at_utc": "2026-11-06T19:19:41Z",
+  "public_sha256": {
+    "med_02": "1b739a54c3aa586b18bc1772a3ad9fc8e5787b0324cc87f5456263eb05429ab2",
+    "med_02_twin": "507a7bfd3acbdf49c15a7ffdf59b31406d44f6ef6036d89ba523238b93039986"
+  },
+  "files": {
+    "answer_bank.yaml": "f869b36f04d9409e1ee86c8077c030ff9fae7ee8ac3b948fafad796356a0ea29",
+    "case.yaml": "fb9adbc3bc3d5db826c20cf8ce27da3e1a998bfb74a413131aaf2b176d1d34ff",
+    "sources/allergy_list.txt": "cfbcf23146a82d2a00f5ceaf873350974efad1d09e5800e21ae81e23857dd6eb",
+    "sources/clinic_note_2024.txt": "324af9612d0158107d3cb035fa9f9ac3642c549c190e04a7b0e48716bf0e6c0a",
+    "sources/ed_triage_note.txt": "0d1d863475b4537dc8fdd2230629f03d5640f848617877b696fd9a05908beb22",
+    "twin/answer_bank.yaml": "be975ae355639da510dcf821f9472cc2217459e21c19ba4c52d88fdcb813b83a",
+    "twin/case.yaml": "1dc3ea68f7644f1e5af942cc9ca49c8d31947d5538760f44804ae0ad342881fc",
+    "twin/sources/allergy_list.txt": "cfbcf23146a82d2a00f5ceaf873350974efad1d09e5800e21ae81e23857dd6eb",
+    "twin/sources/clinic_note_2024.txt": "324af9612d0158107d3cb035fa9f9ac3642c549c190e04a7b0e48716bf0e6c0a",
+    "twin/sources/ed_triage_note.txt": "3f6f43c3bf75cd430c1b5736b360fc6f9afcb022803a8a696715c557068e311d"
+  }
+}

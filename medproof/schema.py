@@ -132,6 +132,7 @@ class VerifierRun(BaseModel):
     cache_creation_input_tokens: int = 0
     models_used: list[str] = Field(default_factory=list)
     fake_backend: bool = False  # True only in offline unit tests; never report these as results
+    code_version: Optional[str] = None  # git commit (+"-dirty") that produced this verdict
 
 
 class TargetRun(BaseModel):
